@@ -47,11 +47,5 @@ public class UserConfigurations : IEntityTypeConfiguration<User>
         builder.Navigation(u => u.Country);
 
         builder.HasIndex(u => new { u.CountryId, u.CityId });
-
-        builder.Property(u => u.CreatedAt)
-            .HasDefaultValue(DateTime.UtcNow);
-
-        builder.Property(u => u.UpdatedAt)
-            .HasDefaultValue(DateTime.UtcNow);
     }
 }

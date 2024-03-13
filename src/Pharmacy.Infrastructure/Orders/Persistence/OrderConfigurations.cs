@@ -21,15 +21,12 @@ public class OrderConfigurations : IEntityTypeConfiguration<Order>
         builder.Property(o => o.PharmacyId)
             .IsRequired();
 
-        builder.HasMany(o => o.Products);
+        builder.HasMany(o => o.Products)
+            .WithOne(p => p.Order)
+            .HasForeignKey(p => p.OrderId)
+            .OnDelete(DeleteBehavior.Restrict);
 
         builder.Navigation(o => o.Pharmacy);
-
-        builder.Property(o => o.CreatedAt)
-            .HasDefaultValue(DateTime.UtcNow);
-
-        builder.Property(o => o.UpdatedAt)
-            .HasDefaultValue(DateTime.UtcNow);
 
         builder.HasIndex(o => o.PharmacyId);
     }

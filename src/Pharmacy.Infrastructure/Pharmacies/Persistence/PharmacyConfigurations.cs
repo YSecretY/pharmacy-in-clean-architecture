@@ -34,6 +34,11 @@ public class PharmacyConfigurations : IEntityTypeConfiguration<Domain.Entities.P
             .HasForeignKey(ph => ph.CityId)
             .OnDelete(DeleteBehavior.Restrict);
 
+        builder.HasOne(ph => ph.Country)
+            .WithMany()
+            .HasForeignKey(ph => ph.CountryId)
+            .OnDelete(DeleteBehavior.Restrict);
+
         builder
             .HasMany(ph => ph.Products)
             .WithMany(product => product.Pharmacies);
