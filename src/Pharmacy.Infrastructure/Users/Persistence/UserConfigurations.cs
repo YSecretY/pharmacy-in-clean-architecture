@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Pharmacy.Domain.Entities;
 using Pharmacy.Domain.Entities.User.Entities;
+using Pharmacy.Domain.ValueObjects;
 
 namespace Pharmacy.Infrastructure.Users.Persistence;
 
@@ -15,6 +15,8 @@ public class UserConfigurations : IEntityTypeConfiguration<User>
             .ValueGeneratedNever();
 
         builder.Property(u => u.FirstName)
+            .HasConversion(f => f!.Value,
+                value => FirstName.Create(value).Value)
             .HasMaxLength(100);
 
         builder.Property(u => u.Email)

@@ -1,0 +1,27 @@
+using ErrorOr;
+using Pharmacy.Domain.Common.Primitives;
+
+namespace Pharmacy.Domain.ValueObjects;
+
+public class FirstName : ValueObject
+{
+    private const int MaxLength = 100;
+
+    private FirstName(string value) => Value = value;
+
+    public string Value { get; }
+
+    public static ErrorOr<FirstName> Create(string firstName)
+    {
+        if (string.IsNullOrWhiteSpace(firstName)) return Error.Validation("FirstName.Empty", "First name is empty.");
+
+        if (firstName.Length > MaxLength) return Error.Validation("FirstName.TooLong", "First name is too long.");
+
+        return new FirstName(firstName);
+    }
+
+    public override IEnumerable<object> GetAtomicValues()
+    {
+        yield return Value;
+    }
+}

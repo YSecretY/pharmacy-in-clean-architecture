@@ -1,4 +1,5 @@
-using Pharmacy.Domain.Common.Models;
+using Pharmacy.Domain.Common.Primitives;
+using Pharmacy.Domain.ValueObjects;
 
 namespace Pharmacy.Domain.Entities.Product.Entities;
 
@@ -6,11 +7,11 @@ public sealed class Product : Entity
 {
     public Product(
         Guid id,
-        string name,
+        Name name,
         string imageUrl,
         Guid brandId,
         Guid categoryId,
-        decimal price,
+        Price price,
         Guid countryId,
         string? description,
         Guid? orderId) : base(id)
@@ -25,7 +26,7 @@ public sealed class Product : Entity
         OrderId = orderId;
     }
 
-    public string Name { get; set; }
+    public Name Name { get; set; }
 
     public string ImageUrl { get; set; }
 
@@ -37,7 +38,7 @@ public sealed class Product : Entity
 
     public Category.Entities.Category? Category { get; set; }
 
-    public decimal Price { get; set; }
+    public Price Price { get; set; }
 
     public Guid CountryId { get; set; }
 

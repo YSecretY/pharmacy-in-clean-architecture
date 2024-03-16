@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Pharmacy.Domain.ValueObjects;
 
 namespace Pharmacy.Infrastructure.Pharmacies.Persistence;
 
@@ -13,6 +14,8 @@ public class PharmacyConfigurations : IEntityTypeConfiguration<Domain.Entities.P
             .ValueGeneratedNever();
 
         builder.Property(ph => ph.Name)
+            .HasConversion(n => n.Value,
+                value => Name.Create(value).Value)
             .HasMaxLength(100);
 
         builder.Property(ph => ph.CityId)

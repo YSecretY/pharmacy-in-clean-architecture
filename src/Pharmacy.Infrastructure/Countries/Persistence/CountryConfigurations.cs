@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Pharmacy.Domain.Entities;
 using Pharmacy.Domain.Entities.Country.Entities;
 using Pharmacy.Domain.Entities.Enums;
+using Pharmacy.Domain.ValueObjects;
 
 namespace Pharmacy.Infrastructure.Countries.Persistence;
 
@@ -11,7 +12,7 @@ public class CountryConfigurations : IEntityTypeConfiguration<Country>
     public void Configure(EntityTypeBuilder<Country> builder)
     {
         builder.HasKey(c => c.Id);
-
+        
         builder.Property(c => c.Id)
             .ValueGeneratedNever();
 
@@ -26,6 +27,8 @@ public class CountryConfigurations : IEntityTypeConfiguration<Country>
             .OnDelete(DeleteBehavior.Restrict);
 
         builder.Property(c => c.Name)
+            .HasConversion(n => n.Value,
+                value => Name.Create(value).Value)
             .HasMaxLength(100);
     }
 }

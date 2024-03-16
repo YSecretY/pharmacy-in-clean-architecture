@@ -1,13 +1,14 @@
-using Pharmacy.Domain.Common.Models;
+using Pharmacy.Domain.Common.Primitives;
+using Pharmacy.Domain.ValueObjects;
 
 namespace Pharmacy.Domain.Entities.Brand.Entities;
 
 public sealed class Brand : Entity
 {
-    public Brand(Guid id, string name) : base(id)
+    public Brand(Guid id, Name name) : base(id)
     {
         Name = name;
     }
 
-    public string Name { get; set; }
+    public Name Name { get; set; }
 }

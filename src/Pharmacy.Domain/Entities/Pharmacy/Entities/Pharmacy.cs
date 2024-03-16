@@ -1,17 +1,18 @@
-using Pharmacy.Domain.Common.Models;
+using Pharmacy.Domain.Common.Primitives;
+using Pharmacy.Domain.ValueObjects;
 
 namespace Pharmacy.Domain.Entities.Pharmacy.Entities;
 
 public sealed class Pharmacy : Entity
 {
-    public Pharmacy(Guid id, string name, Guid cityId, Guid countryId) : base(id)
+    public Pharmacy(Guid id, Name name, Guid cityId, Guid countryId) : base(id)
     {
         Name = name;
         CityId = cityId;
         CountryId = countryId;
     }
 
-    public string Name { get; set; }
+    public Name Name { get; set; }
 
     public Guid CityId { get; set; }
 

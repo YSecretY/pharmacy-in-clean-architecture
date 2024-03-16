@@ -1,4 +1,5 @@
-using Pharmacy.Domain.Common.Models;
+using Pharmacy.Domain.Common.Primitives;
+using Pharmacy.Domain.ValueObjects;
 
 namespace Pharmacy.Domain.Entities.User.Entities;
 
@@ -8,7 +9,7 @@ public class User : Entity
         Guid id,
         string email,
         string normalizedEmail,
-        string? firstName,
+        FirstName? firstName,
         bool emailConfirmed,
         string passwordHash,
         string? phoneNumber,
@@ -33,7 +34,7 @@ public class User : Entity
 
     public string NormalizedEmail { get; set; }
 
-    public string? FirstName { get; set; }
+    public FirstName? FirstName { get; set; }
 
     public bool EmailConfirmed { get; set; }
 

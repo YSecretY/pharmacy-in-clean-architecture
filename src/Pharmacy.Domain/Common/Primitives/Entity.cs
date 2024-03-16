@@ -1,4 +1,4 @@
-namespace Pharmacy.Domain.Common.Models;
+namespace Pharmacy.Domain.Common.Primitives;
 
 public abstract class Entity : IEquatable<Entity>
 {
@@ -8,15 +8,10 @@ public abstract class Entity : IEquatable<Entity>
     {
     }
 
-    public static bool operator ==(Entity? first, Entity? second)
-    {
-        return first is not null && second is not null && first.Equals(second);
-    }
+    public static bool operator ==(Entity? first, Entity? second) =>
+        first is not null && second is not null && first.Equals(second);
 
-    public static bool operator !=(Entity? first, Entity? second)
-    {
-        return !(first == second);
-    }
+    public static bool operator !=(Entity? first, Entity? second) => !(first == second);
 
     public Guid Id { get; private init; }
 

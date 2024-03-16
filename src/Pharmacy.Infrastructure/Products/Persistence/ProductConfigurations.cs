@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Pharmacy.Domain.Entities;
 using Pharmacy.Domain.Entities.Product.Entities;
+using Pharmacy.Domain.ValueObjects;
 
 namespace Pharmacy.Infrastructure.Products.Persistence;
 
@@ -15,10 +16,16 @@ public class ProductConfigurations : IEntityTypeConfiguration<Product>
             .ValueGeneratedNever();
 
         builder.Property(p => p.Name)
+            .HasConversion(n => n.Value,
+                value => Name.Create(value).Value)
             .HasMaxLength(100);
 
         builder.Property(p => p.BrandId)
             .IsRequired();
+
+        builder.Property(p => p.Price)
+            .HasConversion(p => p.Value,
+                value => Price.Create(value).Value);
 
         builder.HasOne(p => p.Brand)
             .WithMany()

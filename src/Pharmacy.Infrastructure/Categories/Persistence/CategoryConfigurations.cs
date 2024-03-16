@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Pharmacy.Domain.Entities;
 using Pharmacy.Domain.Entities.Category.Entities;
+using Pharmacy.Domain.ValueObjects;
 
 namespace Pharmacy.Infrastructure.Categories.Persistence;
 
@@ -15,6 +15,8 @@ public class CategoryConfigurations : IEntityTypeConfiguration<Category>
             .ValueGeneratedNever();
 
         builder.Property(c => c.Name)
-            .HasMaxLength(255);
+            .HasConversion(n => n.Value,
+                value => Name.Create(value).Value)
+            .HasMaxLength(100);
     }
 }
