@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Pharmacy.Domain.Entities;
+using Pharmacy.Domain.Entities.Country.Entities;
 using Pharmacy.Domain.Entities.Enums;
 
 namespace Pharmacy.Infrastructure.Countries.Persistence;

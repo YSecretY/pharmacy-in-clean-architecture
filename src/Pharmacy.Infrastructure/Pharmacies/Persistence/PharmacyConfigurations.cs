@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Pharmacy.Infrastructure.Pharmacies.Persistence;
 
-public class PharmacyConfigurations : IEntityTypeConfiguration<Domain.Entities.Pharmacy>
+public class PharmacyConfigurations : IEntityTypeConfiguration<Domain.Entities.Pharmacy.Entities.Pharmacy>
 {
-    public void Configure(EntityTypeBuilder<Domain.Entities.Pharmacy> builder)
+    public void Configure(EntityTypeBuilder<Domain.Entities.Pharmacy.Entities.Pharmacy> builder)
     {
         builder.HasKey(ph => ph.Id);
 

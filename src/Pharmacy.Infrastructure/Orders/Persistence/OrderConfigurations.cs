@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Pharmacy.Domain.Entities;
 using Pharmacy.Domain.Entities.Enums;
+using Pharmacy.Domain.Entities.Order.Entities;
 
 namespace Pharmacy.Infrastructure.Orders.Persistence;
 

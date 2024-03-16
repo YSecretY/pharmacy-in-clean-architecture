@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Pharmacy.Domain.Entities;
+using Pharmacy.Domain.Entities.City.Entities;
 
 namespace Pharmacy.Infrastructure.Cities.Persistence;
 
