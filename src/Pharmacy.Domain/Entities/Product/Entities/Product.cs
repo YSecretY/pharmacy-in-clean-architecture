@@ -13,7 +13,6 @@ public sealed class Product : Entity
         decimal price,
         Guid countryId,
         string? description,
-        List<Pharmacy.Entities.Pharmacy> pharmacies,
         Guid? orderId) : base(id)
     {
         Name = name;
@@ -23,7 +22,6 @@ public sealed class Product : Entity
         Price = price;
         CountryId = countryId;
         Description = description;
-        Pharmacies = pharmacies;
         OrderId = orderId;
     }
 
@@ -47,7 +45,7 @@ public sealed class Product : Entity
 
     public string? Description { get; set; }
 
-    public List<Pharmacy.Entities.Pharmacy> Pharmacies { get; set; }
+    public List<Pharmacy.Entities.Pharmacy> Pharmacies { get; set; } = null!;
 
     public Guid? OrderId { get; set; }
 

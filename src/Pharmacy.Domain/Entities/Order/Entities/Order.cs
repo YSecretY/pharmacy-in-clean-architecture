@@ -5,12 +5,11 @@ namespace Pharmacy.Domain.Entities.Order.Entities;
 
 public sealed class Order : Entity
 {
-    public Order(Guid id, Guid pharmacyId, decimal totalPrice, OrderStatus status, List<Product.Entities.Product> products) : base(id)
+    public Order(Guid id, Guid pharmacyId, decimal totalPrice, OrderStatus status) : base(id)
     {
         PharmacyId = pharmacyId;
         TotalPrice = totalPrice;
         Status = status;
-        Products = products;
         CreatedAt = DateTime.UtcNow;
         UpdatedAt = DateTime.UtcNow;
     }
@@ -27,5 +26,5 @@ public sealed class Order : Entity
 
     public DateTime UpdatedAt { get; set; }
 
-    public List<Product.Entities.Product> Products { get; set; }
+    public List<Product.Entities.Product> Products { get; set; } = null!;
 }

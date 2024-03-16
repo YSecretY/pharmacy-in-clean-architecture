@@ -29,15 +29,15 @@ public class User : Entity
         UpdatedAt = DateTime.UtcNow;
     }
 
-    public string Email { get; set; } = string.Empty;
+    public string Email { get; set; }
 
-    public string NormalizedEmail { get; set; } = string.Empty;
+    public string NormalizedEmail { get; set; }
 
     public string? FirstName { get; set; }
 
     public bool EmailConfirmed { get; set; }
 
-    public string PasswordHash { get; set; } = string.Empty;
+    public string PasswordHash { get; set; }
 
     public string? PhoneNumber { get; set; }
 
