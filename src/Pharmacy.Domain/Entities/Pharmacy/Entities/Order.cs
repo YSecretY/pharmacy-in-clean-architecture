@@ -1,8 +1,8 @@
 using Pharmacy.Domain.Common.Models;
-using Pharmacy.Domain.Enums;
-using Pharmacy.Domain.ValueObjects;
+using Pharmacy.Domain.Entities.Pharmacy.Enums;
+using Pharmacy.Domain.Entities.Pharmacy.ValueObjects;
 
-namespace Pharmacy.Domain.Entities.Order.Entities;
+namespace Pharmacy.Domain.Entities.Pharmacy.Entities;
 
 public sealed class Order : Entity<Guid>
 {
@@ -18,7 +18,7 @@ public sealed class Order : Entity<Guid>
 
     public Guid PharmacyId { get; set; }
 
-    public Pharmacy.Entities.Pharmacy? Pharmacy { get; set; }
+    public Domain.Entities.Pharmacy.Pharmacy? Pharmacy { get; set; }
 
     public Price TotalPrice { get; set; }
 
@@ -30,5 +30,5 @@ public sealed class Order : Entity<Guid>
 
     public DateTime UpdatedAt { get; set; }
 
-    public List<Product.Entities.Product> Products { get; set; } = null!;
+    public List<Product> Products { get; set; } = null!;
 }

@@ -1,22 +1,20 @@
 using Pharmacy.Domain.Common.Models;
-using Pharmacy.Domain.ValueObjects;
+using Pharmacy.Domain.Entities.User.ValueObjects;
 
-namespace Pharmacy.Domain.Entities.User.Entities;
+namespace Pharmacy.Domain.Entities.User;
 
 public class User : Entity<Guid>
 {
     public User(
         Guid id,
-        string email,
-        string normalizedEmail,
+        Email email,
         FirstName? firstName,
         bool emailConfirmed,
-        string passwordHash,
-        string? phoneNumber,
+        PasswordHash passwordHash,
+        PhoneNumber? phoneNumber,
         bool isAdmin) : base(id)
     {
         Email = email;
-        NormalizedEmail = normalizedEmail;
         FirstName = firstName;
         EmailConfirmed = emailConfirmed;
         PasswordHash = passwordHash;
@@ -26,17 +24,15 @@ public class User : Entity<Guid>
         UpdatedAt = DateTime.UtcNow;
     }
 
-    public string Email { get; set; }
-
-    public string NormalizedEmail { get; set; }
+    public Email Email { get; set; }
 
     public FirstName? FirstName { get; set; }
 
     public bool EmailConfirmed { get; set; }
 
-    public string PasswordHash { get; set; }
+    public PasswordHash PasswordHash { get; set; }
 
-    public string? PhoneNumber { get; set; }
+    public PhoneNumber? PhoneNumber { get; set; }
 
     public bool IsAdmin { get; set; }
 

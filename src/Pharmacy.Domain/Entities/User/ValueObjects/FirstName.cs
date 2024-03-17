@@ -1,7 +1,7 @@
 using ErrorOr;
 using Pharmacy.Domain.Common.Models;
 
-namespace Pharmacy.Domain.ValueObjects;
+namespace Pharmacy.Domain.Entities.User.ValueObjects;
 
 public class FirstName : ValueObject
 {

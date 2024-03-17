@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Pharmacy.Domain.Entities.User.Entities;
-using Pharmacy.Domain.ValueObjects;
+using Pharmacy.Domain.Entities.User;
+using Pharmacy.Domain.Entities.User.ValueObjects;
 
 namespace Pharmacy.Infrastructure.Users.Persistence;
 
@@ -21,18 +21,18 @@ public class UserConfigurations : IEntityTypeConfiguration<User>
 
         builder.Property(u => u.Email)
             .IsRequired()
+            .HasConversion(e => e.Value,
+                value => Email.Create(value).Value)
             .HasMaxLength(255);
-
-        builder.Property(u => u.NormalizedEmail)
-            .IsRequired()
-            .HasMaxLength(255);
-
-        builder.HasIndex(u => u.NormalizedEmail);
 
         builder.Property(u => u.PasswordHash)
+            .HasConversion(p => p.Value,
+                value => PasswordHash.Create(value).Value)
             .HasMaxLength(500);
 
         builder.Property(u => u.PhoneNumber)
+            .HasConversion(ph => ph!.Value,
+                value => PhoneNumber.Create(value).Value)
             .HasMaxLength(100);
     }
 }
