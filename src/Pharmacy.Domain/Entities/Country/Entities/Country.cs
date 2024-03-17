@@ -4,7 +4,7 @@ using Pharmacy.Domain.ValueObjects;
 
 namespace Pharmacy.Domain.Entities.Country.Entities;
 
-public sealed class Country : Entity
+public sealed class Country : Entity<Guid>
 {
     public Country(Guid id, Name name, Currency currency) : base(id)
     {

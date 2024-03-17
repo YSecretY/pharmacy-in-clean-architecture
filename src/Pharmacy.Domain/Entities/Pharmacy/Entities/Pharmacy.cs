@@ -3,7 +3,7 @@ using Pharmacy.Domain.ValueObjects;
 
 namespace Pharmacy.Domain.Entities.Pharmacy.Entities;
 
-public sealed class Pharmacy : Entity
+public sealed class Pharmacy : Entity<Guid>
 {
     public Pharmacy(Guid id, Name name, Guid cityId, Guid countryId) : base(id)
     {

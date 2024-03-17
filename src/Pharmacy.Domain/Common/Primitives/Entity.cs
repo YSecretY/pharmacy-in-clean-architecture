@@ -1,27 +1,23 @@
 namespace Pharmacy.Domain.Common.Primitives;
 
-public abstract class Entity : IEquatable<Entity>
+public abstract class Entity<TId> :
+    IEquatable<Entity<TId>>
+    where TId : notnull
 {
-    protected Entity(Guid id) => Id = id;
+    protected Entity(TId id) => Id = id;
 
-    protected Entity()
-    {
-    }
+    public TId Id { get; private init; }
 
-    public static bool operator ==(Entity? first, Entity? second) =>
+    public static bool operator ==(Entity<TId>? first, Entity<TId>? second) =>
         first is not null && second is not null && first.Equals(second);
 
-    public static bool operator !=(Entity? first, Entity? second) => !(first == second);
+    public static bool operator !=(Entity<TId>? first, Entity<TId>? second) => !(first == second);
 
-    public Guid Id { get; private init; }
-
-    public bool Equals(Entity? other)
+    public bool Equals(Entity<TId>? other)
     {
         if (other is null) return false;
 
-        if (other.GetType() != GetType()) return false;
-
-        return other.Id == Id;
+        return other.GetType() == GetType() && other.Id.Equals(Id);
     }
 
     public override bool Equals(object? obj)
@@ -30,9 +26,7 @@ public abstract class Entity : IEquatable<Entity>
 
         if (obj.GetType() != GetType()) return false;
 
-        if (obj is not Entity entity) return false;
-
-        return entity.Id == Id;
+        return obj is Entity<TId> entity && entity.Id.Equals(Id);
     }
 
     public override int GetHashCode() => Id.GetHashCode();

@@ -3,7 +3,7 @@ using Pharmacy.Domain.ValueObjects;
 
 namespace Pharmacy.Domain.Entities.User.Entities;
 
-public class User : Entity
+public class User : Entity<Guid>
 {
     public User(
         Guid id,

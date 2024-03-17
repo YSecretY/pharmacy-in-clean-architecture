@@ -3,7 +3,7 @@ using Pharmacy.Domain.ValueObjects;
 
 namespace Pharmacy.Domain.Entities.Product.Entities;
 
-public sealed class Product : Entity
+public sealed class Product : Entity<Guid>
 {
     public Product(
         Guid id,

@@ -4,7 +4,7 @@ using Pharmacy.Domain.ValueObjects;
 
 namespace Pharmacy.Domain.Entities.Order.Entities;
 
-public sealed class Order : Entity
+public sealed class Order : Entity<Guid>
 {
     public Order(Guid id, Guid pharmacyId, Price totalPrice, OrderStatus status) : base(id)
     {
