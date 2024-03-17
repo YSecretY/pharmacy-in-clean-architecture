@@ -18,30 +18,6 @@ public class PharmacyConfigurations : IEntityTypeConfiguration<Domain.Entities.P
                 value => Name.Create(value).Value)
             .HasMaxLength(100);
 
-        builder.Property(ph => ph.CityId)
-            .IsRequired();
-
-        builder.Navigation(ph => ph.City);
-
-        builder.HasIndex(ph => ph.CityId);
-
-        builder.Property(ph => ph.CountryId)
-            .IsRequired();
-
-        builder.Navigation(ph => ph.Country);
-
-        builder.HasIndex(ph => ph.CountryId);
-
-        builder.HasOne(ph => ph.City)
-            .WithMany()
-            .HasForeignKey(ph => ph.CityId)
-            .OnDelete(DeleteBehavior.Restrict);
-
-        builder.HasOne(ph => ph.Country)
-            .WithMany()
-            .HasForeignKey(ph => ph.CountryId)
-            .OnDelete(DeleteBehavior.Restrict);
-
         builder
             .HasMany(ph => ph.Products)
             .WithMany(product => product.Pharmacies);

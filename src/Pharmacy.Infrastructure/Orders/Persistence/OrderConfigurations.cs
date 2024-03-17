@@ -1,8 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Pharmacy.Domain.Entities;
-using Pharmacy.Domain.Entities.Enums;
 using Pharmacy.Domain.Entities.Order.Entities;
+using Pharmacy.Domain.Enums;
 using Pharmacy.Domain.ValueObjects;
 
 namespace Pharmacy.Infrastructure.Orders.Persistence;
@@ -27,11 +26,8 @@ public class OrderConfigurations : IEntityTypeConfiguration<Order>
         builder.Property(o => o.PharmacyId)
             .IsRequired();
 
-        builder.HasMany(o => o.Products)
-            .WithOne(p => p.Order)
-            .HasForeignKey(p => p.OrderId)
-            .OnDelete(DeleteBehavior.Restrict);
-
+        builder.HasMany(o => o.Products);
+        
         builder.Navigation(o => o.Pharmacy);
 
         builder.HasIndex(o => o.PharmacyId);

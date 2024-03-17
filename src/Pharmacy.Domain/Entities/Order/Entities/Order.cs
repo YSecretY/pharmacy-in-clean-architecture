@@ -1,15 +1,16 @@
-using Pharmacy.Domain.Common.Primitives;
-using Pharmacy.Domain.Entities.Enums;
+using Pharmacy.Domain.Common.Models;
+using Pharmacy.Domain.Enums;
 using Pharmacy.Domain.ValueObjects;
 
 namespace Pharmacy.Domain.Entities.Order.Entities;
 
 public sealed class Order : Entity<Guid>
 {
-    public Order(Guid id, Guid pharmacyId, Price totalPrice, OrderStatus status) : base(id)
+    public Order(Guid id, Guid pharmacyId, Price totalPrice, string address, OrderStatus status) : base(id)
     {
         PharmacyId = pharmacyId;
         TotalPrice = totalPrice;
+        Address = address;
         Status = status;
         CreatedAt = DateTime.UtcNow;
         UpdatedAt = DateTime.UtcNow;
@@ -20,6 +21,8 @@ public sealed class Order : Entity<Guid>
     public Pharmacy.Entities.Pharmacy? Pharmacy { get; set; }
 
     public Price TotalPrice { get; set; }
+
+    public string Address { get; set; }
 
     public OrderStatus Status { get; set; }
 

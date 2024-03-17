@@ -1,4 +1,4 @@
-using Pharmacy.Domain.Common.Primitives;
+using Pharmacy.Domain.Common.Models;
 using Pharmacy.Domain.ValueObjects;
 
 namespace Pharmacy.Domain.Entities.Product.Entities;
@@ -12,18 +12,14 @@ public sealed class Product : Entity<Guid>
         Guid brandId,
         Guid categoryId,
         Price price,
-        Guid countryId,
-        string? description,
-        Guid? orderId) : base(id)
+        string? description) : base(id)
     {
         Name = name;
         ImageUrl = imageUrl;
         BrandId = brandId;
         CategoryId = categoryId;
         Price = price;
-        CountryId = countryId;
         Description = description;
-        OrderId = orderId;
     }
 
     public Name Name { get; set; }
@@ -40,15 +36,11 @@ public sealed class Product : Entity<Guid>
 
     public Price Price { get; set; }
 
-    public Guid CountryId { get; set; }
-
-    public Country.Entities.Country? Country { get; set; }
+    public string? CountryIsoCode { get; set; }
 
     public string? Description { get; set; }
 
     public List<Pharmacy.Entities.Pharmacy> Pharmacies { get; set; } = null!;
 
-    public Guid? OrderId { get; set; }
-
-    public Order.Entities.Order? Order { get; set; }
+    public bool IsInStock { get; set; }
 }

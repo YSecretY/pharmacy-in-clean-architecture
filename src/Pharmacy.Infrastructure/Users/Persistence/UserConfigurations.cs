@@ -34,21 +34,5 @@ public class UserConfigurations : IEntityTypeConfiguration<User>
 
         builder.Property(u => u.PhoneNumber)
             .HasMaxLength(100);
-
-        builder.HasOne(u => u.City)
-            .WithMany()
-            .HasForeignKey(u => u.CityId)
-            .OnDelete(DeleteBehavior.Restrict);
-
-        builder.Navigation(u => u.City);
-
-        builder.HasOne(u => u.Country)
-            .WithMany()
-            .HasForeignKey(u => u.CountryId)
-            .OnDelete(DeleteBehavior.Restrict);
-
-        builder.Navigation(u => u.Country);
-
-        builder.HasIndex(u => new { u.CountryId, u.CityId });
     }
 }

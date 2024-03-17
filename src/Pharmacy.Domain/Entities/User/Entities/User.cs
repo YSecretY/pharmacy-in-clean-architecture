@@ -1,4 +1,4 @@
-using Pharmacy.Domain.Common.Primitives;
+using Pharmacy.Domain.Common.Models;
 using Pharmacy.Domain.ValueObjects;
 
 namespace Pharmacy.Domain.Entities.User.Entities;
@@ -13,9 +13,7 @@ public class User : Entity<Guid>
         bool emailConfirmed,
         string passwordHash,
         string? phoneNumber,
-        bool isAdmin,
-        Guid cityId,
-        Guid countryId) : base(id)
+        bool isAdmin) : base(id)
     {
         Email = email;
         NormalizedEmail = normalizedEmail;
@@ -24,8 +22,6 @@ public class User : Entity<Guid>
         PasswordHash = passwordHash;
         PhoneNumber = phoneNumber;
         IsAdmin = isAdmin;
-        CityId = cityId;
-        CountryId = countryId;
         CreatedAt = DateTime.UtcNow;
         UpdatedAt = DateTime.UtcNow;
     }
@@ -44,13 +40,7 @@ public class User : Entity<Guid>
 
     public bool IsAdmin { get; set; }
 
-    public Guid CityId { get; set; }
-
-    public City.Entities.City? City { get; set; }
-
-    public Guid CountryId { get; set; }
-
-    public Country.Entities.Country? Country { get; set; }
+    public string? CountryIsoCode { get; set; }
 
     public DateTime CreatedAt { get; set; }
 

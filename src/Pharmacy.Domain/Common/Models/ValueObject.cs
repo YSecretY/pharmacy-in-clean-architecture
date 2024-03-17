@@ -1,4 +1,4 @@
-namespace Pharmacy.Domain.Common.Primitives;
+namespace Pharmacy.Domain.Common.Models;
 
 public abstract class ValueObject : IEquatable<ValueObject>
 {

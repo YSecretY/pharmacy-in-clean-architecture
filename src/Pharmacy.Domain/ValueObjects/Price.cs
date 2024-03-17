@@ -1,5 +1,5 @@
-using Pharmacy.Domain.Common.Primitives;
 using ErrorOr;
+using Pharmacy.Domain.Common.Models;
 
 namespace Pharmacy.Domain.ValueObjects;
 

@@ -1,6 +1,6 @@
 using Ardalis.SmartEnum;
 
-namespace Pharmacy.Domain.Entities.Enums;
+namespace Pharmacy.Domain.Enums;
 
 public sealed class Currency : SmartEnum<Currency>
 {

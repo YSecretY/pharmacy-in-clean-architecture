@@ -1,4 +1,4 @@
-using Pharmacy.Domain.Common.Primitives;
+using Pharmacy.Domain.Common.Models;
 using Pharmacy.Domain.ValueObjects;
 
 namespace Pharmacy.Domain.Entities.Brand.Entities;
