@@ -1,7 +1,7 @@
 using Pharmacy.Domain.Common.Models;
-using Pharmacy.Domain.Entities.Pharmacy.ValueObjects;
+using Pharmacy.Domain.Pharmacy.ValueObjects;
 
-namespace Pharmacy.Domain.Entities.Pharmacy.Entities;
+namespace Pharmacy.Domain.Pharmacy.Entities;
 
 public sealed class Product : Entity<Guid>
 {
@@ -40,7 +40,7 @@ public sealed class Product : Entity<Guid>
 
     public string? Description { get; set; }
 
-    public List<Domain.Entities.Pharmacy.Pharmacy> Pharmacies { get; set; } = null!;
+    public List<Pharmacy> Pharmacies { get; set; } = null!;
 
     public bool IsInStock { get; set; }
 }

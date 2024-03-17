@@ -1,8 +1,8 @@
 using Pharmacy.Domain.Common.Models;
-using Pharmacy.Domain.Entities.Pharmacy.Entities;
-using Pharmacy.Domain.Entities.Pharmacy.ValueObjects;
+using Pharmacy.Domain.Pharmacy.Entities;
+using Pharmacy.Domain.Pharmacy.ValueObjects;
 
-namespace Pharmacy.Domain.Entities.Pharmacy;
+namespace Pharmacy.Domain.Pharmacy;
 
 public sealed class Pharmacy : AggregateRoot<Guid>
 {

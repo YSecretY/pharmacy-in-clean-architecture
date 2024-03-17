@@ -1,7 +1,7 @@
 using Pharmacy.Domain.Common.Models;
-using Pharmacy.Domain.Entities.Pharmacy.ValueObjects;
+using Pharmacy.Domain.Pharmacy.ValueObjects;
 
-namespace Pharmacy.Domain.Entities.Brand;
+namespace Pharmacy.Domain.Brand;
 
 public sealed class Brand : Entity<Guid>
 {

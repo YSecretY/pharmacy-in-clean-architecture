@@ -1,12 +1,12 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Pharmacy.Domain.Entities.Pharmacy.ValueObjects;
+using Pharmacy.Domain.Pharmacy.ValueObjects;
 
 namespace Pharmacy.Infrastructure.Pharmacies.Persistence;
 
-public class PharmacyConfigurations : IEntityTypeConfiguration<Domain.Entities.Pharmacy.Pharmacy>
+public class PharmacyConfigurations : IEntityTypeConfiguration<Domain.Pharmacy.Pharmacy>
 {
-    public void Configure(EntityTypeBuilder<Domain.Entities.Pharmacy.Pharmacy> builder)
+    public void Configure(EntityTypeBuilder<Domain.Pharmacy.Pharmacy> builder)
     {
         builder.HasKey(ph => ph.Id);
 

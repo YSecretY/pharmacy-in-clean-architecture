@@ -1,7 +1,7 @@
 using Pharmacy.Domain.Common.Models;
-using Pharmacy.Domain.Entities.Pharmacy.ValueObjects;
+using Pharmacy.Domain.Pharmacy.ValueObjects;
 
-namespace Pharmacy.Domain.Entities.Category;
+namespace Pharmacy.Domain.Category;
 
 public sealed class Category : Entity<Guid>
 {

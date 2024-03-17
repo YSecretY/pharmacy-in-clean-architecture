@@ -1,7 +1,7 @@
 using Pharmacy.Domain.Common.Models;
-using Pharmacy.Domain.Entities.User.ValueObjects;
+using Pharmacy.Domain.User.ValueObjects;
 
-namespace Pharmacy.Domain.Entities.User;
+namespace Pharmacy.Domain.User;
 
 public class User : Entity<Guid>
 {
