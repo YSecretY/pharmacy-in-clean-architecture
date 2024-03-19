@@ -1,7 +1,7 @@
 using ErrorOr;
 using Pharmacy.Domain.Common.Models;
 
-namespace Pharmacy.Domain.Pharmacy.ValueObjects;
+namespace Pharmacy.Domain.PharmacyAggregate.ValueObjects;
 
 public class Price : ValueObject
 {

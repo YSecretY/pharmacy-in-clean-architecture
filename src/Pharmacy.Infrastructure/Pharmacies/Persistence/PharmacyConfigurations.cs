@@ -1,12 +1,12 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Pharmacy.Domain.Pharmacy.ValueObjects;
+using Pharmacy.Domain.PharmacyAggregate.ValueObjects;
 
 namespace Pharmacy.Infrastructure.Pharmacies.Persistence;
 
-public class PharmacyConfigurations : IEntityTypeConfiguration<Domain.Pharmacy.Pharmacy>
+public class PharmacyConfigurations : IEntityTypeConfiguration<Domain.PharmacyAggregate.Pharmacy>
 {
-    public void Configure(EntityTypeBuilder<Domain.Pharmacy.Pharmacy> builder)
+    public void Configure(EntityTypeBuilder<Domain.PharmacyAggregate.Pharmacy> builder)
     {
         builder.HasKey(ph => ph.Id);
 
@@ -23,6 +23,9 @@ public class PharmacyConfigurations : IEntityTypeConfiguration<Domain.Pharmacy.P
                 value => Name.Create(value).Value)
             .HasMaxLength(100);
 
+        builder
+            .HasMany(ph => ph.Users);
+        
         builder
             .HasMany(ph => ph.Products)
             .WithMany(product => product.Pharmacies);

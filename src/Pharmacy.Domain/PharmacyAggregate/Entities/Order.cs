@@ -1,8 +1,8 @@
 using Pharmacy.Domain.Common.Models;
-using Pharmacy.Domain.Pharmacy.Enums;
-using Pharmacy.Domain.Pharmacy.ValueObjects;
+using Pharmacy.Domain.PharmacyAggregate.Enums;
+using Pharmacy.Domain.PharmacyAggregate.ValueObjects;
 
-namespace Pharmacy.Domain.Pharmacy.Entities;
+namespace Pharmacy.Domain.PharmacyAggregate.Entities;
 
 public sealed class Order : Entity<Guid>
 {

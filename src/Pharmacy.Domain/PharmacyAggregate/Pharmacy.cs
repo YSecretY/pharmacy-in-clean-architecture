@@ -1,8 +1,8 @@
 using Pharmacy.Domain.Common.Models;
-using Pharmacy.Domain.Pharmacy.Entities;
-using Pharmacy.Domain.Pharmacy.ValueObjects;
+using Pharmacy.Domain.PharmacyAggregate.Entities;
+using Pharmacy.Domain.PharmacyAggregate.ValueObjects;
 
-namespace Pharmacy.Domain.Pharmacy;
+namespace Pharmacy.Domain.PharmacyAggregate;
 
 public sealed class Pharmacy : AggregateRoot<Guid>
 {
@@ -15,6 +15,8 @@ public sealed class Pharmacy : AggregateRoot<Guid>
     public Name Name { get; set; }
 
     public CountryIsoCode CountryIsoCode { get; set; }
+
+    public List<User.User> Users { get; set; } = null!;
 
     public List<Order> Orders { get; set; } = null!;
 

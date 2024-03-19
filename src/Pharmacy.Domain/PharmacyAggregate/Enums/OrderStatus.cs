@@ -1,6 +1,6 @@
 using Ardalis.SmartEnum;
 
-namespace Pharmacy.Domain.Pharmacy.Enums;
+namespace Pharmacy.Domain.PharmacyAggregate.Enums;
 
 public sealed class OrderStatus : SmartEnum<OrderStatus>
 {

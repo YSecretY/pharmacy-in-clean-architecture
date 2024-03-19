@@ -2,7 +2,7 @@ using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using Pharmacy.Domain.Brand;
 using Pharmacy.Domain.Category;
-using Pharmacy.Domain.Pharmacy.Entities;
+using Pharmacy.Domain.PharmacyAggregate.Entities;
 using Pharmacy.Domain.User;
 
 namespace Pharmacy.Infrastructure.Common.Persistence;
@@ -26,7 +26,7 @@ public class PharmacyDbContext : DbContext
 
     public DbSet<Order> Orders { get; set; } = null!;
 
-    public DbSet<Domain.Pharmacy.Pharmacy> Pharmacies { get; set; } = null!;
+    public DbSet<Domain.PharmacyAggregate.Pharmacy> Pharmacies { get; set; } = null!;
 
     public DbSet<User> Users { get; set; } = null!;
 

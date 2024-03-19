@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Pharmacy.Domain.Pharmacy.Entities;
-using Pharmacy.Domain.Pharmacy.ValueObjects;
+using Pharmacy.Domain.PharmacyAggregate.Entities;
+using Pharmacy.Domain.PharmacyAggregate.ValueObjects;
 
 namespace Pharmacy.Infrastructure.Products.Persistence;
 
