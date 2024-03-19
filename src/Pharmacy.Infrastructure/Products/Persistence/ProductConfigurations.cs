@@ -1,6 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Pharmacy.Domain.Common.ValueObjects;
 using Pharmacy.Domain.Common.ValueObjects.Name;
 using Pharmacy.Domain.Common.ValueObjects.Price;
 using Pharmacy.Domain.PharmacyAggregate.Entities;

@@ -1,6 +1,6 @@
 using FluentValidation;
 
-namespace Pharmacy.Application.Brands;
+namespace Pharmacy.Application.Brands.Commands.CreateBrand;
 
 public class CreateBrandCommandValidator : AbstractValidator<CreateBrandCommand>
 {
