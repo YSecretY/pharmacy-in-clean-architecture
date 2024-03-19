@@ -1,6 +1,7 @@
 using Pharmacy.Domain.Common.Models;
+using Pharmacy.Domain.Common.ValueObjects;
+using Pharmacy.Domain.Common.ValueObjects.Price;
 using Pharmacy.Domain.PharmacyAggregate.Enums;
-using Pharmacy.Domain.PharmacyAggregate.ValueObjects;
 
 namespace Pharmacy.Domain.PharmacyAggregate.Entities;
 

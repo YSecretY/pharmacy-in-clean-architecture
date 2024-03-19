@@ -1,6 +1,8 @@
 using Pharmacy.Domain.Common.Models;
+using Pharmacy.Domain.Common.ValueObjects;
+using Pharmacy.Domain.Common.ValueObjects.CountryIsoCode;
+using Pharmacy.Domain.Common.ValueObjects.Name;
 using Pharmacy.Domain.PharmacyAggregate.Entities;
-using Pharmacy.Domain.PharmacyAggregate.ValueObjects;
 
 namespace Pharmacy.Domain.PharmacyAggregate;
 

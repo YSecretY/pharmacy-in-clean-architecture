@@ -1,7 +1,7 @@
 using ErrorOr;
 using Pharmacy.Domain.Common.Models;
 
-namespace Pharmacy.Domain.PharmacyAggregate.ValueObjects;
+namespace Pharmacy.Domain.Common.ValueObjects.Name;
 
 public class Name : ValueObject
 {
@@ -13,9 +13,9 @@ public class Name : ValueObject
 
     public static ErrorOr<Name> Create(string name)
     {
-        if (string.IsNullOrWhiteSpace(name)) return Error.Validation("Name.Empty", "Name is empty.");
+        if (string.IsNullOrWhiteSpace(name) || string.IsNullOrEmpty(name)) return NameErrors.CannotBeNullOrEmpty;
 
-        if (name.Length > MaxLength) return Error.Validation("Name.TooLong", "Name if too long");
+        if (name.Length > MaxLength) return NameErrors.CannotBeTooLong;
 
         return new Name(name);
     }

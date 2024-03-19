@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Pharmacy.Domain.PharmacyAggregate.ValueObjects;
+using Pharmacy.Domain.Common.ValueObjects;
+using Pharmacy.Domain.Common.ValueObjects.CountryIsoCode;
+using Pharmacy.Domain.Common.ValueObjects.Name;
 
 namespace Pharmacy.Infrastructure.Pharmacies.Persistence;
 

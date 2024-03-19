@@ -1,5 +1,6 @@
 using Pharmacy.Domain.Common.Models;
-using Pharmacy.Domain.PharmacyAggregate.ValueObjects;
+using Pharmacy.Domain.Common.ValueObjects;
+using Pharmacy.Domain.Common.ValueObjects.Name;
 
 namespace Pharmacy.Domain.Category;
 

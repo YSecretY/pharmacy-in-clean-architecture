@@ -1,12 +1,10 @@
 namespace Pharmacy.Domain.Common.Models;
 
-public abstract class Entity<TId> :
+public abstract class Entity<TId>(TId id) :
     IEquatable<Entity<TId>>
     where TId : notnull
 {
-    protected Entity(TId id) => Id = id;
-
-    public TId Id { get; private init; }
+    public TId Id { get; } = id;
 
     public static bool operator ==(Entity<TId>? first, Entity<TId>? second) =>
         first is not null && second is not null && first.Equals(second);

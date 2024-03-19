@@ -5,14 +5,11 @@ using Pharmacy.Infrastructure.Common.Persistence;
 
 namespace Pharmacy.Infrastructure.Persistence;
 
-public class BrandRepository : IBrandRepository
+public class BrandRepository(
+        PharmacyDbContext dbContext)
+    : IBrandRepository
 {
-    private readonly PharmacyDbContext _dbContext;
-
-    public BrandRepository(PharmacyDbContext dbContext)
-    {
-        _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
-    }
+    private readonly PharmacyDbContext _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
 
     public async Task<ErrorOr<Brand>> AddAsync(Brand brand, CancellationToken cancellationToken)
     {

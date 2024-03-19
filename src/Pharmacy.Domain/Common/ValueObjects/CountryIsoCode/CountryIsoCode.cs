@@ -1,7 +1,7 @@
 using ErrorOr;
 using Pharmacy.Domain.Common.Models;
 
-namespace Pharmacy.Domain.PharmacyAggregate.ValueObjects;
+namespace Pharmacy.Domain.Common.ValueObjects.CountryIsoCode;
 
 public class CountryIsoCode : ValueObject
 {
@@ -13,7 +13,7 @@ public class CountryIsoCode : ValueObject
 
     public static ErrorOr<CountryIsoCode> Create(string code)
     {
-        if (code.Length != 2) return Error.Validation("CountryIsoCode.Length", $"CountryIsoCode length is not {Length}.");
+        if (code.Length != 2) return CountryIsoCodeErrors.LengthMustEqualsTwo;
 
         return new CountryIsoCode(code);
     }

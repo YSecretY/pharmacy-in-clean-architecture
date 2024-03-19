@@ -1,6 +1,7 @@
 using Pharmacy.Domain.Common.Models;
-using Pharmacy.Domain.PharmacyAggregate.ValueObjects;
 using ErrorOr;
+using Pharmacy.Domain.Common.ValueObjects;
+using Pharmacy.Domain.Common.ValueObjects.Name;
 
 namespace Pharmacy.Domain.Brand;
 
@@ -12,8 +13,13 @@ public sealed class Brand : Entity<Guid>
         LogoImageUrl = logoImageUrl;
     }
 
-    public static ErrorOr<Brand> Create(string name, string? logoImageUrl) =>
-        new Brand(Guid.NewGuid(), Name.Create(name).Value, logoImageUrl);
+    public static ErrorOr<Brand> Create(Guid guid, string name, string? logoImageUrl)
+    {
+        ErrorOr<Name> nameCreationResult = Name.Create(name);
+        if (nameCreationResult.IsError) return nameCreationResult.Errors;
+
+        return new Brand(guid, nameCreationResult.Value, logoImageUrl);
+    }
 
     public Name Name { get; set; }
 

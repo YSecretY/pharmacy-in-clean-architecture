@@ -1,7 +1,7 @@
 using ErrorOr;
 using Pharmacy.Domain.Common.Models;
 
-namespace Pharmacy.Domain.PharmacyAggregate.ValueObjects;
+namespace Pharmacy.Domain.Common.ValueObjects.Price;
 
 public class Price : ValueObject
 {
@@ -14,7 +14,7 @@ public class Price : ValueObject
 
     public static ErrorOr<Price> Create(decimal price)
     {
-        if (price < 0) return Error.Validation("Price.Negative", "Price is negative.");
+        if (price < 0) return PriceErrors.CannotBeNegative;
 
         return new Price(price);
     }
