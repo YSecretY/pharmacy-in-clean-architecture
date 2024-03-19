@@ -2,10 +2,9 @@ using MapsterMapper;
 using MediatR;
 using ErrorOr;
 using Microsoft.AspNetCore.Mvc;
-using Pharmacy.Application.Brands;
 using Pharmacy.Application.Brands.Commands.CreateBrand;
 using Pharmacy.Application.Brands.Queries.GetBrandById;
-using Pharmacy.Contracts.Brands;
+using Pharmacy.Application.Brands.Queries.GetBrandList;
 using Pharmacy.Contracts.Brands.Common;
 using Pharmacy.Contracts.Brands.Create;
 using Pharmacy.Contracts.Brands.Get;
@@ -20,10 +19,10 @@ public class BrandController(
     : ApiController
 {
     [HttpPost]
-    public async Task<IActionResult> CreateBrand([FromBody] CreateBrandRequest createBrandRequest)
+    public async Task<IActionResult> CreateBrand([FromBody] CreateBrandRequest request)
     {
-        CreateBrandCommand createBrandCommand = mapper.Map<CreateBrandCommand>(createBrandRequest);
-        ErrorOr<Brand> createBrandResult = await mediator.Send(createBrandCommand);
+        CreateBrandCommand command = mapper.Map<CreateBrandCommand>(request);
+        ErrorOr<Brand> createBrandResult = await mediator.Send(command);
 
         return createBrandResult.Match(
             brand => Ok(mapper.Map<BrandResponse>(brand)),
@@ -31,13 +30,25 @@ public class BrandController(
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetBrandById([FromQuery] GetBrandRequest getBrandRequest)
+    public async Task<IActionResult> GetBrandById([FromQuery] GetBrandRequest request)
     {
-        GetBrandByIdQuery getBrandByIdQuery = mapper.Map<GetBrandByIdQuery>(getBrandRequest);
-        ErrorOr<Brand> getBrandResult = await mediator.Send(getBrandByIdQuery);
+        GetBrandByIdQuery query = mapper.Map<GetBrandByIdQuery>(request);
+        ErrorOr<Brand> getBrandResult = await mediator.Send(query);
 
         return getBrandResult.Match(
             brand => Ok(mapper.Map<BrandResponse>(brand)),
             Problem);
+    }
+
+    [HttpGet("list")]
+    public async Task<IActionResult> GetBrandList([FromQuery] GetBrandListRequest request)
+    {
+        GetBrandListQuery query = mapper.Map<GetBrandListQuery>(request);
+        ErrorOr<GetBrandListQueryResponse> queryResponse = await mediator.Send(query);
+
+        return queryResponse.Match(
+            list => Ok(mapper.Map<GetBrandListResponse>(list)),
+            Problem
+        );
     }
 }

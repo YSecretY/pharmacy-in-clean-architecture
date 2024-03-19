@@ -2,6 +2,7 @@ using Mapster;
 using Pharmacy.Application.Brands;
 using Pharmacy.Application.Brands.Commands.CreateBrand;
 using Pharmacy.Application.Brands.Queries.GetBrandById;
+using Pharmacy.Application.Brands.Queries.GetBrandList;
 using Pharmacy.Contracts.Brands;
 using Pharmacy.Contracts.Brands.Common;
 using Pharmacy.Contracts.Brands.Create;
@@ -25,5 +26,15 @@ public class BrandMappingConfig : IRegister
 
         config.NewConfig<GetBrandRequest, GetBrandByIdQuery>()
             .Map(dest => dest.Guid, src => src.Id);
+
+        config.NewConfig<GetBrandListRequest, GetBrandListQuery>()
+            .Map(dest => dest.PageNumber, src => src.PageNumber)
+            .Map(dest => dest.PageSize, src => src.PageSize);
+
+        config.NewConfig<GetBrandListQueryResponse, GetBrandListResponse>()
+            .Map(dest => dest.PageNumber, src => src.PageNumber)
+            .Map(dest => dest.Brands, src => src.Brands)
+            .Map(dest => dest.PageSize, src => src.PageSize)
+            .Map(dest => dest.MaxPages, src => src.MaxPages);
     }
 }
