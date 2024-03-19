@@ -25,9 +25,9 @@ public class CreateBrandCommandHandler(
                 Error.Validation(validationFailure.PropertyName, validationFailure.ErrorMessage));
         }
 
-        ErrorOr<Brand> brand = Brand.Create(command.Name, command.ImageLogoUrl);
-        if (brand.IsError) return brand.Errors;
+        ErrorOr<Brand> brandCreationResult = Brand.Create(command.Name, command.ImageLogoUrl);
+        if (brandCreationResult.IsError) return brandCreationResult.Errors;
 
-        return await _brandRepository.AddAsync(brand.Value, cancellationToken);
+        return await _brandRepository.AddAsync(brandCreationResult.Value, cancellationToken);
     }
 }
