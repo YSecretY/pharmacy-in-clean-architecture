@@ -12,7 +12,9 @@ public class RemoveBrandByIdCommandHandler(
 {
     public async Task<ErrorOr<Success>> Handle(RemoveBrandByIdCommand request, CancellationToken cancellationToken)
     {
-        Brand? brand = await dbContext.Brands.FirstOrDefaultAsync(b => b.Id == request.Guid, cancellationToken);
+        Brand? brand = await dbContext.Brands
+            .AsNoTracking()
+            .FirstOrDefaultAsync(b => b.Id == request.Guid, cancellationToken);
         if (brand is null) return Error.NotFound(description: "Brand is not found.");
 
         dbContext.Brands.Remove(brand);
