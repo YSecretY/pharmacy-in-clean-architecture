@@ -3,6 +3,7 @@ using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Pharmacy.Application.Brands.Commands.CreateBrand;
+using Pharmacy.Application.Brands.Commands.RemoveBrand;
 using Pharmacy.Application.Brands.Commands.UpdateBrand;
 using Pharmacy.Application.Brands.Queries.GetBrandById;
 using Pharmacy.Application.Brands.Queries.GetBrandList;
@@ -35,6 +36,7 @@ public static class DependencyInjection
         services.AddScoped<IRequestHandler<GetBrandByIdQuery, ErrorOr<Brand>>, GetBrandByIdQueryHandler>();
         services.AddScoped<IRequestHandler<GetBrandListQuery, ErrorOr<GetBrandListQueryResponse>>, GetBrandListQueryHandler>();
         services.AddScoped<IRequestHandler<UpdateBrandCommand, ErrorOr<Brand>>, UpdateBrandCommandHandler>();
+        services.AddScoped<IRequestHandler<RemoveBrandByIdCommand, ErrorOr<Success>>, RemoveBrandByIdCommandHandler>();
 
         return services;
     }

@@ -24,7 +24,7 @@ public class UpdateBrandCommandHandler(
         }
 
         Brand? brand = await dbContext.Brands.FirstOrDefaultAsync(b => b.Id == request.Guid, cancellationToken);
-        if (brand is null) return Error.NotFound(description: "Brand not found.");
+        if (brand is null) return Error.NotFound(description: "Brand is not found.");
 
         brand.Name = Name.Create(request.Name).Value;
         brand.LogoImageUrl = request.LogoImageUrl;

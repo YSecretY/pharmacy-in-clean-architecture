@@ -3,12 +3,14 @@ using MediatR;
 using ErrorOr;
 using Microsoft.AspNetCore.Mvc;
 using Pharmacy.Application.Brands.Commands.CreateBrand;
+using Pharmacy.Application.Brands.Commands.RemoveBrand;
 using Pharmacy.Application.Brands.Commands.UpdateBrand;
 using Pharmacy.Application.Brands.Queries.GetBrandById;
 using Pharmacy.Application.Brands.Queries.GetBrandList;
 using Pharmacy.Contracts.Brands.Common;
 using Pharmacy.Contracts.Brands.Create;
 using Pharmacy.Contracts.Brands.Get;
+using Pharmacy.Contracts.Brands.Remove;
 using Pharmacy.Contracts.Brands.Update;
 using Pharmacy.Domain.Brand;
 
@@ -62,6 +64,18 @@ public class BrandController(
 
         return commandResponse.Match(
             brand => Ok(mapper.Map<BrandResponse>(brand)),
+            Problem
+        );
+    }
+
+    [HttpDelete]
+    public async Task<IActionResult> RemoveBrand([FromQuery] RemoveBrandByIdRequest request)
+    {
+        RemoveBrandByIdCommand command = mapper.Map<RemoveBrandByIdCommand>(request);
+        ErrorOr<Success> commandResponse = await mediator.Send(command);
+
+        return commandResponse.Match(
+            _ => Ok(),
             Problem
         );
     }
