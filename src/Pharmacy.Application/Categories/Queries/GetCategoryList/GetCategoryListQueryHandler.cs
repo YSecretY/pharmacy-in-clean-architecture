@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Pharmacy.Application.Common.Interfaces.Persistence;
 using Pharmacy.Domain.Category;
 
-namespace Pharmacy.Application.Categories.Commands.Queries.GetCategoryList;
+namespace Pharmacy.Application.Categories.Queries.GetCategoryList;
 
 public class GetCategoryListQueryHandler(
         IPharmacyDbContext dbContext,

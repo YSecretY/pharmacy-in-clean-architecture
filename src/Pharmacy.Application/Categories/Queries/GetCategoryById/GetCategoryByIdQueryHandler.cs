@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Pharmacy.Application.Common.Interfaces.Persistence;
 using Pharmacy.Domain.Category;
 
-namespace Pharmacy.Application.Categories.Commands.Queries.GetCategoryById;
+namespace Pharmacy.Application.Categories.Queries.GetCategoryById;
 
 public class GetCategoryByIdQueryHandler(
         IPharmacyDbContext dbContext)

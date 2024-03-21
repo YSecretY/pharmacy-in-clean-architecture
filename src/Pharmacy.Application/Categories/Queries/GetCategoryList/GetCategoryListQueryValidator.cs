@@ -1,6 +1,6 @@
 using FluentValidation;
 
-namespace Pharmacy.Application.Categories.Commands.Queries.GetCategoryList;
+namespace Pharmacy.Application.Categories.Queries.GetCategoryList;
 
 public class GetCategoryListQueryValidator : AbstractValidator<GetCategoryListQuery>
 {

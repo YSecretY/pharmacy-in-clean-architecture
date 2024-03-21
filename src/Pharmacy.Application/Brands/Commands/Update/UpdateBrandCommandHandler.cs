@@ -7,7 +7,7 @@ using Pharmacy.Application.Common.Interfaces.Persistence;
 using Pharmacy.Domain.Brand;
 using Pharmacy.Domain.Common.ValueObjects.Name;
 
-namespace Pharmacy.Application.Brands.Commands.UpdateBrand;
+namespace Pharmacy.Application.Brands.Commands.Update;
 
 public class UpdateBrandCommandHandler(
         IPharmacyDbContext dbContext,

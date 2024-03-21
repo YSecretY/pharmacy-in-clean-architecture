@@ -5,7 +5,7 @@ using MediatR;
 using Pharmacy.Application.Common.Interfaces.Persistence;
 using Pharmacy.Domain.Brand;
 
-namespace Pharmacy.Application.Brands.Commands.CreateBrand;
+namespace Pharmacy.Application.Brands.Commands.Create;
 
 public class CreateBrandCommandHandler(
         IPharmacyDbContext dbContext,

@@ -3,12 +3,15 @@ using MediatR;
 using ErrorOr;
 using Microsoft.AspNetCore.Mvc;
 using Pharmacy.Application.Categories.Commands.Create;
-using Pharmacy.Application.Categories.Commands.Queries;
-using Pharmacy.Application.Categories.Commands.Queries.GetCategoryById;
-using Pharmacy.Application.Categories.Commands.Queries.GetCategoryList;
+using Pharmacy.Application.Categories.Commands.Remove;
+using Pharmacy.Application.Categories.Commands.Update;
+using Pharmacy.Application.Categories.Queries.GetCategoryById;
+using Pharmacy.Application.Categories.Queries.GetCategoryList;
 using Pharmacy.Contracts.Category.Common;
 using Pharmacy.Contracts.Category.Create;
 using Pharmacy.Contracts.Category.Get;
+using Pharmacy.Contracts.Category.Remove;
+using Pharmacy.Contracts.Category.Update;
 using Pharmacy.Domain.Category;
 
 namespace Pharmacy.Api.Controllers;
@@ -49,6 +52,28 @@ public class CategoryController(
 
         return queryResult.Match(
             response => Ok(mapper.Map<GetCategoryListResponse>(response)),
+            Problem);
+    }
+
+    [HttpPut]
+    public async Task<IActionResult> UpdateCategory([FromBody] UpdateCategoryRequest request)
+    {
+        UpdateCategoryCommand command = mapper.Map<UpdateCategoryCommand>(request);
+        ErrorOr<Category> commandResult = await mediator.Send(command);
+
+        return commandResult.Match(
+            category => Ok(mapper.Map<CategoryResponse>(category)),
+            Problem);
+    }
+
+    [HttpDelete]
+    public async Task<IActionResult> RemoveCategory([FromQuery] RemoveCategoryByIdRequest request)
+    {
+        RemoveCategoryByIdCommand command = mapper.Map<RemoveCategoryByIdCommand>(request);
+        ErrorOr<Deleted> commandResult = await mediator.Send(command);
+
+        return commandResult.Match(
+            _ => Ok(),
             Problem);
     }
 }
