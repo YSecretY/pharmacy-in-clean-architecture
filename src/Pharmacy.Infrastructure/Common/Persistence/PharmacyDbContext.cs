@@ -1,10 +1,14 @@
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
-using Pharmacy.Domain.Entities;
+using Pharmacy.Application.Common.Interfaces.Persistence;
+using Pharmacy.Domain.Brand;
+using Pharmacy.Domain.Category;
+using Pharmacy.Domain.PharmacyAggregate.Entities;
+using Pharmacy.Domain.User;
 
 namespace Pharmacy.Infrastructure.Common.Persistence;
 
-public class PharmacyDbContext : DbContext
+public class PharmacyDbContext : DbContext, IPharmacyDbContext
 {
     public PharmacyDbContext(DbContextOptions options) : base(options)
     {
@@ -21,13 +25,9 @@ public class PharmacyDbContext : DbContext
 
     public DbSet<Category> Categories { get; set; } = null!;
 
-    public DbSet<City> Cities { get; set; } = null!;
-
-    public DbSet<Country> Countries { get; set; } = null!;
-
     public DbSet<Order> Orders { get; set; } = null!;
 
-    public DbSet<Domain.Entities.Pharmacy> Pharmacies { get; set; } = null!;
+    public DbSet<Domain.PharmacyAggregate.Pharmacy> Pharmacies { get; set; } = null!;
 
     public DbSet<User> Users { get; set; } = null!;
 

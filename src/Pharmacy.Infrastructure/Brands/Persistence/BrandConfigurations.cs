@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Pharmacy.Domain.Entities;
+using Pharmacy.Domain.Brand;
+using Pharmacy.Domain.Common.ValueObjects.Name;
 
 namespace Pharmacy.Infrastructure.Brands.Persistence;
 
@@ -14,6 +15,8 @@ public class BrandConfigurations : IEntityTypeConfiguration<Brand>
             .ValueGeneratedNever();
 
         builder.Property(b => b.Name)
+            .HasConversion(n => n.Value,
+                value => Name.Create(value).Value)
             .HasMaxLength(100);
     }
 }

@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Pharmacy.Domain.Entities;
+using Pharmacy.Domain.Common.ValueObjects.Name;
+using Pharmacy.Domain.Common.ValueObjects.Price;
+using Pharmacy.Domain.PharmacyAggregate.Entities;
 
 namespace Pharmacy.Infrastructure.Products.Persistence;
 
@@ -14,10 +16,16 @@ public class ProductConfigurations : IEntityTypeConfiguration<Product>
             .ValueGeneratedNever();
 
         builder.Property(p => p.Name)
+            .HasConversion(n => n.Value,
+                value => Name.Create(value).Value)
             .HasMaxLength(100);
 
         builder.Property(p => p.BrandId)
             .IsRequired();
+
+        builder.Property(p => p.Price)
+            .HasConversion(p => p.Value,
+                value => Price.Create(value).Value);
 
         builder.HasOne(p => p.Brand)
             .WithMany()
@@ -35,16 +43,6 @@ public class ProductConfigurations : IEntityTypeConfiguration<Product>
             .OnDelete(DeleteBehavior.Restrict);
 
         builder.Navigation(p => p.Category);
-
-        builder.Property(p => p.CountryId)
-            .IsRequired();
-
-        builder.HasOne(p => p.Country)
-            .WithMany()
-            .HasForeignKey(p => p.CountryId)
-            .OnDelete(DeleteBehavior.Restrict);
-
-        builder.Navigation(p => p.Country);
 
         builder.Property(p => p.Description)
             .HasMaxLength(500);

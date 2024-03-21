@@ -1,7 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Pharmacy.Domain.Entities;
-using Pharmacy.Domain.Entities.Enums;
+using Pharmacy.Domain.Common.ValueObjects.Price;
+using Pharmacy.Domain.PharmacyAggregate.Entities;
+using Pharmacy.Domain.PharmacyAggregate.Enums;
 
 namespace Pharmacy.Infrastructure.Orders.Persistence;
 
@@ -18,18 +19,16 @@ public class OrderConfigurations : IEntityTypeConfiguration<Order>
             .HasConversion(o => o.Value,
                 value => OrderStatus.FromValue(value));
 
+        builder.Property(o => o.TotalPrice)
+            .HasConversion(p => p.Value,
+                value => Price.Create(value).Value);
+
         builder.Property(o => o.PharmacyId)
             .IsRequired();
 
         builder.HasMany(o => o.Products);
-
+        
         builder.Navigation(o => o.Pharmacy);
-
-        builder.Property(o => o.CreatedAt)
-            .HasDefaultValue(DateTime.UtcNow);
-
-        builder.Property(o => o.UpdatedAt)
-            .HasDefaultValue(DateTime.UtcNow);
 
         builder.HasIndex(o => o.PharmacyId);
     }
