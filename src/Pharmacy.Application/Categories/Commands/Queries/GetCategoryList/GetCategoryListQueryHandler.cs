@@ -1,19 +1,19 @@
-using MediatR;
 using ErrorOr;
 using FluentValidation;
 using FluentValidation.Results;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Pharmacy.Application.Common.Interfaces.Persistence;
-using Pharmacy.Domain.Brand;
+using Pharmacy.Domain.Category;
 
-namespace Pharmacy.Application.Brands.Queries.GetBrandList;
+namespace Pharmacy.Application.Categories.Commands.Queries.GetCategoryList;
 
-public class GetBrandListQueryHandler(
+public class GetCategoryListQueryHandler(
         IPharmacyDbContext dbContext,
-        IValidator<GetBrandListQuery> validator)
-    : IRequestHandler<GetBrandListQuery, ErrorOr<GetBrandListQueryResponse>>
+        IValidator<GetCategoryListQuery> validator)
+    : IRequestHandler<GetCategoryListQuery, ErrorOr<GetCategoryListQueryResponse>>
 {
-    public async Task<ErrorOr<GetBrandListQueryResponse>> Handle(GetBrandListQuery request, CancellationToken cancellationToken)
+    public async Task<ErrorOr<GetCategoryListQueryResponse>> Handle(GetCategoryListQuery request, CancellationToken cancellationToken)
     {
         ValidationResult validationResult = await validator.ValidateAsync(request, cancellationToken);
         if (!validationResult.IsValid)
@@ -22,26 +22,24 @@ public class GetBrandListQueryHandler(
                 Error.Validation(validationFailure.PropertyName, validationFailure.ErrorMessage));
         }
 
-        int brandsCount = await dbContext.Brands
+        int categoriesCount = await dbContext.Categories
             .AsNoTracking()
             .CountAsync(cancellationToken);
 
-        int maxPages = (int)Math.Ceiling((double)brandsCount) / request.PageSize;
+        int maxPages = (int)Math.Ceiling((double)categoriesCount / request.PageSize);
         if (request.PageNumber > maxPages) return Error.Validation(description: "Page number cannot be greater than max pages.");
 
-        List<Brand> brands = await dbContext.Brands
+        List<Category> categories = await dbContext.Categories
             .AsNoTracking()
             .Skip(request.PageSize * (request.PageNumber - 1))
             .Take(request.PageSize)
             .ToListAsync(cancellationToken);
 
-        GetBrandListQueryResponse response = new(
-            Brands: brands,
+        return new GetCategoryListQueryResponse(
+            Categories: categories,
             PageSize: request.PageSize,
             PageNumber: request.PageNumber,
             MaxPages: maxPages
         );
-
-        return response;
     }
 }

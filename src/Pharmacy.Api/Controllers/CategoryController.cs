@@ -4,6 +4,8 @@ using ErrorOr;
 using Microsoft.AspNetCore.Mvc;
 using Pharmacy.Application.Categories.Commands.Create;
 using Pharmacy.Application.Categories.Commands.Queries;
+using Pharmacy.Application.Categories.Commands.Queries.GetCategoryById;
+using Pharmacy.Application.Categories.Commands.Queries.GetCategoryList;
 using Pharmacy.Contracts.Category.Common;
 using Pharmacy.Contracts.Category.Create;
 using Pharmacy.Contracts.Category.Get;
@@ -36,6 +38,17 @@ public class CategoryController(
 
         return queryResult.Match(
             category => Ok(mapper.Map<CategoryResponse>(category)),
+            Problem);
+    }
+
+    [HttpGet("list")]
+    public async Task<IActionResult> GetCategoryList([FromQuery] GetCategoryListRequest request)
+    {
+        GetCategoryListQuery query = mapper.Map<GetCategoryListQuery>(request);
+        ErrorOr<GetCategoryListQueryResponse> queryResult = await mediator.Send(query);
+
+        return queryResult.Match(
+            response => Ok(mapper.Map<GetCategoryListResponse>(response)),
             Problem);
     }
 }
