@@ -1,5 +1,4 @@
 using Pharmacy.Domain.Common.Models;
-using Pharmacy.Domain.Common.ValueObjects;
 using Pharmacy.Domain.Common.ValueObjects.Name;
 using Pharmacy.Domain.Common.ValueObjects.Price;
 

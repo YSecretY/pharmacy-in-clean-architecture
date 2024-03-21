@@ -7,7 +7,10 @@ using Pharmacy.Application.Brands.Commands.RemoveBrand;
 using Pharmacy.Application.Brands.Commands.UpdateBrand;
 using Pharmacy.Application.Brands.Queries.GetBrandById;
 using Pharmacy.Application.Brands.Queries.GetBrandList;
+using Pharmacy.Application.Categories.Commands.Create;
+using Pharmacy.Application.Categories.Commands.Queries;
 using Pharmacy.Domain.Brand;
+using Pharmacy.Domain.Category;
 
 namespace Pharmacy.Application;
 
@@ -27,6 +30,8 @@ public static class DependencyInjection
         services.AddScoped<IValidator<GetBrandListQuery>, GetBrandListQueryValidator>();
         services.AddScoped<IValidator<UpdateBrandCommand>, UpdateBrandCommandValidator>();
 
+        services.AddScoped<IValidator<CreateCategoryCommand>, CreateCategoryCommandValidator>();
+
         return services;
     }
 
@@ -37,6 +42,9 @@ public static class DependencyInjection
         services.AddScoped<IRequestHandler<GetBrandListQuery, ErrorOr<GetBrandListQueryResponse>>, GetBrandListQueryHandler>();
         services.AddScoped<IRequestHandler<UpdateBrandCommand, ErrorOr<Brand>>, UpdateBrandCommandHandler>();
         services.AddScoped<IRequestHandler<RemoveBrandByIdCommand, ErrorOr<Success>>, RemoveBrandByIdCommandHandler>();
+
+        services.AddScoped<IRequestHandler<CreateCategoryCommand, ErrorOr<Category>>, CreateCategoryCommandHandler>();
+        services.AddScoped<IRequestHandler<GetCategoryByIdQuery, ErrorOr<Category>>, GetCategoryByIdQueryHandler>();
 
         return services;
     }

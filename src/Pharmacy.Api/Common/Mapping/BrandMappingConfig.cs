@@ -1,11 +1,9 @@
 using Mapster;
-using Pharmacy.Application.Brands;
 using Pharmacy.Application.Brands.Commands.CreateBrand;
 using Pharmacy.Application.Brands.Commands.RemoveBrand;
 using Pharmacy.Application.Brands.Commands.UpdateBrand;
 using Pharmacy.Application.Brands.Queries.GetBrandById;
 using Pharmacy.Application.Brands.Queries.GetBrandList;
-using Pharmacy.Contracts.Brands;
 using Pharmacy.Contracts.Brands.Common;
 using Pharmacy.Contracts.Brands.Create;
 using Pharmacy.Contracts.Brands.Get;

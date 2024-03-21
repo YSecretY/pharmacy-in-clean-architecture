@@ -1,6 +1,5 @@
 using Pharmacy.Domain.Common.Models;
 using ErrorOr;
-using Pharmacy.Domain.Common.ValueObjects;
 using Pharmacy.Domain.Common.ValueObjects.Name;
 
 namespace Pharmacy.Domain.Brand;
