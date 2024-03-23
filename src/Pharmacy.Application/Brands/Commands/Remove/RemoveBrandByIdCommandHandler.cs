@@ -13,7 +13,10 @@ public class RemoveBrandByIdCommandHandler(
 {
     public async Task<ErrorOr<Deleted>> Handle(RemoveBrandByIdCommand request, CancellationToken cancellationToken)
     {
-        int deletedCount = await dbContext.Brands.Where(b => b.Id == request.Guid).DeleteAsync(cancellationToken);
+        int deletedCount = await dbContext.Brands
+            .Where(b => b.Id == request.Guid)
+            .DeleteAsync(cancellationToken);
+
         if (deletedCount is 0) return Error.NotFound(description: "Brand is not found.");
 
         return Result.Deleted;
