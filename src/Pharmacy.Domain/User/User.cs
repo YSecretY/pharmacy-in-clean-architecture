@@ -1,13 +1,13 @@
+using Pharmacy.Domain.Common.Models;
 using Pharmacy.Domain.User.Enums;
 using Pharmacy.Domain.User.ValueObjects;
 using ErrorOr;
-using Microsoft.AspNetCore.Identity;
 
 namespace Pharmacy.Domain.User;
 
-public class ApplicationUser : IdentityUser
+public class User : Entity<Guid>
 {
-    private ApplicationUser(
+    private User(
         Guid id,
         Email email,
         FirstName? firstName,
@@ -25,40 +25,48 @@ public class ApplicationUser : IdentityUser
         PhoneNumber = phoneNumber;
     }
 
-    internal static ErrorOr<ApplicationUser> Create(
+    public static ErrorOr<User> Create(
         Guid id,
         string email,
-        string firstName,
+        string? firstName,
         bool emailConfirmed,
         string passwordHash,
         UserRole? role,
-        string phoneNumber
+        string? phoneNumber
     )
     {
         List<Error> errors = new();
 
         ErrorOr<Email> emailCreationResult = Email.Create(email);
         if (emailCreationResult.IsError) errors.AddRange(emailCreationResult.Errors);
-
-        ErrorOr<FirstName> firstNameCreationResult = FirstName.Create(firstName);
-        if (firstNameCreationResult.IsError) errors.AddRange(firstNameCreationResult.Errors);
+        
+        ErrorOr<FirstName> firstNameCreationResult = default;
+        if (firstName is not null)
+        {
+            firstNameCreationResult = FirstName.Create(firstName);
+            if (firstNameCreationResult.IsError) errors.AddRange(firstNameCreationResult.Errors);
+        }
 
         ErrorOr<PasswordHash> passwordHashCreationResult = PasswordHash.Create(passwordHash);
         if (passwordHashCreationResult.IsError) errors.AddRange(passwordHashCreationResult.Errors);
 
-        ErrorOr<PhoneNumber> phoneNumberCreationResult = PhoneNumber.Create(phoneNumber);
-        if (phoneNumberCreationResult.IsError) errors.AddRange(phoneNumberCreationResult.Errors);
+        ErrorOr<PhoneNumber> phoneNumberCreationResult = default;
+        if (phoneNumber is not null)
+        {
+            phoneNumberCreationResult = PhoneNumber.Create(phoneNumber);
+            if (phoneNumberCreationResult.IsError) errors.AddRange(phoneNumberCreationResult.Errors);
+        }
 
         if (errors.Count is not 0) return errors;
 
-        return new ApplicationUser(
+        return new User(
             id: id,
             email: emailCreationResult.Value,
-            firstName: firstNameCreationResult.Value,
+            firstName: firstName is null ? null : firstNameCreationResult.Value,
             emailConfirmed: emailConfirmed,
             passwordHash: passwordHashCreationResult.Value,
             role: role,
-            phoneNumber: phoneNumberCreationResult.Value
+            phoneNumber: phoneNumber is null ? null : phoneNumberCreationResult.Value
         );
     }
 

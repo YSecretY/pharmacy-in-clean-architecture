@@ -11,7 +11,7 @@ public class Email : ValueObject
 
     public static ErrorOr<Email> Create(string email)
     {
-        if (string.IsNullOrWhiteSpace(email)) return Error.Validation("Email.Emtpy", "Email is empty.");
+        if (string.IsNullOrWhiteSpace(email)) return Error.Validation("Email.Empty", "Email is empty.");
 
         //TODO: Add more email validation
 

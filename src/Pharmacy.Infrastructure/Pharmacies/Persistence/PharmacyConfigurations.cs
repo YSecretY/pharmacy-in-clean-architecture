@@ -25,9 +25,6 @@ public class PharmacyConfigurations : IEntityTypeConfiguration<Domain.PharmacyAg
             .HasMaxLength(100);
 
         builder
-            .HasMany(ph => ph.Users);
-        
-        builder
             .HasMany(ph => ph.Products)
             .WithMany(product => product.Pharmacies);
     }
