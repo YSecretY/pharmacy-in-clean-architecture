@@ -1,13 +1,13 @@
-using Pharmacy.Domain.Common.Models;
 using Pharmacy.Domain.User.Enums;
 using Pharmacy.Domain.User.ValueObjects;
 using ErrorOr;
+using Microsoft.AspNetCore.Identity;
 
 namespace Pharmacy.Domain.User;
 
-public class User : Entity<Guid>
+public class ApplicationUser : IdentityUser
 {
-    private User(
+    private ApplicationUser(
         Guid id,
         Email email,
         FirstName? firstName,
@@ -25,7 +25,7 @@ public class User : Entity<Guid>
         PhoneNumber = phoneNumber;
     }
 
-    internal static ErrorOr<User> Create(
+    internal static ErrorOr<ApplicationUser> Create(
         Guid id,
         string email,
         string firstName,
@@ -51,7 +51,7 @@ public class User : Entity<Guid>
 
         if (errors.Count is not 0) return errors;
 
-        return new User(
+        return new ApplicationUser(
             id: id,
             email: emailCreationResult.Value,
             firstName: firstNameCreationResult.Value,
