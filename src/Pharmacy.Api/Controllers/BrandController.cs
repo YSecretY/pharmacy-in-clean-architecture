@@ -1,6 +1,7 @@
 using MapsterMapper;
 using MediatR;
 using ErrorOr;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Pharmacy.Application.Brands.Commands.Create;
 using Pharmacy.Application.Brands.Commands.Remove;
@@ -17,6 +18,7 @@ using Pharmacy.Domain.Brand;
 namespace Pharmacy.Api.Controllers;
 
 [Route("brands/")]
+[Authorize(Roles = "Admin")]
 public class BrandController(
         IMapper mapper,
         ISender mediator)

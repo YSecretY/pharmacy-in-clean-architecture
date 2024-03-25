@@ -32,7 +32,7 @@ public class LoginUserCommandHandler(
         if (tokenCredentials is null) return Error.NotFound(description: "Couldn't find user with the given email.");
 
         if (!passwordHasher.Verify(request.Password, tokenCredentials.PasswordHash.Value))
-            return Error.Forbidden(description: "Invalid credentials.");
+            return Error.Unauthorized(description: "Invalid credentials.");
 
         return jwtTokenGenerator.GenerateToken(tokenCredentials.Id, tokenCredentials.Email.Value, tokenCredentials.Role);
     }
