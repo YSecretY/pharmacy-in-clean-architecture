@@ -20,9 +20,9 @@ namespace Pharmacy.Api.Controllers;
 [Route("categories/")]
 [Authorize(Roles = "Admin")]
 public class CategoryController(
-        ISender mediator,
-        IMapper mapper)
-    : ApiController
+    ISender mediator,
+    IMapper mapper
+) : ApiController
 {
     [HttpPost]
     public async Task<IActionResult> CreateCategory([FromBody] CreateCategoryRequest request)

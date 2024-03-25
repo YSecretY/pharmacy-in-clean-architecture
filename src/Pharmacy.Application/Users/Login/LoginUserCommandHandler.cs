@@ -26,6 +26,7 @@ public class LoginUserCommandHandler(
                 u.Id,
                 u.Email,
                 u.PasswordHash,
+                u.EmailConfirmed,
                 u.Role
             })
             .FirstOrDefaultAsync(cancellationToken);
@@ -33,6 +34,9 @@ public class LoginUserCommandHandler(
 
         if (!passwordHasher.Verify(request.Password, tokenCredentials.PasswordHash.Value))
             return Error.Unauthorized(description: "Invalid credentials.");
+
+        if (!tokenCredentials.EmailConfirmed)
+            return Error.Unauthorized(description: "Email must be confirmed.");
 
         return jwtTokenGenerator.GenerateToken(tokenCredentials.Id, tokenCredentials.Email.Value, tokenCredentials.Role);
     }

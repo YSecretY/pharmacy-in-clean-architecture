@@ -2,6 +2,8 @@ using MapsterMapper;
 using MediatR;
 using ErrorOr;
 using Microsoft.AspNetCore.Mvc;
+using Pharmacy.Application.Common.Interfaces.Auth;
+using Pharmacy.Application.Users.EmailConfirmation;
 using Pharmacy.Application.Users.Login;
 using Pharmacy.Application.Users.Register;
 using Pharmacy.Contracts.Users;
@@ -11,7 +13,9 @@ namespace Pharmacy.Api.Controllers;
 [Route("users")]
 public class UserController(
     IMapper mapper,
-    ISender mediator
+    ISender mediator,
+    IJwtTokenGenerator jwtTokenGenerator,
+    IJwtTokenValidator jwtTokenValidator
 ) : ApiController
 {
     [HttpPost("register")]
@@ -33,5 +37,17 @@ public class UserController(
         ErrorOr<string> loginUserResult = await mediator.Send(command);
 
         return loginUserResult.Match(Ok, Problem);
+    }
+
+    [HttpGet("confirm-email")]
+    public async Task<IActionResult> ConfirmEmail([FromQuery] ConfirmEmailRequest request)
+    {
+        ConfirmEmailCommand command = mapper.Map<ConfirmEmailCommand>(request);
+        ErrorOr<Success> emailConfirmationResult = await mediator.Send(command);
+
+        return emailConfirmationResult.Match(
+            _ => Ok(),
+            Problem
+        );
     }
 }

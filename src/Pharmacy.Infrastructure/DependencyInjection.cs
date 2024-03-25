@@ -20,7 +20,7 @@ public static class DependencyInjection
     {
         services.AddPersistence(configuration);
         services.AddAuth(configuration);
-        services.AddServices();
+        services.AddServices(configuration);
 
         return services;
     }
@@ -40,6 +40,7 @@ public static class DependencyInjection
 
         services.AddSingleton(Options.Create(jwtSettings));
         services.AddSingleton<IJwtTokenGenerator, JwtTokenGenerator>();
+        services.AddSingleton<IJwtTokenValidator, JwtTokenValidator>();
 
         services.AddAuthentication(defaultScheme: JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options => options.TokenValidationParameters = new TokenValidationParameters
@@ -58,10 +59,14 @@ public static class DependencyInjection
         return services;
     }
 
-    private static IServiceCollection AddServices(this IServiceCollection services)
+    private static IServiceCollection AddServices(this IServiceCollection services, IConfiguration configuration)
     {
+        services.Configure<SmtpClientSettings>(configuration.GetRequiredSection(SmtpClientSettings.SectionName) ??
+                                               throw new KeyNotFoundException("Couldn't find the smtp client configurations."));
+
         services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
         services.AddSingleton<IPasswordHasher, PasswordHasher>();
+        services.AddSingleton<IEmailService, EmailService>();
 
         return services;
     }
