@@ -86,7 +86,7 @@ public class User : Entity<Guid>
     {
         ErrorOr<PasswordHash> passwordHashCreationResult = PasswordHash.Create(passwordHash);
         if (passwordHashCreationResult.IsError) return passwordHashCreationResult.Errors;
-
+        
         PasswordHash = passwordHashCreationResult.Value;
 
         UpdatedAt = DateTime.UtcNow;

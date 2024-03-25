@@ -177,6 +177,12 @@ namespace Pharmacy.Infrastructure.Migrations
                 name: "IX_Products_OrderId",
                 table: "Products",
                 column: "OrderId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Users_Email",
+                table: "Users",
+                column: "Email",
+                unique: true);
         }
 
         /// <inheritdoc />

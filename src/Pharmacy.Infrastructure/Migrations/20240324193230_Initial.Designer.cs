@@ -12,7 +12,7 @@ using Pharmacy.Infrastructure.Common.Persistence;
 namespace Pharmacy.Infrastructure.Migrations
 {
     [DbContext(typeof(PharmacyDbContext))]
-    [Migration("20240324123123_Initial")]
+    [Migration("20240324193230_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -195,6 +195,9 @@ namespace Pharmacy.Infrastructure.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Email")
+                        .IsUnique();
 
                     b.ToTable("Users");
                 });

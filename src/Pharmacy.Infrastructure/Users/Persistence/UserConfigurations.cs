@@ -33,6 +33,8 @@ public class UserConfigurations : IEntityTypeConfiguration<User>
                 value => Email.Create(value).Value)
             .HasMaxLength(255);
 
+        builder.HasIndex(u => u.Email).IsUnique();
+
         builder.Property(u => u.PasswordHash)
             .HasConversion(p => p.Value,
                 value => PasswordHash.Create(value).Value)
