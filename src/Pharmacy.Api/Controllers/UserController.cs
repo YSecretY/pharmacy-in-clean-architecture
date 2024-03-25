@@ -2,6 +2,7 @@ using MapsterMapper;
 using MediatR;
 using ErrorOr;
 using Microsoft.AspNetCore.Mvc;
+using Pharmacy.Application.Users.Login;
 using Pharmacy.Application.Users.Register;
 using Pharmacy.Contracts.Users;
 
@@ -23,5 +24,14 @@ public class UserController(
             _ => Created(),
             Problem
         );
+    }
+
+    [HttpPost("login")]
+    public async Task<IActionResult> Login([FromBody] LoginUserRequest request)
+    {
+        LoginUserCommand command = mapper.Map<LoginUserCommand>(request);
+        ErrorOr<string> loginUserResult = await mediator.Send(command);
+
+        return loginUserResult.Match(Ok, Problem);
     }
 }

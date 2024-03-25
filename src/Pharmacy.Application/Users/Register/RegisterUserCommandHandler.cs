@@ -4,6 +4,7 @@ using FluentValidation.Results;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Pharmacy.Application.Common.Interfaces.Persistence;
+using Pharmacy.Application.Common.Services;
 using Pharmacy.Domain.User;
 using Pharmacy.Domain.User.Enums;
 
@@ -11,7 +12,8 @@ namespace Pharmacy.Application.Users.Register;
 
 public class RegisterUserCommandHandler(
         IPharmacyDbContext dbContext,
-        IValidator<RegisterUserCommand> validator)
+        IValidator<RegisterUserCommand> validator,
+        IPasswordHasher passwordHasher)
     : IRequestHandler<RegisterUserCommand, ErrorOr<Created>>
 {
     public async Task<ErrorOr<Created>> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
@@ -23,7 +25,7 @@ public class RegisterUserCommandHandler(
                 Error.Validation(validationFailure.PropertyName, validationFailure.ErrorMessage));
         }
 
-        string passwordHash = BCrypt.Net.BCrypt.HashPassword(request.Password);
+        string passwordHash = passwordHasher.HashPassword(request.Password);
 
         ErrorOr<User> userCreationResult = User.Create(
             id: Guid.NewGuid(),

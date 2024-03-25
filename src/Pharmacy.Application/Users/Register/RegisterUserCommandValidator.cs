@@ -13,12 +13,13 @@ public class RegisterUserCommandValidator : AbstractValidator<RegisterUserComman
             .MaximumLength(255);
 
         RuleFor(u => u.FirstName)
-            .MaximumLength(100)
-            .Matches("^[0-9]*$")
-            .When(u => !string.IsNullOrEmpty(u.PhoneNumber));
+            .NotEmpty()
+            .MaximumLength(100);
 
         RuleFor(u => u.PhoneNumber)
-            .MaximumLength(11);
+            .MaximumLength(13)
+            .Matches("^[0-9]*$")
+            .When(u => !string.IsNullOrEmpty(u.PhoneNumber));
 
         RuleFor(u => u.Password)
             .NotNull()

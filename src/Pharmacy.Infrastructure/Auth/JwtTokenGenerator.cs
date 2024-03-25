@@ -17,7 +17,7 @@ public class JwtTokenGenerator(
 {
     private readonly JwtSettings _jwtSettings = jwtOptions.Value;
 
-    public string GenerateToken(Guid userId, string firstName, UserRole userRole)
+    public string GenerateToken(Guid userId, string email, UserRole userRole)
     {
         SigningCredentials signingCredentials = new(
             new SymmetricSecurityKey(
@@ -28,7 +28,8 @@ public class JwtTokenGenerator(
         IEnumerable<Claim> claims = new[]
         {
             new Claim(JwtRegisteredClaimNames.Sub, userId.ToString()),
-            new Claim(JwtRegisteredClaimNames.GivenName, firstName),
+            new Claim(JwtRegisteredClaimNames.Email, email),
+            new Claim(ClaimTypes.Role, userRole.Name),
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
         };
 

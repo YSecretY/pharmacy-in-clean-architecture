@@ -40,6 +40,7 @@ public static class DependencyInjection
     private static IServiceCollection AddServices(this IServiceCollection services)
     {
         services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
+        services.AddSingleton<IPasswordHasher, PasswordHasher>();
 
         return services;
     }

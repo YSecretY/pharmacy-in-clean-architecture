@@ -6,14 +6,14 @@ namespace Pharmacy.Domain.User.ValueObjects;
 
 public class PhoneNumber : ValueObject
 {
-    private const int Length = 10;
+    private const int MaxLength = 13;
     private PhoneNumber(string phone) => Value = phone;
 
     public string Value { get; set; }
 
     public static ErrorOr<PhoneNumber> Create(string phone)
     {
-        if (phone.Length != 10) return Error.Validation("PhoneNumber.Length", $"Phone number length is not {Length}");
+        if (phone.Length > MaxLength) return Error.Validation("PhoneNumber.Length", $"Phone number length cannot be greater than {MaxLength}");
 
         //TODO: Add more phone number validation
 
