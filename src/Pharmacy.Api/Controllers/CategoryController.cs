@@ -1,6 +1,7 @@
 using MapsterMapper;
 using MediatR;
 using ErrorOr;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Pharmacy.Application.Categories.Commands.Create;
 using Pharmacy.Application.Categories.Commands.Remove;
@@ -17,6 +18,7 @@ using Pharmacy.Domain.Category;
 namespace Pharmacy.Api.Controllers;
 
 [Route("categories/")]
+[Authorize(Roles = "Admin")]
 public class CategoryController(
         ISender mediator,
         IMapper mapper)

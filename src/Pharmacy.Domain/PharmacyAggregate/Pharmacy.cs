@@ -1,3 +1,4 @@
+using ErrorOr;
 using Pharmacy.Domain.Common.Models;
 using Pharmacy.Domain.Common.ValueObjects.CountryIsoCode;
 using Pharmacy.Domain.Common.ValueObjects.Name;
@@ -7,19 +8,36 @@ namespace Pharmacy.Domain.PharmacyAggregate;
 
 public sealed class Pharmacy : AggregateRoot<Guid>
 {
-    public Pharmacy(Guid id, Name name, CountryIsoCode countryIsoCode) : base(id)
+    private Pharmacy(Guid id, Name name, CountryIsoCode countryIsoCode) : base(id)
     {
         Name = name;
         CountryIsoCode = countryIsoCode;
     }
 
-    public Name Name { get; set; }
+    public static ErrorOr<Pharmacy> Create(Guid id, string name, string countryIsoCode)
+    {
+        List<Error> errors = new();
 
-    public CountryIsoCode CountryIsoCode { get; set; }
+        ErrorOr<Name> nameCreationResult = Name.Create(name);
+        if (nameCreationResult.IsError) errors.AddRange(nameCreationResult.Errors);
 
-    public List<User.User> Users { get; set; } = null!;
+        ErrorOr<CountryIsoCode> countryIsoCodeCreationResult = CountryIsoCode.Create(countryIsoCode);
+        if (countryIsoCodeCreationResult.IsError) errors.AddRange(countryIsoCodeCreationResult.Errors);
 
-    public List<Order> Orders { get; set; } = null!;
+        if (errors.Count is not 0) return errors;
 
-    public List<Product> Products { get; set; } = null!;
+        return new Pharmacy(
+            id: id,
+            name: nameCreationResult.Value,
+            countryIsoCode: countryIsoCodeCreationResult.Value
+        );
+    }
+
+    public Name Name { get; private set; }
+
+    public CountryIsoCode CountryIsoCode { get; private set; }
+
+    public List<Order> Orders { get; private set; } = null!;
+
+    public List<Product> Products { get; private set; } = null!;
 }

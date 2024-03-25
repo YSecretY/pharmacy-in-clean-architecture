@@ -160,11 +160,9 @@ namespace Pharmacy.Infrastructure.Migrations
                     b.Property<Guid>("Id")
                         .HasColumnType("uuid");
 
-                    b.Property<string>("CountryIsoCode")
-                        .HasColumnType("text");
-
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("CreatedAt");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -178,27 +176,25 @@ namespace Pharmacy.Infrastructure.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
 
-                    b.Property<bool>("IsAdmin")
-                        .HasColumnType("boolean");
-
                     b.Property<string>("PasswordHash")
                         .IsRequired()
                         .HasMaxLength(500)
                         .HasColumnType("character varying(500)");
 
-                    b.Property<Guid?>("PharmacyId")
-                        .HasColumnType("uuid");
-
                     b.Property<string>("PhoneNumber")
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
+
+                    b.Property<int>("Role")
+                        .HasColumnType("integer");
 
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PharmacyId");
+                    b.HasIndex("Email")
+                        .IsUnique();
 
                     b.ToTable("Users");
                 });
@@ -252,13 +248,6 @@ namespace Pharmacy.Infrastructure.Migrations
                     b.Navigation("Category");
                 });
 
-            modelBuilder.Entity("Pharmacy.Domain.User.User", b =>
-                {
-                    b.HasOne("Pharmacy.Domain.PharmacyAggregate.Pharmacy", null)
-                        .WithMany("Users")
-                        .HasForeignKey("PharmacyId");
-                });
-
             modelBuilder.Entity("PharmacyProduct", b =>
                 {
                     b.HasOne("Pharmacy.Domain.PharmacyAggregate.Pharmacy", null)
@@ -282,8 +271,6 @@ namespace Pharmacy.Infrastructure.Migrations
             modelBuilder.Entity("Pharmacy.Domain.PharmacyAggregate.Pharmacy", b =>
                 {
                     b.Navigation("Orders");
-
-                    b.Navigation("Users");
                 });
 #pragma warning restore 612, 618
         }

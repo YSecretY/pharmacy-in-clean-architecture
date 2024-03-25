@@ -13,7 +13,10 @@ public class RemoveCategoryByIdCommandHandler(
 {
     public async Task<ErrorOr<Deleted>> Handle(RemoveCategoryByIdCommand request, CancellationToken cancellationToken)
     {
-        int deletedCount = await dbContext.Categories.Where(b => b.Id == request.Guid).DeleteAsync(cancellationToken);
+        int deletedCount = await dbContext.Categories
+            .Where(b => b.Id == request.Guid)
+            .DeleteAsync(cancellationToken);
+        
         if (deletedCount is 0) return Error.NotFound(description: "Category is not found.");
 
         return Result.Deleted;
