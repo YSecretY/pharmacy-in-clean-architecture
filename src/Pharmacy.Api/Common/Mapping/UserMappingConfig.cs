@@ -3,6 +3,7 @@ using Pharmacy.Application.Users.ChangeEmail;
 using Pharmacy.Application.Users.ChangePassword;
 using Pharmacy.Application.Users.EmailConfirmation;
 using Pharmacy.Application.Users.Login;
+using Pharmacy.Application.Users.MakeAdmin;
 using Pharmacy.Application.Users.Register;
 using Pharmacy.Contracts.Users;
 
@@ -38,5 +39,8 @@ public class UserMappingConfig : IRegister
 
         config.NewConfig<SendEmailChangeConfirmationRequest, SendEmailChangeConfirmationCommand>()
             .Map(dest => dest.ReceiverEmail, src => src.ReceiverEmail);
+
+        config.NewConfig<MakeAdminUserRequest, MakeAdminUserCommand>()
+            .Map(dest => dest.UserId, src => src.UserId);
     }
 }

@@ -8,6 +8,7 @@ using Pharmacy.Application.Users.ChangeEmail;
 using Pharmacy.Application.Users.ChangePassword;
 using Pharmacy.Application.Users.EmailConfirmation;
 using Pharmacy.Application.Users.Login;
+using Pharmacy.Application.Users.MakeAdmin;
 using Pharmacy.Application.Users.Register;
 using Pharmacy.Contracts.Users;
 
@@ -87,6 +88,19 @@ public class UserController(
         ErrorOr<Updated> changeEmailResult = await mediator.Send(command);
 
         return changeEmailResult.Match(
+            _ => Ok(),
+            Problem
+        );
+    }
+
+    [HttpPut("make-admin")]
+    [Authorize(Roles = "Admin")]
+    public async Task<IActionResult> MakeAdmin([FromQuery] MakeAdminUserRequest request)
+    {
+        MakeAdminUserCommand command = mapper.Map<MakeAdminUserCommand>(request);
+        ErrorOr<Updated> userAdminUpdateResult = await mediator.Send(command);
+
+        return userAdminUpdateResult.Match(
             _ => Ok(),
             Problem
         );

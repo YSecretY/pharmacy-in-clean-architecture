@@ -21,7 +21,9 @@ public class ChangeEmailCommandHandler(
             .FirstOrDefaultAsync(u => (string)u.Email == request.OldEmail, cancellationToken);
         if (user is null) return Error.NotFound(description: "Couldn't find the user with the given id from claims.");
 
-        user.SetEmail(request.NewEmail);
+        ErrorOr<Updated> setEmailResult = user.SetEmail(request.NewEmail);
+        if (setEmailResult.IsError) return setEmailResult.Errors;
+
         await dbContext.SaveChangesAsync(cancellationToken);
 
         return Result.Updated;
