@@ -70,7 +70,7 @@ public class User : Entity<Guid>
         );
     }
 
-    public ErrorOr<Success> SetEmail(string email)
+    public ErrorOr<Updated> SetEmail(string email)
     {
         ErrorOr<Email> emailCreationResult = Email.Create(email);
         if (emailCreationResult.IsError) return emailCreationResult.Errors;
@@ -79,10 +79,10 @@ public class User : Entity<Guid>
 
         UpdatedAt = DateTime.UtcNow;
 
-        return Result.Success;
+        return Result.Updated;
     }
 
-    public ErrorOr<Success> SetPasswordHash(string passwordHash)
+    public ErrorOr<Updated> SetPasswordHash(string passwordHash)
     {
         ErrorOr<PasswordHash> passwordHashCreationResult = PasswordHash.Create(passwordHash);
         if (passwordHashCreationResult.IsError) return passwordHashCreationResult.Errors;
@@ -91,7 +91,7 @@ public class User : Entity<Guid>
 
         UpdatedAt = DateTime.UtcNow;
 
-        return Result.Success;
+        return Result.Updated;
     }
 
     public void MakeAdmin()

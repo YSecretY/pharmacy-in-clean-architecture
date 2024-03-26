@@ -12,9 +12,9 @@ public class ChangePasswordCommandHandler(
     IPharmacyDbContext dbContext,
     IIdentityUserAccessor identityUserAccessor,
     IPasswordHasher passwordHasher
-) : IRequestHandler<ChangePasswordCommand, ErrorOr<Success>>
+) : IRequestHandler<ChangePasswordCommand, ErrorOr<Updated>>
 {
-    public async Task<ErrorOr<Success>> Handle(ChangePasswordCommand request, CancellationToken cancellationToken)
+    public async Task<ErrorOr<Updated>> Handle(ChangePasswordCommand request, CancellationToken cancellationToken)
     {
         if (request.NewPassword != request.NewPasswordConfirmation)
             return Error.Validation(description: "Passwords are not equal.");
@@ -27,11 +27,11 @@ public class ChangePasswordCommandHandler(
         if (!passwordHasher.Verify(request.OldPassword, user.PasswordHash.Value))
             return Error.Forbidden(description: "Invalid old password.");
 
-        ErrorOr<Success> setPasswordResult = user.SetPasswordHash(passwordHasher.HashPassword(request.NewPassword));
+        ErrorOr<Updated> setPasswordResult = user.SetPasswordHash(passwordHasher.HashPassword(request.NewPassword));
         if (setPasswordResult.IsError) return setPasswordResult.Errors;
 
         await dbContext.SaveChangesAsync(cancellationToken);
 
-        return Result.Success;
+        return Result.Updated;
     }
 }

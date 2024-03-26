@@ -35,6 +35,29 @@ public class EmailService(
         await _smtpClient.SendAsync(confirmEmailMessage);
     }
 
+    public async Task SendEmailChangeConfirmationLetterAsync(string oldEmail, string receiverEmail, string jwtConfirmationToken)
+    {
+        MimeMessage confirmEmailMessage = new();
+        confirmEmailMessage.From.Add(new MailboxAddress(_smtpClientSettings.Name, _smtpClientSettings.Gmail));
+        confirmEmailMessage.To.Add(MailboxAddress.Parse(receiverEmail));
+        confirmEmailMessage.Subject = "Pharmacy confirmation letter.";
+
+        BodyBuilder bodyBuilder = new()
+        {
+            TextBody =
+                $"Hi! Please, click on the link if you would like to confirm email change. {_smtpClientSettings.BaseApplicationUrl}/users/change-email?ConfirmationToken={jwtConfirmationToken}&OldEmail={oldEmail}&NewEmail={receiverEmail}"
+        };
+
+        confirmEmailMessage.Body = bodyBuilder.ToMessageBody();
+        if (!_smtpClient.IsConnected)
+        {
+            await _smtpClient.ConnectAsync(_smtpClientSettings.Server, _smtpClientSettings.Port, _smtpClientSettings.SslEnabled);
+            await _smtpClient.AuthenticateAsync(_smtpClientSettings.Gmail, _smtpClientSettings.Password);
+        }
+
+        await _smtpClient.SendAsync(confirmEmailMessage);
+    }
+
     public void Dispose()
     {
         _smtpClient.Disconnect(quit: true);

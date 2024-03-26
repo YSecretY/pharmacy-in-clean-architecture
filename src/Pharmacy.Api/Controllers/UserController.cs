@@ -4,6 +4,7 @@ using ErrorOr;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Pharmacy.Application.Common.Interfaces.Auth;
+using Pharmacy.Application.Users.ChangeEmail;
 using Pharmacy.Application.Users.ChangePassword;
 using Pharmacy.Application.Users.EmailConfirmation;
 using Pharmacy.Application.Users.Login;
@@ -58,9 +59,34 @@ public class UserController(
     public async Task<IActionResult> ChangePassword([FromBody] ChangeUserPasswordRequest request)
     {
         ChangePasswordCommand command = mapper.Map<ChangePasswordCommand>(request);
-        ErrorOr<Success> changePasswordResult = await mediator.Send(command);
+        ErrorOr<Updated> changePasswordResult = await mediator.Send(command);
 
         return changePasswordResult.Match(
+            _ => Ok(),
+            Problem
+        );
+    }
+
+    [HttpPut("send-change-email-letter")]
+    [Authorize]
+    public async Task<IActionResult> SendChangeEmailLetter([FromBody] SendEmailChangeConfirmationRequest request)
+    {
+        SendEmailChangeConfirmationCommand command = mapper.Map<SendEmailChangeConfirmationCommand>(request);
+        ErrorOr<Success> sendEmailConfirmationResult = await mediator.Send(command);
+
+        return sendEmailConfirmationResult.Match(
+            _ => Ok(),
+            Problem
+        );
+    }
+
+    [HttpGet("change-email")]
+    public async Task<IActionResult> ChangeEmail([FromQuery] ChangeEmailRequest changeEmailRequest)
+    {
+        ChangeEmailCommand command = mapper.Map<ChangeEmailCommand>(changeEmailRequest);
+        ErrorOr<Updated> changeEmailResult = await mediator.Send(command);
+
+        return changeEmailResult.Match(
             _ => Ok(),
             Problem
         );

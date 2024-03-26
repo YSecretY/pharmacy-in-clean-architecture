@@ -1,4 +1,5 @@
 using Mapster;
+using Pharmacy.Application.Users.ChangeEmail;
 using Pharmacy.Application.Users.ChangePassword;
 using Pharmacy.Application.Users.EmailConfirmation;
 using Pharmacy.Application.Users.Login;
@@ -29,5 +30,13 @@ public class UserMappingConfig : IRegister
             .Map(dest => dest.OldPassword, src => src.OldPassword)
             .Map(dest => dest.NewPassword, src => src.NewPassword)
             .Map(dest => dest.NewPasswordConfirmation, src => src.NewPasswordConfirmation);
+
+        config.NewConfig<ChangeEmailRequest, ChangeEmailCommand>()
+            .Map(dest => dest.OldEmail, src => src.OldEmail)
+            .Map(dest => dest.NewEmail, src => src.NewEmail)
+            .Map(dest => dest.ConfirmationToken, src => src.ConfirmationToken);
+
+        config.NewConfig<SendEmailChangeConfirmationRequest, SendEmailChangeConfirmationCommand>()
+            .Map(dest => dest.ReceiverEmail, src => src.ReceiverEmail);
     }
 }
