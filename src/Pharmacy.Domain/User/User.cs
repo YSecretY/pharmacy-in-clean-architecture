@@ -108,7 +108,7 @@ public class User : Entity<Guid>
         UpdatedAt = DateTime.UtcNow;
     }
 
-    public ErrorOr<Success> SetPhoneNumber(string phoneNumber)
+    public ErrorOr<Updated> SetPhoneNumber(string phoneNumber)
     {
         ErrorOr<PhoneNumber> phoneNumberCreationResult = PhoneNumber.Create(phoneNumber);
         if (phoneNumberCreationResult.IsError) return phoneNumberCreationResult.Errors;
@@ -117,7 +117,7 @@ public class User : Entity<Guid>
 
         UpdatedAt = DateTime.UtcNow;
 
-        return Result.Success;
+        return Result.Updated;
     }
 
     public Email Email { get; private set; }

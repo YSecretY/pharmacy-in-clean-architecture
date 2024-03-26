@@ -10,6 +10,7 @@ using Pharmacy.Application.Users.EmailConfirmation;
 using Pharmacy.Application.Users.Login;
 using Pharmacy.Application.Users.MakeAdmin;
 using Pharmacy.Application.Users.Register;
+using Pharmacy.Application.Users.UpdatePhoneNumber;
 using Pharmacy.Contracts.Users;
 
 namespace Pharmacy.Api.Controllers;
@@ -101,6 +102,19 @@ public class UserController(
         ErrorOr<Updated> userAdminUpdateResult = await mediator.Send(command);
 
         return userAdminUpdateResult.Match(
+            _ => Ok(),
+            Problem
+        );
+    }
+
+    [HttpPut("update-phone-number")]
+    [Authorize]
+    public async Task<IActionResult> UpdatePhoneNumber([FromQuery] UpdatePhoneNumberUserRequest request)
+    {
+        UpdatePhoneNumberUserCommand command = mapper.Map<UpdatePhoneNumberUserCommand>(request);
+        ErrorOr<Updated> updatePhoneNumberResult = await mediator.Send(command);
+
+        return updatePhoneNumberResult.Match(
             _ => Ok(),
             Problem
         );

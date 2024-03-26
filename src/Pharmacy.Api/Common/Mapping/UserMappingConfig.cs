@@ -5,6 +5,7 @@ using Pharmacy.Application.Users.EmailConfirmation;
 using Pharmacy.Application.Users.Login;
 using Pharmacy.Application.Users.MakeAdmin;
 using Pharmacy.Application.Users.Register;
+using Pharmacy.Application.Users.UpdatePhoneNumber;
 using Pharmacy.Contracts.Users;
 
 namespace Pharmacy.Api.Common.Mapping;
@@ -42,5 +43,8 @@ public class UserMappingConfig : IRegister
 
         config.NewConfig<MakeAdminUserRequest, MakeAdminUserCommand>()
             .Map(dest => dest.UserId, src => src.UserId);
+
+        config.NewConfig<UpdatePhoneNumberUserRequest, UpdatePhoneNumberUserCommand>()
+            .Map(dest => dest.PhoneNumber, src => src.PhoneNumber);
     }
 }
