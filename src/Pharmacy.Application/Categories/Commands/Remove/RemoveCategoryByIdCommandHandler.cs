@@ -1,8 +1,6 @@
 using ErrorOr;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 using Pharmacy.Application.Common.Interfaces.Persistence;
-using Pharmacy.Domain.Category;
 using Z.EntityFramework.Plus;
 
 namespace Pharmacy.Application.Categories.Commands.Remove;

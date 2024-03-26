@@ -1,3 +1,4 @@
+using System.Reflection;
 using ErrorOr;
 using FluentValidation;
 using MediatR;
@@ -12,8 +13,13 @@ using Pharmacy.Application.Categories.Commands.Remove;
 using Pharmacy.Application.Categories.Commands.Update;
 using Pharmacy.Application.Categories.Queries.GetCategoryById;
 using Pharmacy.Application.Categories.Queries.GetCategoryList;
+using Pharmacy.Application.Users.ChangeEmail;
+using Pharmacy.Application.Users.ChangePassword;
+using Pharmacy.Application.Users.EmailConfirmation;
 using Pharmacy.Application.Users.Login;
+using Pharmacy.Application.Users.MakeAdmin;
 using Pharmacy.Application.Users.Register;
+using Pharmacy.Application.Users.UpdatePhoneNumber;
 using Pharmacy.Domain.Brand;
 using Pharmacy.Domain.Category;
 
@@ -31,15 +37,7 @@ public static class DependencyInjection
 
     private static IServiceCollection AddValidators(this IServiceCollection services)
     {
-        services.AddScoped<IValidator<CreateBrandCommand>, CreateBrandCommandValidator>();
-        services.AddScoped<IValidator<GetBrandListQuery>, GetBrandListQueryValidator>();
-        services.AddScoped<IValidator<UpdateBrandCommand>, UpdateBrandCommandValidator>();
-
-        services.AddScoped<IValidator<CreateCategoryCommand>, CreateCategoryCommandValidator>();
-        services.AddScoped<IValidator<GetCategoryListQuery>, GetCategoryListQueryValidator>();
-        services.AddScoped<IValidator<UpdateCategoryCommand>, UpdateCategoryCommandValidator>();
-
-        services.AddScoped<IValidator<RegisterUserCommand>, RegisterUserCommandValidator>();
+        services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
         return services;
     }
@@ -60,6 +58,12 @@ public static class DependencyInjection
 
         services.AddScoped<IRequestHandler<RegisterUserCommand, ErrorOr<Created>>, RegisterUserCommandHandler>();
         services.AddScoped<IRequestHandler<LoginUserCommand, ErrorOr<string>>, LoginUserCommandHandler>();
+        services.AddScoped<IRequestHandler<ConfirmEmailCommand, ErrorOr<Success>>, ConfirmEmailCommandHandler>();
+        services.AddScoped<IRequestHandler<ChangePasswordCommand, ErrorOr<Updated>>, ChangePasswordCommandHandler>();
+        services.AddScoped<IRequestHandler<SendEmailChangeConfirmationCommand, ErrorOr<Success>>, SendEmailChangeConfirmationCommandHandler>();
+        services.AddScoped<IRequestHandler<ChangeEmailCommand, ErrorOr<Updated>>, ChangeEmailCommandHandler>();
+        services.AddScoped<IRequestHandler<MakeAdminUserCommand, ErrorOr<Updated>>, MakeAdminUserCommandHandler>();
+        services.AddScoped<IRequestHandler<UpdatePhoneNumberUserCommand, ErrorOr<Updated>>, UpdatePhoneNumberUserCommandHandler>();
 
         return services;
     }

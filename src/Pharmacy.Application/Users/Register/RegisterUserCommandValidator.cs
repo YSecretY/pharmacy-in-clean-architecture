@@ -13,7 +13,6 @@ public class RegisterUserCommandValidator : AbstractValidator<RegisterUserComman
             .MaximumLength(255);
 
         RuleFor(u => u.FirstName)
-            .NotEmpty()
             .MaximumLength(100);
 
         RuleFor(u => u.PhoneNumber)

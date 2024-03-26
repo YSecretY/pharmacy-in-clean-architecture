@@ -1,4 +1,3 @@
-using System.ComponentModel.DataAnnotations.Schema;
 using ErrorOr;
 using Pharmacy.Domain.Common.Models;
 

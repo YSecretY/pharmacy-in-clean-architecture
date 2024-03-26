@@ -19,7 +19,8 @@ public class JwtTokenGenerator(
 
     public string GenerateToken(Guid userId, string email, UserRole userRole)
     {
-        SigningCredentials signingCredentials = new(
+        SigningCredentials signingCredentials = new
+        (
             new SymmetricSecurityKey(
                 Encoding.UTF8.GetBytes(_jwtSettings.Secret).ToArray()),
             SecurityAlgorithms.HmacSha256
@@ -33,9 +34,36 @@ public class JwtTokenGenerator(
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
         };
 
-        JwtSecurityToken securityToken = new(
+        JwtSecurityToken securityToken = new
+        (
             issuer: _jwtSettings.Issuer,
             audience: _jwtSettings.Audience,
+            expires: dateTimeProvider.UtcNow.AddMinutes(_jwtSettings.ExpirationInMinutes),
+            claims: claims,
+            signingCredentials: signingCredentials
+        );
+
+        return new JwtSecurityTokenHandler().WriteToken(securityToken);
+    }
+
+    public string GenerateEmailConfirmationToken(string email)
+    {
+        SigningCredentials signingCredentials = new(
+            new SymmetricSecurityKey(
+                Encoding.UTF8.GetBytes(_jwtSettings.Secret).ToArray()),
+            SecurityAlgorithms.HmacSha256
+        );
+
+        IEnumerable<Claim> claims = new[]
+        {
+            new Claim(JwtRegisteredClaimNames.Email, email),
+            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+        };
+
+        JwtSecurityToken securityToken = new
+        (
+            issuer: _jwtSettings.Issuer,
+            audience: _jwtSettings.EmailAudience,
             expires: dateTimeProvider.UtcNow.AddMinutes(_jwtSettings.ExpirationInMinutes),
             claims: claims,
             signingCredentials: signingCredentials
