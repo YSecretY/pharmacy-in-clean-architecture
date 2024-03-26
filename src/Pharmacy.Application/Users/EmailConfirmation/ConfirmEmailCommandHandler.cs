@@ -15,11 +15,8 @@ public class ConfirmEmailCommandHandler(
 {
     public async Task<ErrorOr<Success>> Handle(ConfirmEmailCommand request, CancellationToken cancellationToken)
     {
-        ErrorOr<Email> inputEmail = Email.Create(request.UserEmail);
-        if (inputEmail.IsError) return inputEmail.Errors;
-
         User? user = await dbContext.Users
-            .FirstOrDefaultAsync(u => u.Email == inputEmail.Value, cancellationToken);
+            .FirstOrDefaultAsync(u => (string)u.Email == request.UserEmail, cancellationToken);
         if (user is null) return Error.NotFound(description: "Couldn't find the user with the given email.");
 
         if (!await jwtTokenValidator.IsValidEmailConfirmationTokenAsync(request.EmailConfirmationToken))
