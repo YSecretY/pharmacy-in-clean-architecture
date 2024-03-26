@@ -6,11 +6,13 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Pharmacy.Application.Common.Interfaces.Auth;
+using Pharmacy.Application.Common.Interfaces.Identity;
 using Pharmacy.Application.Common.Interfaces.Persistence;
 using Pharmacy.Application.Common.Services;
 using Pharmacy.Infrastructure.Auth;
 using Pharmacy.Infrastructure.Common.Persistence;
 using Pharmacy.Infrastructure.Services;
+using Pharmacy.Infrastructure.Services.Identity;
 
 namespace Pharmacy.Infrastructure;
 
@@ -67,6 +69,9 @@ public static class DependencyInjection
         services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
         services.AddSingleton<IPasswordHasher, PasswordHasher>();
         services.AddSingleton<IEmailService, EmailService>();
+        
+        services.AddHttpContextAccessor();
+        services.AddScoped<IIdentityUserAccessor, IdentityUserAccessor>();
 
         return services;
     }

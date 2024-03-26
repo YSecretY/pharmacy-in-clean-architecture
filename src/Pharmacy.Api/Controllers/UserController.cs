@@ -1,8 +1,10 @@
 using MapsterMapper;
 using MediatR;
 using ErrorOr;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Pharmacy.Application.Common.Interfaces.Auth;
+using Pharmacy.Application.Users.ChangePassword;
 using Pharmacy.Application.Users.EmailConfirmation;
 using Pharmacy.Application.Users.Login;
 using Pharmacy.Application.Users.Register;
@@ -46,6 +48,19 @@ public class UserController(
         ErrorOr<Success> emailConfirmationResult = await mediator.Send(command);
 
         return emailConfirmationResult.Match(
+            _ => Ok(),
+            Problem
+        );
+    }
+
+    [HttpPut("change-password")]
+    [Authorize]
+    public async Task<IActionResult> ChangePassword([FromBody] ChangeUserPasswordRequest request)
+    {
+        ChangePasswordCommand command = mapper.Map<ChangePasswordCommand>(request);
+        ErrorOr<Success> changePasswordResult = await mediator.Send(command);
+
+        return changePasswordResult.Match(
             _ => Ok(),
             Problem
         );
