@@ -4,7 +4,7 @@ using FluentValidation.Results;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Pharmacy.Application.Common.Interfaces.Persistence;
-using Pharmacy.Domain.Product;
+using Pharmacy.Domain.Products;
 
 namespace Pharmacy.Application.Products.Queries.GetList;
 

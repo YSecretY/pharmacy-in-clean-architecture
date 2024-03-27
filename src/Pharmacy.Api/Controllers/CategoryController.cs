@@ -13,12 +13,13 @@ using Pharmacy.Contracts.Categories.Create;
 using Pharmacy.Contracts.Categories.Get;
 using Pharmacy.Contracts.Categories.Remove;
 using Pharmacy.Contracts.Categories.Update;
-using Pharmacy.Domain.Category;
+using Pharmacy.Domain.Categories;
+using Pharmacy.Domain.Users.Enums;
 
 namespace Pharmacy.Api.Controllers;
 
 [Route("categories/")]
-[Authorize(Roles = "Admin")]
+[Authorize(Roles = nameof(UserRole.Admin))]
 public class CategoryController(
     ISender mediator,
     IMapper mapper

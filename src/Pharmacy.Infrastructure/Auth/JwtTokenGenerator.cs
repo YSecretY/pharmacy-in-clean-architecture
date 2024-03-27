@@ -5,7 +5,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Pharmacy.Application.Common.Interfaces.Auth;
 using Pharmacy.Application.Common.Services;
-using Pharmacy.Domain.User.Enums;
+using Pharmacy.Domain.Users.Enums;
 using JwtRegisteredClaimNames = Microsoft.IdentityModel.JsonWebTokens.JwtRegisteredClaimNames;
 
 namespace Pharmacy.Infrastructure.Auth;

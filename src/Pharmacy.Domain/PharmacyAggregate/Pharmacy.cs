@@ -12,22 +12,19 @@ public sealed class Pharmacy : AggregateRoot<Guid>
     {
     }
 
-    public static ErrorOr<Pharmacy> Create(Guid id, string name, string street, string city, string postalCode, string countryIsoCode)
+    public static ErrorOr<Pharmacy> Create(Guid id, string name, Address address)
     {
         List<Error> errors = new();
 
         ErrorOr<Name> nameCreationResult = Name.Create(name);
         if (nameCreationResult.IsError) errors.AddRange(nameCreationResult.Errors);
 
-        ErrorOr<Address> addressCreationResult = Address.Create(street, city, postalCode, countryIsoCode);
-        if (addressCreationResult.IsError) errors.AddRange(addressCreationResult.Errors);
-
         if (errors.Count > 0) return errors;
 
         return new Pharmacy(id: id)
         {
             Name = nameCreationResult.Value,
-            Address = addressCreationResult.Value
+            Address = address
         };
     }
 

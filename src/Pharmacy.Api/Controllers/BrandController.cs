@@ -13,12 +13,13 @@ using Pharmacy.Contracts.Brands.Create;
 using Pharmacy.Contracts.Brands.Get;
 using Pharmacy.Contracts.Brands.Remove;
 using Pharmacy.Contracts.Brands.Update;
-using Pharmacy.Domain.Brand;
+using Pharmacy.Domain.Brands;
+using Pharmacy.Domain.Users.Enums;
 
 namespace Pharmacy.Api.Controllers;
 
 [Route("brands/")]
-[Authorize(Roles = "Admin")]
+[Authorize(Roles = nameof(UserRole.Admin))]
 public class BrandController(
         IMapper mapper,
         ISender mediator)

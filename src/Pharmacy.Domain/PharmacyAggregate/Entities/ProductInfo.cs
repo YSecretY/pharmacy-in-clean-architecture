@@ -1,5 +1,6 @@
 using Pharmacy.Domain.Common.Models;
 using Pharmacy.Domain.Common.ValueObjects.Price;
+using Pharmacy.Domain.Products;
 
 namespace Pharmacy.Domain.PharmacyAggregate.Entities;
 
@@ -9,14 +10,14 @@ public class ProductInfo : Entity<Guid>
         Guid id,
         Guid pharmacyId,
         Guid productId,
-        int count,
+        int quantity,
         bool isInStock,
         Price discountedPrice
     ) : base(id)
     {
         PharmacyId = pharmacyId;
         ProductId = productId;
-        Count = count;
+        Quantity = quantity;
         IsInStock = isInStock;
         DiscountedPrice = discountedPrice;
     }
@@ -27,9 +28,9 @@ public class ProductInfo : Entity<Guid>
 
     public Guid ProductId { get; private set; }
     
-    public Product.Product? Product { get; private set; }
+    public Product? Product { get; private set; }
 
-    public int Count { get; private set; }
+    public int Quantity { get; private set; }
 
     public bool IsInStock { get; private set; }
 

@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Pharmacy.Domain.Brand;
+using Pharmacy.Domain.Brands;
 using Pharmacy.Domain.Common.ValueObjects.Name;
 
 namespace Pharmacy.Infrastructure.Brands.Persistence;

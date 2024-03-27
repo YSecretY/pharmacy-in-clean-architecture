@@ -5,7 +5,7 @@ using Pharmacy.Application.Common.Interfaces.Auth;
 using Pharmacy.Application.Common.Interfaces.Identity;
 using Pharmacy.Application.Common.Interfaces.Persistence;
 using Pharmacy.Application.Common.Services;
-using Pharmacy.Domain.User.ValueObjects;
+using Pharmacy.Domain.Users.ValueObjects;
 
 namespace Pharmacy.Application.Users.ChangeEmail;
 

@@ -24,9 +24,9 @@ using Pharmacy.Application.Users.Login;
 using Pharmacy.Application.Users.MakeAdmin;
 using Pharmacy.Application.Users.Register;
 using Pharmacy.Application.Users.UpdatePhoneNumber;
-using Pharmacy.Domain.Brand;
-using Pharmacy.Domain.Category;
-using Pharmacy.Domain.Product;
+using Pharmacy.Domain.Brands;
+using Pharmacy.Domain.Categories;
+using Pharmacy.Domain.Products;
 
 namespace Pharmacy.Application;
 

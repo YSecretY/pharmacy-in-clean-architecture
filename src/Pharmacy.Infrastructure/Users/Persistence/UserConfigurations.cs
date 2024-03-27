@@ -1,8 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Pharmacy.Domain.User;
-using Pharmacy.Domain.User.Enums;
-using Pharmacy.Domain.User.ValueObjects;
+using Pharmacy.Domain.Users;
+using Pharmacy.Domain.Users.Enums;
+using Pharmacy.Domain.Users.ValueObjects;
 
 namespace Pharmacy.Infrastructure.Users.Persistence;
 

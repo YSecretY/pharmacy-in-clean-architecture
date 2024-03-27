@@ -1,8 +1,8 @@
+using ErrorOr;
 using Pharmacy.Domain.Common.Models;
 using Pharmacy.Domain.Common.ValueObjects.Name;
-using ErrorOr;
 
-namespace Pharmacy.Domain.Category;
+namespace Pharmacy.Domain.Categories;
 
 public sealed class Category : Entity<Guid>
 {

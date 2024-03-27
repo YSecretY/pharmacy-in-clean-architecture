@@ -14,7 +14,7 @@ public class OrderConfigurations : IEntityTypeConfiguration<Order>
 
         builder.Property(o => o.Id)
             .ValueGeneratedNever();
-
+        
         builder.Property(o => o.Status)
             .HasConversion(o => o.Value,
                 value => OrderStatus.FromValue(value));
@@ -26,8 +26,6 @@ public class OrderConfigurations : IEntityTypeConfiguration<Order>
         builder.Property(o => o.PharmacyId)
             .IsRequired();
 
-        builder.HasMany(o => o.Products);
-        
         builder.Navigation(o => o.Pharmacy);
 
         builder.HasIndex(o => o.PharmacyId);

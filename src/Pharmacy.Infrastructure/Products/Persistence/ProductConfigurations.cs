@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Pharmacy.Domain.Common.ValueObjects.Name;
 using Pharmacy.Domain.Common.ValueObjects.Price;
 using Pharmacy.Domain.PharmacyAggregate.ValueObjects;
-using Pharmacy.Domain.Product;
+using Pharmacy.Domain.Products;
 
 namespace Pharmacy.Infrastructure.Products.Persistence;
 

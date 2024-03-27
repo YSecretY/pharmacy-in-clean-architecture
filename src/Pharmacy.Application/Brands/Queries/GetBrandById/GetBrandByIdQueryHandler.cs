@@ -2,7 +2,7 @@ using MediatR;
 using ErrorOr;
 using Microsoft.EntityFrameworkCore;
 using Pharmacy.Application.Common.Interfaces.Persistence;
-using Pharmacy.Domain.Brand;
+using Pharmacy.Domain.Brands;
 
 namespace Pharmacy.Application.Brands.Queries.GetBrandById;
 

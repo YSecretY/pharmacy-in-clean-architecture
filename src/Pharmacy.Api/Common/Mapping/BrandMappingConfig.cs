@@ -9,7 +9,7 @@ using Pharmacy.Contracts.Brands.Create;
 using Pharmacy.Contracts.Brands.Get;
 using Pharmacy.Contracts.Brands.Remove;
 using Pharmacy.Contracts.Brands.Update;
-using Pharmacy.Domain.Brand;
+using Pharmacy.Domain.Brands;
 
 namespace Pharmacy.Api.Common.Mapping;
 

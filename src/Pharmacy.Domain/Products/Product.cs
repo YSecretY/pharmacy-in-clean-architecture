@@ -1,10 +1,12 @@
 using ErrorOr;
+using Pharmacy.Domain.Brands;
+using Pharmacy.Domain.Categories;
 using Pharmacy.Domain.Common.Models;
 using Pharmacy.Domain.Common.ValueObjects.Name;
 using Pharmacy.Domain.Common.ValueObjects.Price;
 using Pharmacy.Domain.PharmacyAggregate.ValueObjects;
 
-namespace Pharmacy.Domain.Product;
+namespace Pharmacy.Domain.Products;
 
 public sealed class Product : Entity<Guid>
 {
@@ -76,11 +78,11 @@ public sealed class Product : Entity<Guid>
 
     public Guid BrandId { get; private set; }
 
-    public Brand.Brand? Brand { get; private set; }
+    public Brand? Brand { get; private set; }
 
     public Guid CategoryId { get; private set; }
 
-    public Category.Category? Category { get; private set; }
+    public Category? Category { get; private set; }
 
     public Price Price { get; private set; }
 

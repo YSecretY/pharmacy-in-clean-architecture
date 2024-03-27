@@ -11,6 +11,7 @@ using Pharmacy.Application.Users.MakeAdmin;
 using Pharmacy.Application.Users.Register;
 using Pharmacy.Application.Users.UpdatePhoneNumber;
 using Pharmacy.Contracts.Users;
+using Pharmacy.Domain.Users.Enums;
 
 namespace Pharmacy.Api.Controllers;
 
@@ -92,7 +93,7 @@ public class UserController(
     }
 
     [HttpPut("make-admin")]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = nameof(UserRole.SuperAdmin))]
     public async Task<IActionResult> MakeAdmin([FromQuery] MakeAdminUserRequest request)
     {
         MakeAdminUserCommand command = mapper.Map<MakeAdminUserCommand>(request);

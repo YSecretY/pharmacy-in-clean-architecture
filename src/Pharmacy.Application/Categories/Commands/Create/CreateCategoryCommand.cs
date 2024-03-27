@@ -1,6 +1,6 @@
 using ErrorOr;
 using MediatR;
-using Pharmacy.Domain.Category;
+using Pharmacy.Domain.Categories;
 
 namespace Pharmacy.Application.Categories.Commands.Create;
 

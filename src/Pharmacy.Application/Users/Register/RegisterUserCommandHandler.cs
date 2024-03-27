@@ -6,8 +6,8 @@ using Microsoft.EntityFrameworkCore;
 using Pharmacy.Application.Common.Interfaces.Auth;
 using Pharmacy.Application.Common.Interfaces.Persistence;
 using Pharmacy.Application.Common.Services;
-using Pharmacy.Domain.User;
-using Pharmacy.Domain.User.Enums;
+using Pharmacy.Domain.Users;
+using Pharmacy.Domain.Users.Enums;
 
 namespace Pharmacy.Application.Users.Register;
 

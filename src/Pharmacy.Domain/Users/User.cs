@@ -1,9 +1,9 @@
-using Pharmacy.Domain.Common.Models;
-using Pharmacy.Domain.User.Enums;
-using Pharmacy.Domain.User.ValueObjects;
 using ErrorOr;
+using Pharmacy.Domain.Common.Models;
+using Pharmacy.Domain.Users.Enums;
+using Pharmacy.Domain.Users.ValueObjects;
 
-namespace Pharmacy.Domain.User;
+namespace Pharmacy.Domain.Users;
 
 public class User : Entity<Guid>
 {

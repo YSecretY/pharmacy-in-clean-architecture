@@ -1,5 +1,5 @@
 using Pharmacy.Contracts.Products.Common;
-using Pharmacy.Domain.Product;
+using Pharmacy.Domain.Products;
 
 namespace Pharmacy.Application.Products.Queries.GetList;
 

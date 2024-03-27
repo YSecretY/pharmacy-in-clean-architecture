@@ -3,7 +3,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Pharmacy.Application.Common.Interfaces.Identity;
 using Pharmacy.Application.Common.Interfaces.Persistence;
-using Pharmacy.Domain.User;
+using Pharmacy.Domain.Users;
 
 namespace Pharmacy.Application.Users.UpdatePhoneNumber;
 

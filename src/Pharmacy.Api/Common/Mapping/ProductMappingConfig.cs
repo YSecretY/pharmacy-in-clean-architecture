@@ -7,7 +7,7 @@ using Pharmacy.Contracts.Products.Common;
 using Pharmacy.Contracts.Products.Create;
 using Pharmacy.Contracts.Products.Get;
 using Pharmacy.Contracts.Products.Remove;
-using Pharmacy.Domain.Product;
+using Pharmacy.Domain.Products;
 
 namespace Pharmacy.Api.Common.Mapping;
 

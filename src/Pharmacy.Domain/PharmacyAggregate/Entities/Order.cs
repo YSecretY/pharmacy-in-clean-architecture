@@ -1,30 +1,57 @@
 using Pharmacy.Domain.Common.Models;
+using Pharmacy.Domain.Common.ValueObjects.Address;
 using Pharmacy.Domain.Common.ValueObjects.Price;
+using Pharmacy.Domain.OrderItems;
 using Pharmacy.Domain.PharmacyAggregate.Enums;
+using ErrorOr;
 
 namespace Pharmacy.Domain.PharmacyAggregate.Entities;
 
-public sealed class Order(
+public sealed class Order : Entity<Guid>
+{
+    private Order(Guid id) : base(id)
+    {
+    }
+
+    public static ErrorOr<Order> Create(
         Guid id,
         Guid pharmacyId,
-        Price totalPrice,
-        string address,
-        OrderStatus status)
-    : Entity<Guid>(id)
-{
-    public Guid PharmacyId { get; set; } = pharmacyId;
+        decimal totalPrice,
+        Address receiverAddress,
+        OrderStatus orderStatus,
+        List<OrderItem> orderItems
+    )
+    {
+        List<Error> errors = new();
 
-    public Pharmacy? Pharmacy { get; set; }
+        ErrorOr<Price> totalPriceCreationResult = Price.Create(totalPrice);
+        if (totalPriceCreationResult.IsError) errors.AddRange(totalPriceCreationResult.Errors);
 
-    public Price TotalPrice { get; set; } = totalPrice;
+        if (errors.Count is not 0) return errors;
 
-    public string Address { get; set; } = address;
+        return new Order(id)
+        {
+            PharmacyId = pharmacyId,
+            TotalPrice = totalPriceCreationResult.Value,
+            ReceiverAddress = receiverAddress,
+            Status = orderStatus,
+            OrderItems = orderItems
+        };
+    }
 
-    public OrderStatus Status { get; set; } = status;
+    public Guid PharmacyId { get; private set; }
 
-    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+    public Pharmacy Pharmacy { get; private set; } = null!;
 
-    public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
+    public Price TotalPrice { get; private set; } = null!;
 
-    public List<Product.Product> Products { get; set; } = null!;
+    public Address ReceiverAddress { get; private set; } = null!;
+
+    public OrderStatus Status { get; private set; } = null!;
+
+    public List<OrderItem> OrderItems { get; private set; } = null!;
+
+    public DateTime CreatedAt { get; private set; } = DateTime.UtcNow;
+
+    public DateTime UpdatedAt { get; private set; } = DateTime.UtcNow;
 }

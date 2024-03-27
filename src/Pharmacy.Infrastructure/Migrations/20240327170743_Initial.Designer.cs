@@ -13,7 +13,7 @@ using Pharmacy.Infrastructure.Common.Persistence;
 namespace Pharmacy.Infrastructure.Migrations
 {
     [DbContext(typeof(PharmacyDbContext))]
-    [Migration("20240327113504_Initial")]
+    [Migration("20240327170743_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -26,7 +26,7 @@ namespace Pharmacy.Infrastructure.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("Pharmacy.Domain.Brand.Brand", b =>
+            modelBuilder.Entity("Pharmacy.Domain.Brands.Brand", b =>
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("uuid");
@@ -44,7 +44,7 @@ namespace Pharmacy.Infrastructure.Migrations
                     b.ToTable("Brands");
                 });
 
-            modelBuilder.Entity("Pharmacy.Domain.Category.Category", b =>
+            modelBuilder.Entity("Pharmacy.Domain.Categories.Category", b =>
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("uuid");
@@ -62,14 +62,39 @@ namespace Pharmacy.Infrastructure.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("Pharmacy.Domain.PharmacyAggregate.Entities.Order", b =>
+            modelBuilder.Entity("Pharmacy.Domain.OrderItems.OrderItem", b =>
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("uuid");
 
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<Guid?>("OrderId")
+                        .HasColumnType("uuid");
+
+                    b.Property<decimal>("PricePerUnit")
+                        .HasColumnType("numeric");
+
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("integer");
+
+                    b.Property<decimal>("TotalPrice")
+                        .HasColumnType("numeric");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrderId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("OrderItems");
+                });
+
+            modelBuilder.Entity("Pharmacy.Domain.PharmacyAggregate.Entities.Order", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
@@ -86,6 +111,27 @@ namespace Pharmacy.Infrastructure.Migrations
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
+                    b.ComplexProperty<Dictionary<string, object>>("ReceiverAddress", "Pharmacy.Domain.PharmacyAggregate.Entities.Order.ReceiverAddress#Address", b1 =>
+                        {
+                            b1.IsRequired();
+
+                            b1.Property<string>("City")
+                                .IsRequired()
+                                .HasColumnType("text");
+
+                            b1.Property<string>("Country")
+                                .IsRequired()
+                                .HasColumnType("text");
+
+                            b1.Property<string>("PostalCode")
+                                .IsRequired()
+                                .HasColumnType("text");
+
+                            b1.Property<string>("Street")
+                                .IsRequired()
+                                .HasColumnType("text");
+                        });
+
                     b.HasKey("Id");
 
                     b.HasIndex("PharmacyId");
@@ -97,9 +143,6 @@ namespace Pharmacy.Infrastructure.Migrations
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("uuid");
-
-                    b.Property<int>("Count")
-                        .HasColumnType("integer");
 
                     b.Property<decimal>("DiscountedPrice")
                         .HasColumnType("numeric");
@@ -113,13 +156,16 @@ namespace Pharmacy.Infrastructure.Migrations
                     b.Property<Guid>("ProductId")
                         .HasColumnType("uuid");
 
+                    b.Property<int>("Quantity")
+                        .HasColumnType("integer");
+
                     b.HasKey("Id");
 
                     b.HasIndex("PharmacyId");
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("ProductInfo");
+                    b.ToTable("ProductInfos");
                 });
 
             modelBuilder.Entity("Pharmacy.Domain.PharmacyAggregate.Pharmacy", b =>
@@ -158,7 +204,7 @@ namespace Pharmacy.Infrastructure.Migrations
                     b.ToTable("Pharmacies");
                 });
 
-            modelBuilder.Entity("Pharmacy.Domain.Product.Product", b =>
+            modelBuilder.Entity("Pharmacy.Domain.Products.Product", b =>
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("uuid");
@@ -182,14 +228,10 @@ namespace Pharmacy.Infrastructure.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
 
-                    b.Property<Guid?>("OrderId")
-                        .HasColumnType("uuid");
-
                     b.Property<decimal>("Price")
                         .HasColumnType("numeric");
 
                     b.Property<string>("Sku")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
@@ -198,12 +240,10 @@ namespace Pharmacy.Infrastructure.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.HasIndex("OrderId");
-
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("Pharmacy.Domain.User.User", b =>
+            modelBuilder.Entity("Pharmacy.Domain.Users.User", b =>
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("uuid");
@@ -247,6 +287,21 @@ namespace Pharmacy.Infrastructure.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("Pharmacy.Domain.OrderItems.OrderItem", b =>
+                {
+                    b.HasOne("Pharmacy.Domain.PharmacyAggregate.Entities.Order", null)
+                        .WithMany("OrderItems")
+                        .HasForeignKey("OrderId");
+
+                    b.HasOne("Pharmacy.Domain.Products.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+                });
+
             modelBuilder.Entity("Pharmacy.Domain.PharmacyAggregate.Entities.Order", b =>
                 {
                     b.HasOne("Pharmacy.Domain.PharmacyAggregate.Pharmacy", "Pharmacy")
@@ -266,7 +321,7 @@ namespace Pharmacy.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Pharmacy.Domain.Product.Product", "Product")
+                    b.HasOne("Pharmacy.Domain.Products.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -277,23 +332,19 @@ namespace Pharmacy.Infrastructure.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("Pharmacy.Domain.Product.Product", b =>
+            modelBuilder.Entity("Pharmacy.Domain.Products.Product", b =>
                 {
-                    b.HasOne("Pharmacy.Domain.Brand.Brand", "Brand")
+                    b.HasOne("Pharmacy.Domain.Brands.Brand", "Brand")
                         .WithMany()
                         .HasForeignKey("BrandId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Pharmacy.Domain.Category.Category", "Category")
+                    b.HasOne("Pharmacy.Domain.Categories.Category", "Category")
                         .WithMany()
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.HasOne("Pharmacy.Domain.PharmacyAggregate.Entities.Order", null)
-                        .WithMany("Products")
-                        .HasForeignKey("OrderId");
 
                     b.Navigation("Brand");
 
@@ -302,7 +353,7 @@ namespace Pharmacy.Infrastructure.Migrations
 
             modelBuilder.Entity("Pharmacy.Domain.PharmacyAggregate.Entities.Order", b =>
                 {
-                    b.Navigation("Products");
+                    b.Navigation("OrderItems");
                 });
 
             modelBuilder.Entity("Pharmacy.Domain.PharmacyAggregate.Pharmacy", b =>

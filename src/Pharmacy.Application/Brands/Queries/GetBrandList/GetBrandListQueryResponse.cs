@@ -1,4 +1,4 @@
-using Pharmacy.Domain.Brand;
+using Pharmacy.Domain.Brands;
 
 namespace Pharmacy.Application.Brands.Queries.GetBrandList;
 

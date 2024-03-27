@@ -4,7 +4,7 @@ using FluentValidation;
 using FluentValidation.Results;
 using Microsoft.EntityFrameworkCore;
 using Pharmacy.Application.Common.Interfaces.Persistence;
-using Pharmacy.Domain.Brand;
+using Pharmacy.Domain.Brands;
 
 namespace Pharmacy.Application.Brands.Queries.GetBrandList;
 

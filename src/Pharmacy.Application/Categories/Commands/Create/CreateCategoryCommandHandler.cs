@@ -3,7 +3,7 @@ using FluentValidation;
 using FluentValidation.Results;
 using MediatR;
 using Pharmacy.Application.Common.Interfaces.Persistence;
-using Pharmacy.Domain.Category;
+using Pharmacy.Domain.Categories;
 
 namespace Pharmacy.Application.Categories.Commands.Create;
 

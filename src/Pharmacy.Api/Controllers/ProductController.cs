@@ -11,12 +11,13 @@ using Pharmacy.Application.Products.Queries.GetList;
 using Pharmacy.Contracts.Products.Create;
 using Pharmacy.Contracts.Products.Get;
 using Pharmacy.Contracts.Products.Remove;
-using Pharmacy.Domain.Product;
+using Pharmacy.Domain.Products;
+using Pharmacy.Domain.Users.Enums;
 
 namespace Pharmacy.Api.Controllers;
 
 [Route("products")]
-[Authorize(Roles = "Admin")]
+[Authorize(Roles = nameof(UserRole.Admin))]
 public class ProductController(
     IMapper mapper,
     ISender mediator) : ApiController

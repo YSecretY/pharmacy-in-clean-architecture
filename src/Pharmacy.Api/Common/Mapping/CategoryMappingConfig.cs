@@ -9,7 +9,7 @@ using Pharmacy.Contracts.Categories.Create;
 using Pharmacy.Contracts.Categories.Get;
 using Pharmacy.Contracts.Categories.Remove;
 using Pharmacy.Contracts.Categories.Update;
-using Pharmacy.Domain.Category;
+using Pharmacy.Domain.Categories;
 
 namespace Pharmacy.Api.Common.Mapping;
 

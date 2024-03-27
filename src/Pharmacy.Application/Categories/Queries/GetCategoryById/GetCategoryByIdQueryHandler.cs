@@ -2,7 +2,7 @@ using ErrorOr;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Pharmacy.Application.Common.Interfaces.Persistence;
-using Pharmacy.Domain.Category;
+using Pharmacy.Domain.Categories;
 
 namespace Pharmacy.Application.Categories.Queries.GetCategoryById;
 

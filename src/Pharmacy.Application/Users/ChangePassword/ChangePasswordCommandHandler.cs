@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Pharmacy.Application.Common.Interfaces.Identity;
 using Pharmacy.Application.Common.Interfaces.Persistence;
 using Pharmacy.Application.Common.Services;
-using Pharmacy.Domain.User;
+using Pharmacy.Domain.Users;
 
 namespace Pharmacy.Application.Users.ChangePassword;
 

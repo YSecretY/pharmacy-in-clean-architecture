@@ -4,7 +4,7 @@ using FluentValidation.Results;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Pharmacy.Application.Common.Interfaces.Persistence;
-using Pharmacy.Domain.Brand;
+using Pharmacy.Domain.Brands;
 using Pharmacy.Domain.Common.ValueObjects.Name;
 
 namespace Pharmacy.Application.Brands.Commands.Update;

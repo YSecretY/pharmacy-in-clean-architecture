@@ -3,7 +3,7 @@ using FluentValidation;
 using FluentValidation.Results;
 using MediatR;
 using Pharmacy.Application.Common.Interfaces.Persistence;
-using Pharmacy.Domain.Brand;
+using Pharmacy.Domain.Brands;
 
 namespace Pharmacy.Application.Brands.Commands.Create;
 

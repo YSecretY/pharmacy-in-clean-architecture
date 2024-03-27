@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Pharmacy.Domain.Category;
+using Pharmacy.Domain.Categories;
 using Pharmacy.Domain.Common.ValueObjects.Name;
 
 namespace Pharmacy.Infrastructure.Categories.Persistence;

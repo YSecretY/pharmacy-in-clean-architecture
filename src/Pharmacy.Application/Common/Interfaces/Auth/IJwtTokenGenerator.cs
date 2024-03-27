@@ -1,4 +1,4 @@
-using Pharmacy.Domain.User.Enums;
+using Pharmacy.Domain.Users.Enums;
 
 namespace Pharmacy.Application.Common.Interfaces.Auth;
 

@@ -1,7 +1,7 @@
 using ErrorOr;
 using Pharmacy.Domain.Common.Models;
 
-namespace Pharmacy.Domain.User.ValueObjects;
+namespace Pharmacy.Domain.Users.ValueObjects;
 
 public class Email : ValueObject
 {

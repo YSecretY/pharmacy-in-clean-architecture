@@ -1,9 +1,9 @@
 using Microsoft.EntityFrameworkCore;
-using Pharmacy.Domain.Brand;
-using Pharmacy.Domain.Category;
+using Pharmacy.Domain.Brands;
+using Pharmacy.Domain.Categories;
 using Pharmacy.Domain.PharmacyAggregate.Entities;
-using Pharmacy.Domain.Product;
-using Pharmacy.Domain.User;
+using Pharmacy.Domain.Products;
+using Pharmacy.Domain.Users;
 
 namespace Pharmacy.Application.Common.Interfaces.Persistence;
 

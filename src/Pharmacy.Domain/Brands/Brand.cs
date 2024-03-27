@@ -1,8 +1,8 @@
-using Pharmacy.Domain.Common.Models;
 using ErrorOr;
+using Pharmacy.Domain.Common.Models;
 using Pharmacy.Domain.Common.ValueObjects.Name;
 
-namespace Pharmacy.Domain.Brand;
+namespace Pharmacy.Domain.Brands;
 
 public sealed class Brand : Entity<Guid>
 {

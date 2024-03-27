@@ -1,4 +1,4 @@
-using Pharmacy.Domain.Category;
+using Pharmacy.Domain.Categories;
 
 namespace Pharmacy.Application.Categories.Queries.GetCategoryList;
 
