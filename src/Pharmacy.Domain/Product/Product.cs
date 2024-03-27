@@ -11,7 +11,7 @@ public sealed class Product : Entity<Guid>
     private Product(
         Guid id,
         Name name,
-        Sku sku,
+        Sku? sku,
         string imageUrl,
         Guid brandId,
         Guid categoryId,
@@ -31,7 +31,7 @@ public sealed class Product : Entity<Guid>
     public static ErrorOr<Product> Create(
         Guid id,
         string name,
-        string sku,
+        string? sku,
         string imageUrl,
         Guid brandId,
         Guid categoryId,
@@ -47,15 +47,19 @@ public sealed class Product : Entity<Guid>
         ErrorOr<Price> priceCreationResult = Price.Create(price);
         if (priceCreationResult.IsError) errors.AddRange(priceCreationResult.Errors);
 
-        ErrorOr<Sku> skuCreationResult = Sku.Create(sku);
-        if (skuCreationResult.IsError) errors.AddRange(skuCreationResult.Errors);
+        ErrorOr<Sku> skuCreationResult = new();
+        if (sku is not null)
+        {
+            skuCreationResult = Sku.Create(sku);
+            if (skuCreationResult.IsError) errors.AddRange(skuCreationResult.Errors);
+        }
 
         if (errors.Count is not 0) return errors;
 
         return new Product(
             id: id,
             name: nameCreationResult.Value,
-            sku: skuCreationResult.Value,
+            sku: sku is null ? null : skuCreationResult.Value,
             imageUrl: imageUrl,
             brandId: brandId,
             categoryId: categoryId,
@@ -66,7 +70,7 @@ public sealed class Product : Entity<Guid>
 
     public Name Name { get; private set; }
 
-    public Sku Sku { get; private set; }
+    public Sku? Sku { get; private set; }
 
     public string ImageUrl { get; private set; }
 

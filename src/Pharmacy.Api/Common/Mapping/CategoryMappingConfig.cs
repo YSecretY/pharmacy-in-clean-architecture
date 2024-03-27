@@ -4,11 +4,11 @@ using Pharmacy.Application.Categories.Commands.Remove;
 using Pharmacy.Application.Categories.Commands.Update;
 using Pharmacy.Application.Categories.Queries.GetCategoryById;
 using Pharmacy.Application.Categories.Queries.GetCategoryList;
-using Pharmacy.Contracts.Category.Common;
-using Pharmacy.Contracts.Category.Create;
-using Pharmacy.Contracts.Category.Get;
-using Pharmacy.Contracts.Category.Remove;
-using Pharmacy.Contracts.Category.Update;
+using Pharmacy.Contracts.Categories.Common;
+using Pharmacy.Contracts.Categories.Create;
+using Pharmacy.Contracts.Categories.Get;
+using Pharmacy.Contracts.Categories.Remove;
+using Pharmacy.Contracts.Categories.Update;
 using Pharmacy.Domain.Category;
 
 namespace Pharmacy.Api.Common.Mapping;
