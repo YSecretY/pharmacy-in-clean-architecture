@@ -5,7 +5,7 @@ using MediatR;
 using Pharmacy.Application.Common.Interfaces.Persistence;
 using Pharmacy.Domain.Product;
 
-namespace Pharmacy.Application.Products.Create;
+namespace Pharmacy.Application.Products.Commands.Create;
 
 public class CreateProductCommandHandler(
     IPharmacyDbContext dbContext,

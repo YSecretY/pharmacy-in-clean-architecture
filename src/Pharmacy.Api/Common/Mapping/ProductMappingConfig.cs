@@ -1,9 +1,11 @@
 using Mapster;
-using Pharmacy.Application.Products.Create;
-using Pharmacy.Application.Products.Get;
+using Pharmacy.Application.Products.Commands.Create;
+using Pharmacy.Application.Products.Commands.Remove;
+using Pharmacy.Application.Products.Queries.GetById;
 using Pharmacy.Contracts.Products.Common;
 using Pharmacy.Contracts.Products.Create;
 using Pharmacy.Contracts.Products.Get;
+using Pharmacy.Contracts.Products.Remove;
 using Pharmacy.Domain.Product;
 
 namespace Pharmacy.Api.Common.Mapping;
@@ -30,7 +32,10 @@ public class ProductMappingConfig : IRegister
             .Map(dest => dest.Price, src => src.Price)
             .Map(dest => dest.Description, src => src.Description);
 
-        config.NewConfig<GetProductRequest, GetProductCommand>()
+        config.NewConfig<GetProductRequest, GetProductByIdCommand>()
+            .Map(dest => dest.Id, src => src.ProductId);
+
+        config.NewConfig<RemoveProductByIdRequest, RemoveProductByIdCommand>()
             .Map(dest => dest.Id, src => src.ProductId);
     }
 }

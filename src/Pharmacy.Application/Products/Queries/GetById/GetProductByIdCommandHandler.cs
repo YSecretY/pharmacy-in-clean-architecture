@@ -4,13 +4,13 @@ using Microsoft.EntityFrameworkCore;
 using Pharmacy.Application.Common.Interfaces.Persistence;
 using Pharmacy.Domain.Product;
 
-namespace Pharmacy.Application.Products.Get;
+namespace Pharmacy.Application.Products.Queries.GetById;
 
-public class GetProductCommandHandler(
+public class GetProductByIdCommandHandler(
     IPharmacyDbContext dbContext
-) : IRequestHandler<GetProductCommand, ErrorOr<Product>>
+) : IRequestHandler<GetProductByIdCommand, ErrorOr<Product>>
 {
-    public async Task<ErrorOr<Product>> Handle(GetProductCommand request, CancellationToken cancellationToken)
+    public async Task<ErrorOr<Product>> Handle(GetProductByIdCommand request, CancellationToken cancellationToken)
     {
         Product? product = await dbContext.Products
             .AsNoTracking()

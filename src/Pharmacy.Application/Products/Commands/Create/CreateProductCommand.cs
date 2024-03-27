@@ -1,7 +1,7 @@
-using MediatR;
 using ErrorOr;
+using MediatR;
 
-namespace Pharmacy.Application.Products.Create;
+namespace Pharmacy.Application.Products.Commands.Create;
 
 public record CreateProductCommand(
     string Name,
