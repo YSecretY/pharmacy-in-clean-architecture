@@ -6,11 +6,11 @@ using Pharmacy.Domain.Product;
 
 namespace Pharmacy.Application.Products.Queries.GetById;
 
-public class GetProductByIdCommandHandler(
+public class GetProductByIdQueryHandler(
     IPharmacyDbContext dbContext
-) : IRequestHandler<GetProductByIdCommand, ErrorOr<Product>>
+) : IRequestHandler<GetProductByIdQuery, ErrorOr<Product>>
 {
-    public async Task<ErrorOr<Product>> Handle(GetProductByIdCommand request, CancellationToken cancellationToken)
+    public async Task<ErrorOr<Product>> Handle(GetProductByIdQuery request, CancellationToken cancellationToken)
     {
         Product? product = await dbContext.Products
             .AsNoTracking()

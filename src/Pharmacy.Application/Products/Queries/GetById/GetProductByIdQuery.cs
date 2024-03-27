@@ -4,4 +4,4 @@ using Pharmacy.Domain.Product;
 
 namespace Pharmacy.Application.Products.Queries.GetById;
 
-public record GetProductByIdCommand(Guid Id) : IRequest<ErrorOr<Product>>;
+public record GetProductByIdQuery(Guid Id) : IRequest<ErrorOr<Product>>;
