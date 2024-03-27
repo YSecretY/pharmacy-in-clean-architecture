@@ -4,6 +4,7 @@ using Pharmacy.Application.Common.Interfaces.Persistence;
 using Pharmacy.Domain.Brand;
 using Pharmacy.Domain.Category;
 using Pharmacy.Domain.PharmacyAggregate.Entities;
+using Pharmacy.Domain.Product;
 using Pharmacy.Domain.User;
 
 namespace Pharmacy.Infrastructure.Common.Persistence;

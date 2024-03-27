@@ -11,6 +11,8 @@ public class FirstName : ValueObject
 
     public string Value { get; }
 
+    public static explicit operator string(FirstName firstName) => firstName.Value;
+
     public static ErrorOr<FirstName> Create(string firstName)
     {
         if (string.IsNullOrWhiteSpace(firstName)) return Error.Validation("FirstName.Empty", "First name is empty.");

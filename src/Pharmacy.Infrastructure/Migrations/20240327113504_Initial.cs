@@ -43,7 +43,10 @@ namespace Pharmacy.Infrastructure.Migrations
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Name = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
-                    CountryIsoCode = table.Column<string>(type: "text", nullable: false)
+                    Address_City = table.Column<string>(type: "text", nullable: false),
+                    Address_Country = table.Column<string>(type: "text", nullable: false),
+                    Address_PostalCode = table.Column<string>(type: "text", nullable: false),
+                    Address_Street = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -98,13 +101,12 @@ namespace Pharmacy.Infrastructure.Migrations
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Name = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    Sku = table.Column<string>(type: "text", nullable: false),
                     ImageUrl = table.Column<string>(type: "text", nullable: false),
                     BrandId = table.Column<Guid>(type: "uuid", nullable: false),
                     CategoryId = table.Column<Guid>(type: "uuid", nullable: false),
                     Price = table.Column<decimal>(type: "numeric", nullable: false),
-                    CountryIsoCode = table.Column<string>(type: "text", nullable: true),
                     Description = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: true),
-                    IsInStock = table.Column<bool>(type: "boolean", nullable: false),
                     OrderId = table.Column<Guid>(type: "uuid", nullable: true)
                 },
                 constraints: table =>
@@ -130,24 +132,28 @@ namespace Pharmacy.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "PharmacyProduct",
+                name: "ProductInfo",
                 columns: table => new
                 {
-                    PharmaciesId = table.Column<Guid>(type: "uuid", nullable: false),
-                    ProductsId = table.Column<Guid>(type: "uuid", nullable: false)
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    PharmacyId = table.Column<Guid>(type: "uuid", nullable: false),
+                    ProductId = table.Column<Guid>(type: "uuid", nullable: false),
+                    Count = table.Column<int>(type: "integer", nullable: false),
+                    IsInStock = table.Column<bool>(type: "boolean", nullable: false),
+                    DiscountedPrice = table.Column<decimal>(type: "numeric", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PharmacyProduct", x => new { x.PharmaciesId, x.ProductsId });
+                    table.PrimaryKey("PK_ProductInfo", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_PharmacyProduct_Pharmacies_PharmaciesId",
-                        column: x => x.PharmaciesId,
+                        name: "FK_ProductInfo_Pharmacies_PharmacyId",
+                        column: x => x.PharmacyId,
                         principalTable: "Pharmacies",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_PharmacyProduct_Products_ProductsId",
-                        column: x => x.ProductsId,
+                        name: "FK_ProductInfo_Products_ProductId",
+                        column: x => x.ProductId,
                         principalTable: "Products",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -159,9 +165,14 @@ namespace Pharmacy.Infrastructure.Migrations
                 column: "PharmacyId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PharmacyProduct_ProductsId",
-                table: "PharmacyProduct",
-                column: "ProductsId");
+                name: "IX_ProductInfo_PharmacyId",
+                table: "ProductInfo",
+                column: "PharmacyId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProductInfo_ProductId",
+                table: "ProductInfo",
+                column: "ProductId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Products_BrandId",
@@ -189,7 +200,7 @@ namespace Pharmacy.Infrastructure.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "PharmacyProduct");
+                name: "ProductInfo");
 
             migrationBuilder.DropTable(
                 name: "Users");

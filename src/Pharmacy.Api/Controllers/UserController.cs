@@ -3,7 +3,6 @@ using MediatR;
 using ErrorOr;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Pharmacy.Application.Common.Interfaces.Auth;
 using Pharmacy.Application.Users.ChangeEmail;
 using Pharmacy.Application.Users.ChangePassword;
 using Pharmacy.Application.Users.EmailConfirmation;
@@ -18,9 +17,7 @@ namespace Pharmacy.Api.Controllers;
 [Route("users")]
 public class UserController(
     IMapper mapper,
-    ISender mediator,
-    IJwtTokenGenerator jwtTokenGenerator,
-    IJwtTokenValidator jwtTokenValidator
+    ISender mediator
 ) : ApiController
 {
     [HttpPost("register")]

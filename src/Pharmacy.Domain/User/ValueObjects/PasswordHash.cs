@@ -9,6 +9,8 @@ public class PasswordHash : ValueObject
 
     private PasswordHash(string password) => Value = password;
 
+    public static explicit operator string(PasswordHash passwordHash) => passwordHash.Value;
+
     public string Value { get; }
 
     public static ErrorOr<PasswordHash> Create(string password)

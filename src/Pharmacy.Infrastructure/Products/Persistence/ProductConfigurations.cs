@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Pharmacy.Domain.Common.ValueObjects.Name;
 using Pharmacy.Domain.Common.ValueObjects.Price;
 using Pharmacy.Domain.PharmacyAggregate.Entities;
+using Pharmacy.Domain.PharmacyAggregate.ValueObjects;
+using Pharmacy.Domain.Product;
 
 namespace Pharmacy.Infrastructure.Products.Persistence;
 
@@ -27,6 +29,10 @@ public class ProductConfigurations : IEntityTypeConfiguration<Product>
             .HasConversion(p => p.Value,
                 value => Price.Create(value).Value);
 
+        builder.Property(p => p.Sku)
+            .HasConversion(s => s.Value,
+                value => Sku.Create(value).Value);
+
         builder.HasOne(p => p.Brand)
             .WithMany()
             .HasForeignKey(p => p.BrandId)
@@ -46,7 +52,5 @@ public class ProductConfigurations : IEntityTypeConfiguration<Product>
 
         builder.Property(p => p.Description)
             .HasMaxLength(500);
-
-        builder.HasMany(p => p.Pharmacies);
     }
 }

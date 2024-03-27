@@ -26,5 +26,5 @@ public sealed class Order(
 
     public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
 
-    public List<Product> Products { get; set; } = null!;
+    public List<Product.Product> Products { get; set; } = null!;
 }

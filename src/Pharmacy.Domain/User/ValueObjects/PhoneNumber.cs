@@ -6,7 +6,10 @@ namespace Pharmacy.Domain.User.ValueObjects;
 public class PhoneNumber : ValueObject
 {
     private const int MaxLength = 13;
+
     private PhoneNumber(string phone) => Value = phone;
+
+    public static explicit operator string(PhoneNumber phoneNumber) => phoneNumber.Value;
 
     public string Value { get; set; }
 

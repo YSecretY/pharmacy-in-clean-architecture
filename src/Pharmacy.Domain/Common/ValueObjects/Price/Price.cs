@@ -10,6 +10,8 @@ public class Price : ValueObject
         Value = value;
     }
 
+    public static explicit operator decimal(Price price) => price.Value;
+
     public decimal Value { get; }
 
     public static ErrorOr<Price> Create(decimal price)
