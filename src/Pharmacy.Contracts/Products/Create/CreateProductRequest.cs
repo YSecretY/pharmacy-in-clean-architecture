@@ -1,4 +1,4 @@
-namespace Pharmacy.Contracts.Products;
+namespace Pharmacy.Contracts.Products.Create;
 
 public record CreateProductRequest(
     string Name,

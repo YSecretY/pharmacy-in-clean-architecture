@@ -1,6 +1,5 @@
 using MediatR;
 using ErrorOr;
-using Pharmacy.Domain.Product;
 
 namespace Pharmacy.Application.Products.Create;
 
@@ -12,4 +11,4 @@ public record CreateProductCommand(
     Guid CategoryId,
     decimal Price,
     string? Description
-) : IRequest<ErrorOr<Product>>;
+) : IRequest<ErrorOr<Created>>;

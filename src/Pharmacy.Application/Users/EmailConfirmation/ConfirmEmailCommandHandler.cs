@@ -4,7 +4,6 @@ using Microsoft.EntityFrameworkCore;
 using Pharmacy.Application.Common.Interfaces.Auth;
 using Pharmacy.Application.Common.Interfaces.Persistence;
 using Pharmacy.Domain.User;
-using Pharmacy.Domain.User.ValueObjects;
 
 namespace Pharmacy.Application.Users.EmailConfirmation;
 

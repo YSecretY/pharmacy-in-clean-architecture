@@ -10,9 +10,9 @@ namespace Pharmacy.Application.Products.Create;
 public class CreateProductCommandHandler(
     IPharmacyDbContext dbContext,
     IValidator<CreateProductCommand> validator
-) : IRequestHandler<CreateProductCommand, ErrorOr<Product>>
+) : IRequestHandler<CreateProductCommand, ErrorOr<Created>>
 {
-    public async Task<ErrorOr<Product>> Handle(CreateProductCommand request, CancellationToken cancellationToken)
+    public async Task<ErrorOr<Created>> Handle(CreateProductCommand request, CancellationToken cancellationToken)
     {
         ValidationResult validationResult = await validator.ValidateAsync(request, cancellationToken);
         if (!validationResult.IsValid)
@@ -36,6 +36,6 @@ public class CreateProductCommandHandler(
         await dbContext.Products.AddAsync(productCreationResult.Value, cancellationToken);
         await dbContext.SaveChangesAsync(cancellationToken);
 
-        return productCreationResult.Value;
+        return Result.Created;
     }
 }

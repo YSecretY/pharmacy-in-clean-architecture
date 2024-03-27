@@ -8,7 +8,7 @@ public record ProductResponse(
     string Name,
     string Sku,
     string ImageUrl,
-    Guid BrandId,
-    Guid CategoryId,
+    BrandResponse Brand,
+    CategoryResponse Category,
     decimal Price, string Description
 );

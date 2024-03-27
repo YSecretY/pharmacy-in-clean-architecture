@@ -14,6 +14,7 @@ using Pharmacy.Application.Categories.Commands.Update;
 using Pharmacy.Application.Categories.Queries.GetCategoryById;
 using Pharmacy.Application.Categories.Queries.GetCategoryList;
 using Pharmacy.Application.Products.Create;
+using Pharmacy.Application.Products.Get;
 using Pharmacy.Application.Users.ChangeEmail;
 using Pharmacy.Application.Users.ChangePassword;
 using Pharmacy.Application.Users.EmailConfirmation;
@@ -67,7 +68,8 @@ public static class DependencyInjection
         services.AddScoped<IRequestHandler<MakeAdminUserCommand, ErrorOr<Updated>>, MakeAdminUserCommandHandler>();
         services.AddScoped<IRequestHandler<UpdatePhoneNumberUserCommand, ErrorOr<Updated>>, UpdatePhoneNumberUserCommandHandler>();
 
-        services.AddScoped<IRequestHandler<CreateProductCommand, ErrorOr<Product>>, CreateProductCommandHandler>();
+        services.AddScoped<IRequestHandler<CreateProductCommand, ErrorOr<Created>>, CreateProductCommandHandler>();
+        services.AddScoped<IRequestHandler<GetProductCommand, ErrorOr<Product>>, GetProductCommandHandler>();
 
         return services;
     }
