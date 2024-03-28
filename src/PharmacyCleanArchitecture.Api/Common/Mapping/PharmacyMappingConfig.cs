@@ -1,5 +1,7 @@
 using Mapster;
 using PharmacyCleanArchitecture.Application.Pharmacies.Commands.AddProducts;
+using PharmacyCleanArchitecture.Application.Pharmacies.Commands.AddProducts.Existing;
+using PharmacyCleanArchitecture.Application.Pharmacies.Commands.AddProducts.New;
 using PharmacyCleanArchitecture.Application.Pharmacies.Commands.Create;
 using PharmacyCleanArchitecture.Contracts.Pharmacies.AddProducts;
 using PharmacyCleanArchitecture.Contracts.Pharmacies.Common;
@@ -32,5 +34,12 @@ public class PharmacyMappingConfig : IRegister
             .Map(dest => dest.Quantity, src => src.Quantity)
             .Map(dest => dest.DiscountedPrice, src => src.DiscountedPrice)
             .Map(dest => dest.IsInStock, src => src.IsInStock);
+
+        config.NewConfig<AddExistingProductToPharmacyRequest, AddExistingProductToPharmacyCommand>()
+            .Map(dest => dest.PharmacyId, src => src.PharmacyId)
+            .Map(dest => dest.ProductId, src => src.ProductId)
+            .Map(dest => dest.Quantity, src => src.Quantity)
+            .Map(dest => dest.DiscountedPrice, src => src.DiscountedPrice)
+            .Map(dest => dest.IsInStock, src => src.IsInStock);;
     }
 }

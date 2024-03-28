@@ -8,7 +8,7 @@ using PharmacyCleanArchitecture.Domain.PharmacyAggregate.Entities;
 using PharmacyCleanArchitecture.Domain.Products;
 using ValidationResult = FluentValidation.Results.ValidationResult;
 
-namespace PharmacyCleanArchitecture.Application.Pharmacies.Commands.AddProducts;
+namespace PharmacyCleanArchitecture.Application.Pharmacies.Commands.AddProducts.New;
 
 public class AddNewProductToPharmacyCommandHandler(
     IPharmacyDbContext dbContext,

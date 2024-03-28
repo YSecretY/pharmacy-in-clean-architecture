@@ -29,7 +29,7 @@ public class ProductConfigurations : IEntityTypeConfiguration<Product>
                 value => Price.Create(value).Value);
 
         builder.Property(p => p.Sku)
-            .HasConversion(s => s!.Value,
+            .HasConversion(s => s.Value,
                 value => Sku.Create(value).Value);
 
         builder.HasOne(p => p.Brand)

@@ -4,6 +4,8 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PharmacyCleanArchitecture.Application.Pharmacies.Commands.AddProducts;
+using PharmacyCleanArchitecture.Application.Pharmacies.Commands.AddProducts.Existing;
+using PharmacyCleanArchitecture.Application.Pharmacies.Commands.AddProducts.New;
 using PharmacyCleanArchitecture.Application.Pharmacies.Commands.Create;
 using PharmacyCleanArchitecture.Contracts.Pharmacies.AddProducts;
 using PharmacyCleanArchitecture.Contracts.Pharmacies.Common;
@@ -33,9 +35,23 @@ public class PharmacyController(
     }
 
     [HttpPost("add-new-product")]
+    [Authorize(Roles = nameof(UserRole.Admin) + "," + nameof(UserRole.SuperAdmin))]
     public async Task<IActionResult> AddNewProductToPharmacy(AddNewProductToPharmacyRequest request)
     {
         AddNewProductToPharmacyCommand command = mapper.Map<AddNewProductToPharmacyCommand>(request);
+        ErrorOr<Success> productAddResult = await mediator.Send(command);
+
+        return productAddResult.Match(
+            _ => Ok(),
+            Problem
+        );
+    }
+
+    [HttpPut("add-existing-product")]
+    [Authorize(Roles = nameof(UserRole.Admin) + "," + nameof(UserRole.SuperAdmin))]
+    public async Task<IActionResult> AddExistingProductToPharmacy(AddExistingProductToPharmacyRequest request)
+    {
+        AddExistingProductToPharmacyCommand command = mapper.Map<AddExistingProductToPharmacyCommand>(request);
         ErrorOr<Success> productAddResult = await mediator.Send(command);
 
         return productAddResult.Match(
