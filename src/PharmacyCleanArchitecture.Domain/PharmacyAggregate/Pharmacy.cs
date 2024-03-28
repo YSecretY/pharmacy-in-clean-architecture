@@ -3,7 +3,6 @@ using PharmacyCleanArchitecture.Domain.Common.Models;
 using PharmacyCleanArchitecture.Domain.Common.ValueObjects.Address;
 using PharmacyCleanArchitecture.Domain.Common.ValueObjects.Name;
 using PharmacyCleanArchitecture.Domain.OrderAggregate;
-using PharmacyCleanArchitecture.Domain.Products;
 
 namespace PharmacyCleanArchitecture.Domain.PharmacyAggregate;
 
@@ -35,5 +34,7 @@ public sealed class Pharmacy : AggregateRoot<Guid>
 
     public List<Order> Orders { get; private set; } = null!;
 
-    public List<Product> Products { get; private set; } = null!;
+    public DateTime CreatedAt { get; } = DateTime.UtcNow;
+
+    public DateTime UpdatedAt { get; private set; } = DateTime.UtcNow;
 }

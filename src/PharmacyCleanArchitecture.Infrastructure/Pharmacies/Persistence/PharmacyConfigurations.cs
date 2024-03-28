@@ -14,8 +14,6 @@ public class PharmacyConfigurations : IEntityTypeConfiguration<Domain.PharmacyAg
             .ValueGeneratedNever();
 
         builder.ComplexProperty(ph => ph.Address);
-
-        builder.HasMany(ph => ph.Products);
         
         builder.Property(ph => ph.Name)
             .HasConversion(n => n.Value,

@@ -17,7 +17,7 @@ using PharmacyCleanArchitecture.Domain.Users.Enums;
 namespace PharmacyCleanArchitecture.Api.Controllers;
 
 [Route("products")]
-[Authorize(Roles = nameof(UserRole.Admin))]
+[Authorize(Roles = nameof(UserRole.Admin) + "," + nameof(UserRole.SuperAdmin))]
 public class ProductController(
     IMapper mapper,
     ISender mediator) : ApiController

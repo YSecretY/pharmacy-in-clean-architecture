@@ -19,7 +19,7 @@ using PharmacyCleanArchitecture.Domain.Users.Enums;
 namespace PharmacyCleanArchitecture.Api.Controllers;
 
 [Route("categories/")]
-[Authorize(Roles = nameof(UserRole.Admin))]
+[Authorize(Roles = nameof(UserRole.Admin) + "," + nameof(UserRole.SuperAdmin))]
 public class CategoryController(
     ISender mediator,
     IMapper mapper

@@ -19,7 +19,7 @@ using PharmacyCleanArchitecture.Domain.Users.Enums;
 namespace PharmacyCleanArchitecture.Api.Controllers;
 
 [Route("brands/")]
-[Authorize(Roles = nameof(UserRole.Admin))]
+[Authorize(Roles = nameof(UserRole.Admin) + "," + nameof(UserRole.SuperAdmin))]
 public class BrandController(
         IMapper mapper,
         ISender mediator)
