@@ -78,11 +78,11 @@ public sealed class Product : Entity<Guid>
 
     public Guid BrandId { get; private set; }
 
-    public Brand? Brand { get; private set; }
+    public Brand Brand { get; private set; } = null!;
 
     public Guid CategoryId { get; private set; }
 
-    public Category? Category { get; private set; }
+    public Category Category { get; private set; } = null!;
 
     public Price Price { get; private set; }
 

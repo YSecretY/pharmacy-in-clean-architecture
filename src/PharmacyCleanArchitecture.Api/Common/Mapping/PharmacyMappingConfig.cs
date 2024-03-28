@@ -1,11 +1,12 @@
 using Mapster;
-using PharmacyCleanArchitecture.Application.Pharmacies.Commands.AddProducts;
 using PharmacyCleanArchitecture.Application.Pharmacies.Commands.AddProducts.Existing;
 using PharmacyCleanArchitecture.Application.Pharmacies.Commands.AddProducts.New;
 using PharmacyCleanArchitecture.Application.Pharmacies.Commands.Create;
+using PharmacyCleanArchitecture.Application.Pharmacies.Queries.GetProductById;
 using PharmacyCleanArchitecture.Contracts.Pharmacies.AddProducts;
 using PharmacyCleanArchitecture.Contracts.Pharmacies.Common;
 using PharmacyCleanArchitecture.Contracts.Pharmacies.Create;
+using PharmacyCleanArchitecture.Contracts.Pharmacies.GetProducts;
 using PharmacyCleanArchitecture.Domain.PharmacyAggregate;
 
 namespace PharmacyCleanArchitecture.Api.Common.Mapping;
@@ -40,6 +41,23 @@ public class PharmacyMappingConfig : IRegister
             .Map(dest => dest.ProductId, src => src.ProductId)
             .Map(dest => dest.Quantity, src => src.Quantity)
             .Map(dest => dest.DiscountedPrice, src => src.DiscountedPrice)
-            .Map(dest => dest.IsInStock, src => src.IsInStock);;
+            .Map(dest => dest.IsInStock, src => src.IsInStock);
+
+        config.NewConfig<GetPharmacyProductByIdRequest, GetPharmacyProductByIdQuery>()
+            .Map(dest => dest.PharmacyId, src => src.PharmacyId)
+            .Map(dest => dest.PharmacyId, src => src.ProductId);
+
+        config.NewConfig<GetPharmacyProductByIdQueryResponse, GetPharmacyProductByIdResponse>()
+            .Map(dest => dest.ProductId, src => src.ProductId)
+            .Map(dest => dest.Name, src => src.Name)
+            .Map(dest => dest.Sku, src => src.Sku)
+            .Map(dest => dest.ImageUrl, src => src.ImageUrl)
+            .Map(dest => dest.Brand, src => src.Brand)
+            .Map(dest => dest.Category, src => src.Category)
+            .Map(dest => dest.Price, src => src.Price)
+            .Map(dest => dest.Description, src => src.Description)
+            .Map(dest => dest.Quantity, src => src.Quantity)
+            .Map(dest => dest.IsInStock, src => src.IsInStock)
+            .Map(dest => dest.DiscountedPrice, src => src.DiscountedPrice);
     }
 }

@@ -7,9 +7,11 @@ using PharmacyCleanArchitecture.Application.Pharmacies.Commands.AddProducts;
 using PharmacyCleanArchitecture.Application.Pharmacies.Commands.AddProducts.Existing;
 using PharmacyCleanArchitecture.Application.Pharmacies.Commands.AddProducts.New;
 using PharmacyCleanArchitecture.Application.Pharmacies.Commands.Create;
+using PharmacyCleanArchitecture.Application.Pharmacies.Queries.GetProductById;
 using PharmacyCleanArchitecture.Contracts.Pharmacies.AddProducts;
 using PharmacyCleanArchitecture.Contracts.Pharmacies.Common;
 using PharmacyCleanArchitecture.Contracts.Pharmacies.Create;
+using PharmacyCleanArchitecture.Contracts.Pharmacies.GetProducts;
 using PharmacyCleanArchitecture.Domain.PharmacyAggregate;
 using PharmacyCleanArchitecture.Domain.Users.Enums;
 
@@ -56,6 +58,19 @@ public class PharmacyController(
 
         return productAddResult.Match(
             _ => Ok(),
+            Problem
+        );
+    }
+
+    [HttpGet("product")]
+    [AllowAnonymous]
+    public async Task<IActionResult> GetPharmacyProductById([FromQuery] GetPharmacyProductByIdRequest request)
+    {
+        GetPharmacyProductByIdQuery query = mapper.Map<GetPharmacyProductByIdQuery>(request);
+        ErrorOr<GetPharmacyProductByIdQueryResponse> getProductResult = await mediator.Send(query);
+
+        return getProductResult.Match(
+            product => Ok(mapper.Map<GetPharmacyProductByIdResponse>(product)),
             Problem
         );
     }

@@ -18,6 +18,9 @@ public class ProductInfoConfiguration : IEntityTypeConfiguration<ProductInfo>
             .HasConversion(price => price.Value,
                 value => Price.Create(value).Value);
 
+        builder.HasOne(info => info.Product);
+        builder.HasOne(info => info.Pharmacy);
+
         builder.Navigation(info => info.Pharmacy);
         builder.Navigation(info => info.Product);
 

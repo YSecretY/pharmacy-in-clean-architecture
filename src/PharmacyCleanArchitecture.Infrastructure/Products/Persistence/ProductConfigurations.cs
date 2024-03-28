@@ -51,5 +51,7 @@ public class ProductConfigurations : IEntityTypeConfiguration<Product>
 
         builder.Property(p => p.Description)
             .HasMaxLength(500);
+
+        builder.HasIndex(p => p.Id);
     }
 }

@@ -1,15 +1,18 @@
 using PharmacyCleanArchitecture.Contracts.Brands.Common;
 using PharmacyCleanArchitecture.Contracts.Categories.Common;
 
-namespace PharmacyCleanArchitecture.Contracts.Products.Common;
+namespace PharmacyCleanArchitecture.Contracts.Pharmacies.GetProducts;
 
-public record ProductResponse(
+public record GetPharmacyProductByIdResponse(
     Guid ProductId,
     string Name,
-    string Sku,
+    string? Sku,
     string ImageUrl,
     BrandResponse Brand,
     CategoryResponse Category,
     decimal Price,
-    string Description
+    string? Description,
+    int Quantity,
+    bool IsInStock,
+    decimal? DiscountedPrice
 );
