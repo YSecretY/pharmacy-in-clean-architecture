@@ -14,11 +14,15 @@ public class Price : ValueObject
 
     public decimal Value { get; }
 
-    public static ErrorOr<Price> Create(decimal price)
+    // Needs to take nullable for ef core
+    public static ErrorOr<Price> Create(decimal? price)
     {
-        if (price < 0) return PriceErrors.CannotBeNegative;
-
-        return new Price(price);
+        return price switch
+        {
+            null => Error.Validation("Price.Null", "Price cannot be null"),
+            < 0 => PriceErrors.CannotBeNegative,
+            _ => new Price((decimal)price)
+        };
     }
 
     public override IEnumerable<object> GetAtomicValues()

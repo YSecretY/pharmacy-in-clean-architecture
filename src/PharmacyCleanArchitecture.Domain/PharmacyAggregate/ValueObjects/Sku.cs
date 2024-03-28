@@ -13,7 +13,8 @@ public class Sku : ValueObject
 
     public static explicit operator string(Sku sku) => sku.Value;
 
-    public static ErrorOr<Sku> Create(string sku)
+    // Needs to take nullable for ef core
+    public static ErrorOr<Sku> Create(string? sku)
     {
         if (string.IsNullOrWhiteSpace(sku) || string.IsNullOrEmpty(sku))
             return Error.Validation("Sku.Empty", "Sku cannot be empty.");

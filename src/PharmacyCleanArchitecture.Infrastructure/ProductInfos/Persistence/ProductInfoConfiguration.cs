@@ -15,7 +15,7 @@ public class ProductInfoConfiguration : IEntityTypeConfiguration<ProductInfo>
             .ValueGeneratedNever();
 
         builder.Property(info => info.DiscountedPrice)
-            .HasConversion(price => price.Value,
+            .HasConversion(price => price != null ? price.Value : (decimal?)null,
                 value => Price.Create(value).Value);
 
         builder.HasOne(info => info.Product);
