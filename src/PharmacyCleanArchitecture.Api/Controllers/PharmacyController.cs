@@ -3,11 +3,11 @@ using MapsterMapper;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using PharmacyCleanArchitecture.Application.Pharmacies.Commands.AddProducts;
 using PharmacyCleanArchitecture.Application.Pharmacies.Commands.AddProducts.Existing;
 using PharmacyCleanArchitecture.Application.Pharmacies.Commands.AddProducts.New;
 using PharmacyCleanArchitecture.Application.Pharmacies.Commands.Create;
 using PharmacyCleanArchitecture.Application.Pharmacies.Queries.GetProductById;
+using PharmacyCleanArchitecture.Application.Pharmacies.Queries.GetProductsList;
 using PharmacyCleanArchitecture.Contracts.Pharmacies.AddProducts;
 using PharmacyCleanArchitecture.Contracts.Pharmacies.Common;
 using PharmacyCleanArchitecture.Contracts.Pharmacies.Create;
@@ -71,6 +71,19 @@ public class PharmacyController(
 
         return getProductResult.Match(
             product => Ok(mapper.Map<GetPharmacyProductByIdResponse>(product)),
+            Problem
+        );
+    }
+
+    [HttpGet("products")]
+    [AllowAnonymous]
+    public async Task<IActionResult> GetPharmacyProductsList([FromQuery] GetPharmacyProductsListRequest request)
+    {
+        GetPharmacyProductsListQuery query = mapper.Map<GetPharmacyProductsListQuery>(request);
+        ErrorOr<GetPharmacyProductsListQueryResponse> getProductsResult = await mediator.Send(query);
+
+        return getProductsResult.Match(
+            products => Ok(mapper.Map<GetPharmacyProductsListResponse>(products)),
             Problem
         );
     }

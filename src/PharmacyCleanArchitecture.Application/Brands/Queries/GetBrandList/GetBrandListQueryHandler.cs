@@ -34,13 +34,12 @@ public class GetBrandListQueryHandler(
             .Take(request.PageSize)
             .ToListAsync(cancellationToken);
 
-        GetBrandListQueryResponse response = new(
+        return new GetBrandListQueryResponse
+        (
             Brands: brands,
             PageSize: request.PageSize,
             PageNumber: request.PageNumber,
             MaxPages: maxPages
         );
-
-        return response;
     }
 }

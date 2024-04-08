@@ -1,15 +1,14 @@
 using FluentValidation;
 
-namespace PharmacyCleanArchitecture.Application.Brands.Queries.GetBrandList;
+namespace PharmacyCleanArchitecture.Application.Pharmacies.Queries.GetProductsList;
 
-public class GetBrandListQueryValidator : AbstractValidator<GetBrandListQuery>
+public class GetPharmacyProductsListQueryValidator : AbstractValidator<GetPharmacyProductsListQuery>
 {
-    public GetBrandListQueryValidator()
+    public GetPharmacyProductsListQueryValidator()
     {
         RuleFor(q => q.PageNumber)
             .NotNull()
-            .NotEmpty()
-            .GreaterThan(0).WithMessage("Page number must be > 0.");
+            .GreaterThan(0).WithMessage("Page number cannot be <= 0");
 
         RuleFor(q => q.PageSize)
             .NotNull()

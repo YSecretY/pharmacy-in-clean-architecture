@@ -13,11 +13,11 @@ using PharmacyCleanArchitecture.Application.Categories.Commands.Remove;
 using PharmacyCleanArchitecture.Application.Categories.Commands.Update;
 using PharmacyCleanArchitecture.Application.Categories.Queries.GetCategoryById;
 using PharmacyCleanArchitecture.Application.Categories.Queries.GetCategoryList;
-using PharmacyCleanArchitecture.Application.Pharmacies.Commands.AddProducts;
 using PharmacyCleanArchitecture.Application.Pharmacies.Commands.AddProducts.Existing;
 using PharmacyCleanArchitecture.Application.Pharmacies.Commands.AddProducts.New;
 using PharmacyCleanArchitecture.Application.Pharmacies.Commands.Create;
 using PharmacyCleanArchitecture.Application.Pharmacies.Queries.GetProductById;
+using PharmacyCleanArchitecture.Application.Pharmacies.Queries.GetProductsList;
 using PharmacyCleanArchitecture.Application.Products.Commands.Create;
 using PharmacyCleanArchitecture.Application.Products.Commands.Remove;
 using PharmacyCleanArchitecture.Application.Products.Queries.GetById;
@@ -29,7 +29,6 @@ using PharmacyCleanArchitecture.Application.Users.Commands.Login;
 using PharmacyCleanArchitecture.Application.Users.Commands.MakeAdmin;
 using PharmacyCleanArchitecture.Application.Users.Commands.Register;
 using PharmacyCleanArchitecture.Application.Users.Commands.UpdatePhoneNumber;
-using PharmacyCleanArchitecture.Contracts.Pharmacies.AddProducts;
 using PharmacyCleanArchitecture.Domain.Brands;
 using PharmacyCleanArchitecture.Domain.Categories;
 using PharmacyCleanArchitecture.Domain.PharmacyAggregate;
@@ -88,6 +87,9 @@ public static class DependencyInjection
         services
             .AddScoped<IRequestHandler<GetPharmacyProductByIdQuery, ErrorOr<GetPharmacyProductByIdQueryResponse>>,
                 GetPharmacyProductByIdQueryHandler>();
+        services
+            .AddScoped<IRequestHandler<GetPharmacyProductsListQuery, ErrorOr<GetPharmacyProductsListQueryResponse>>,
+                GetPharmacyProductsListQueryHandler>();
 
         return services;
     }

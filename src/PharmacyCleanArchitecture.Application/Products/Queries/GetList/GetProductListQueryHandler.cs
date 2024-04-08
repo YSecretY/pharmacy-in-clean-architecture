@@ -36,13 +36,12 @@ public class GetProductListQueryHandler(
             .Take(request.PageSize)
             .ToListAsync(cancellationToken);
 
-        GetProductsListQueryResponse response = new(
+        return new GetProductsListQueryResponse
+        (
             Products: products,
             PageSize: request.PageSize,
             PageNumber: request.PageNumber,
             MaxPages: maxPages
         );
-
-        return response;
     }
 }

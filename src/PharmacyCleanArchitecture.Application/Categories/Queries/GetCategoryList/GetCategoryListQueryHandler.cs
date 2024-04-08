@@ -35,7 +35,8 @@ public class GetCategoryListQueryHandler(
             .Take(request.PageSize)
             .ToListAsync(cancellationToken);
 
-        return new GetCategoryListQueryResponse(
+        return new GetCategoryListQueryResponse
+        (
             Categories: categories,
             PageSize: request.PageSize,
             PageNumber: request.PageNumber,

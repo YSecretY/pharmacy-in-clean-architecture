@@ -20,7 +20,7 @@ public class ProductInfoConfiguration : IEntityTypeConfiguration<ProductInfo>
 
         builder.HasOne(info => info.Product);
         builder.HasOne(info => info.Pharmacy);
-
+        
         builder.Navigation(info => info.Pharmacy);
         builder.Navigation(info => info.Product);
 

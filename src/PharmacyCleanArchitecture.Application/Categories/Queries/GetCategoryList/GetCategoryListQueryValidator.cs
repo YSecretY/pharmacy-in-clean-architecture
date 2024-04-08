@@ -14,6 +14,7 @@ public class GetCategoryListQueryValidator : AbstractValidator<GetCategoryListQu
         RuleFor(q => q.PageNumber)
             .NotNull()
             .NotEmpty()
-            .GreaterThan(0);
+            .GreaterThan(0).WithMessage("Page size must be > 0.")
+            .LessThanOrEqualTo(1000).WithMessage("Page size must be <= 1000.");
     }
 }

@@ -3,6 +3,7 @@ using PharmacyCleanArchitecture.Application.Pharmacies.Commands.AddProducts.Exis
 using PharmacyCleanArchitecture.Application.Pharmacies.Commands.AddProducts.New;
 using PharmacyCleanArchitecture.Application.Pharmacies.Commands.Create;
 using PharmacyCleanArchitecture.Application.Pharmacies.Queries.GetProductById;
+using PharmacyCleanArchitecture.Application.Pharmacies.Queries.GetProductsList;
 using PharmacyCleanArchitecture.Contracts.Pharmacies.AddProducts;
 using PharmacyCleanArchitecture.Contracts.Pharmacies.Common;
 using PharmacyCleanArchitecture.Contracts.Pharmacies.Create;
@@ -59,5 +60,17 @@ public class PharmacyMappingConfig : IRegister
             .Map(dest => dest.Quantity, src => src.Quantity)
             .Map(dest => dest.IsInStock, src => src.IsInStock)
             .Map(dest => dest.DiscountedPrice, src => src.DiscountedPrice);
+
+        config.NewConfig<GetPharmacyProductsListRequest, GetPharmacyProductsListQuery>()
+            .Map(dest => dest.PharmacyId, src => src.PharmacyId)
+            .Map(dest => dest.PageSize, src => src.PageSize)
+            .Map(dest => dest.PageNumber, src => src.PageNumber);
+
+        config.NewConfig<GetPharmacyProductsListQueryResponse, GetPharmacyProductsListResponse>()
+            .Map(dest => dest.PharmacyId, src => src.PharmacyId)
+            .Map(dest => dest.Products, src => src.Products)
+            .Map(dest => dest.PageSize, src => src.PageSize)
+            .Map(dest => dest.PageNumber, src => src.PageNumber)
+            .Map(dest => dest.MaxPages, src => src.MaxPages);
     }
 }

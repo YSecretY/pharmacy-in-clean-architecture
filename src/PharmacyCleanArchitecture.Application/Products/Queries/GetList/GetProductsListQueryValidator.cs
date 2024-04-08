@@ -12,6 +12,7 @@ public class GetProductsListQueryValidator : AbstractValidator<GetProductsListQu
 
         RuleFor(q => q.PageSize)
             .NotNull()
-            .GreaterThan(0);
+            .GreaterThan(0).WithMessage("Page size must be > 0.")
+            .LessThanOrEqualTo(1000).WithMessage("Page size must be <= 1000.");
     }
 }
