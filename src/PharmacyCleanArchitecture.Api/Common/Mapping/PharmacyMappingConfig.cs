@@ -2,12 +2,14 @@ using Mapster;
 using PharmacyCleanArchitecture.Application.Pharmacies.Commands.AddProducts.Existing;
 using PharmacyCleanArchitecture.Application.Pharmacies.Commands.AddProducts.New;
 using PharmacyCleanArchitecture.Application.Pharmacies.Commands.Create;
+using PharmacyCleanArchitecture.Application.Pharmacies.Commands.RemoveProducts;
 using PharmacyCleanArchitecture.Application.Pharmacies.Queries.GetProductById;
 using PharmacyCleanArchitecture.Application.Pharmacies.Queries.GetProductsList;
 using PharmacyCleanArchitecture.Contracts.Pharmacies.AddProducts;
 using PharmacyCleanArchitecture.Contracts.Pharmacies.Common;
 using PharmacyCleanArchitecture.Contracts.Pharmacies.Create;
 using PharmacyCleanArchitecture.Contracts.Pharmacies.GetProducts;
+using PharmacyCleanArchitecture.Contracts.Pharmacies.RemoveProducts;
 using PharmacyCleanArchitecture.Domain.PharmacyAggregate;
 
 namespace PharmacyCleanArchitecture.Api.Common.Mapping;
@@ -72,5 +74,9 @@ public class PharmacyMappingConfig : IRegister
             .Map(dest => dest.PageSize, src => src.PageSize)
             .Map(dest => dest.PageNumber, src => src.PageNumber)
             .Map(dest => dest.MaxPages, src => src.MaxPages);
+
+        config.NewConfig<RemovePharmacyProductByIdRequest, RemovePharmacyProductByIdCommand>()
+            .Map(dest => dest.PharmacyId, src => src.PharmacyId)
+            .Map(dest => dest.PharmacyId, src => src.ProductId);
     }
 }

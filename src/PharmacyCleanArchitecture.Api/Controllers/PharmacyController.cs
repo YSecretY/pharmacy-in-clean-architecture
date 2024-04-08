@@ -6,12 +6,14 @@ using Microsoft.AspNetCore.Mvc;
 using PharmacyCleanArchitecture.Application.Pharmacies.Commands.AddProducts.Existing;
 using PharmacyCleanArchitecture.Application.Pharmacies.Commands.AddProducts.New;
 using PharmacyCleanArchitecture.Application.Pharmacies.Commands.Create;
+using PharmacyCleanArchitecture.Application.Pharmacies.Commands.RemoveProducts;
 using PharmacyCleanArchitecture.Application.Pharmacies.Queries.GetProductById;
 using PharmacyCleanArchitecture.Application.Pharmacies.Queries.GetProductsList;
 using PharmacyCleanArchitecture.Contracts.Pharmacies.AddProducts;
 using PharmacyCleanArchitecture.Contracts.Pharmacies.Common;
 using PharmacyCleanArchitecture.Contracts.Pharmacies.Create;
 using PharmacyCleanArchitecture.Contracts.Pharmacies.GetProducts;
+using PharmacyCleanArchitecture.Contracts.Pharmacies.RemoveProducts;
 using PharmacyCleanArchitecture.Domain.PharmacyAggregate;
 using PharmacyCleanArchitecture.Domain.Users.Enums;
 
@@ -84,6 +86,19 @@ public class PharmacyController(
 
         return getProductsResult.Match(
             products => Ok(mapper.Map<GetPharmacyProductsListResponse>(products)),
+            Problem
+        );
+    }
+
+    [HttpDelete("product")]
+    [Authorize(Roles = nameof(UserRole.Admin) + "," + nameof(UserRole.SuperAdmin))]
+    public async Task<IActionResult> RemovePharmacyProductById([FromQuery] RemovePharmacyProductByIdRequest request)
+    {
+        RemovePharmacyProductByIdCommand command = mapper.Map<RemovePharmacyProductByIdCommand>(request);
+        ErrorOr<Deleted> removeProductResult = await mediator.Send(command);
+
+        return removeProductResult.Match(
+            _ => Ok(),
             Problem
         );
     }
