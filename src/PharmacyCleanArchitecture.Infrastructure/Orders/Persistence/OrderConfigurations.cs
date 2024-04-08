@@ -26,6 +26,10 @@ public class OrderConfigurations : IEntityTypeConfiguration<Order>
         builder.Property(o => o.PharmacyId)
             .IsRequired();
 
+        builder.HasMany(o => o.OrderItems)
+            .WithOne()
+            .OnDelete(DeleteBehavior.Cascade);
+
         builder.Navigation(o => o.Pharmacy);
 
         builder.HasIndex(o => o.PharmacyId);

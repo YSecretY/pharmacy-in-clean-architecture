@@ -13,6 +13,7 @@ using PharmacyCleanArchitecture.Application.Categories.Commands.Remove;
 using PharmacyCleanArchitecture.Application.Categories.Commands.Update;
 using PharmacyCleanArchitecture.Application.Categories.Queries.GetCategoryById;
 using PharmacyCleanArchitecture.Application.Categories.Queries.GetCategoryList;
+using PharmacyCleanArchitecture.Application.Orders.Commands;
 using PharmacyCleanArchitecture.Application.Pharmacies.Commands.AddProducts.Existing;
 using PharmacyCleanArchitecture.Application.Pharmacies.Commands.AddProducts.New;
 using PharmacyCleanArchitecture.Application.Pharmacies.Commands.Create;
@@ -92,6 +93,8 @@ public static class DependencyInjection
             .AddScoped<IRequestHandler<GetPharmacyProductsListQuery, ErrorOr<GetPharmacyProductsListQueryResponse>>,
                 GetPharmacyProductsListQueryHandler>();
         services.AddScoped<IRequestHandler<RemovePharmacyProductByIdCommand, ErrorOr<Deleted>>, RemovePharmacyProductByIdCommandHandler>();
+
+        services.AddScoped<IRequestHandler<CreateOrderCommand, ErrorOr<Created>>, CreateOrderCommandHandler>();
 
         return services;
     }

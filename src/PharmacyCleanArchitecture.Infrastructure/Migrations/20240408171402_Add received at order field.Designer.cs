@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using PharmacyCleanArchitecture.Infrastructure.Common.Persistence;
@@ -12,9 +13,11 @@ using PharmacyCleanArchitecture.Infrastructure.Common.Persistence;
 namespace PharmacyCleanArchitecture.Infrastructure.Migrations
 {
     [DbContext(typeof(PharmacyDbContext))]
-    partial class PharmacyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240408171402_Add received at order field")]
+    partial class Addreceivedatorderfield
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -296,8 +299,7 @@ namespace PharmacyCleanArchitecture.Infrastructure.Migrations
                 {
                     b.HasOne("PharmacyCleanArchitecture.Domain.OrderAggregate.Order", null)
                         .WithMany("OrderItems")
-                        .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("OrderId");
 
                     b.HasOne("PharmacyCleanArchitecture.Domain.Products.Product", "Product")
                         .WithMany()

@@ -51,6 +51,17 @@ public class ProductInfo : Entity<Guid>
         );
     }
 
+    public ErrorOr<Updated> Buy(int quantity)
+    {
+        if (Quantity < quantity) return Error.Validation("Quantity.Negative", "Quantity cannot be negative.");
+
+        Quantity -= quantity;
+
+        if (Quantity is 0) IsInStock = false;
+
+        return Result.Updated;
+    }
+
     public Guid PharmacyId { get; private set; }
 
     public Pharmacy Pharmacy { get; private set; }

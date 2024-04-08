@@ -4,6 +4,7 @@ using PharmacyCleanArchitecture.Domain.Common.ValueObjects.Address;
 using PharmacyCleanArchitecture.Domain.Common.ValueObjects.Price;
 using PharmacyCleanArchitecture.Domain.OrderAggregate.Entities;
 using PharmacyCleanArchitecture.Domain.OrderAggregate.Enums;
+using PharmacyCleanArchitecture.Domain.PharmacyAggregate;
 
 namespace PharmacyCleanArchitecture.Domain.OrderAggregate;
 
@@ -39,9 +40,15 @@ public sealed class Order : Entity<Guid>
         };
     }
 
+    public void Receive()
+    {
+        UpdatedAt = DateTime.UtcNow;
+        ReceivedAt = DateTime.UtcNow;
+    }
+
     public Guid PharmacyId { get; private set; }
 
-    public PharmacyAggregate.Pharmacy Pharmacy { get; private set; } = null!;
+    public Pharmacy Pharmacy { get; private set; } = null!;
 
     public Price TotalPrice { get; private set; } = null!;
 
@@ -54,4 +61,6 @@ public sealed class Order : Entity<Guid>
     public DateTime CreatedAt { get; private set; } = DateTime.UtcNow;
 
     public DateTime UpdatedAt { get; private set; } = DateTime.UtcNow;
+
+    public DateTime ReceivedAt { get; private set; } = DateTime.MinValue;
 }

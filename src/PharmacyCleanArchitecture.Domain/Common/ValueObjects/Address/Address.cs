@@ -26,7 +26,8 @@ public class Address : ValueObject
     public static ErrorOr<Address> Create(string street, string city, string postalCode, string countryIsoCode)
     {
         //TODO: Add more address validation
-        if (countryIsoCode.Length is not 2) return Error.Validation("CountryIsoCode.Length", "Country iso code length must be 2.");
+        if (countryIsoCode.Length is < 2 or > 3)
+            return Error.Validation("CountryIsoCode.Length", "Country iso code length must be 2 or 3.");
         countryIsoCode = countryIsoCode.ToLower();
 
         city = city.ToLower();
