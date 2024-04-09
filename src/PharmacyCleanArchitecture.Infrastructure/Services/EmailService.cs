@@ -58,6 +58,28 @@ public class EmailService(
         await _smtpClient.SendAsync(confirmEmailMessage);
     }
 
+    public async Task SendOrderCreatedEmail(string receiverEmail)
+    {
+        MimeMessage orderCreatedMessage = new();
+        orderCreatedMessage.From.Add(new MailboxAddress(_smtpClientSettings.Name, _smtpClientSettings.Gmail));
+        orderCreatedMessage.To.Add(MailboxAddress.Parse(receiverEmail));
+        orderCreatedMessage.Subject = "Pharmacy order is created.";
+
+        BodyBuilder bodyBuilder = new()
+        {
+            TextBody = "Hi! You order is created. Thank you!"
+        };
+
+        orderCreatedMessage.Body = bodyBuilder.ToMessageBody();
+        if (!_smtpClient.IsConnected)
+        {
+            await _smtpClient.ConnectAsync(_smtpClientSettings.Server, _smtpClientSettings.Port, _smtpClientSettings.SslEnabled);
+            await _smtpClient.AuthenticateAsync(_smtpClientSettings.Gmail, _smtpClientSettings.Password);
+        }
+
+        await _smtpClient.SendAsync(orderCreatedMessage);
+    }
+
     public void Dispose()
     {
         _smtpClient.Disconnect(quit: true);

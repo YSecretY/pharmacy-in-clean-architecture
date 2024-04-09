@@ -5,6 +5,7 @@ using PharmacyCleanArchitecture.Domain.Common.ValueObjects.Price;
 using PharmacyCleanArchitecture.Domain.OrderAggregate.Entities;
 using PharmacyCleanArchitecture.Domain.OrderAggregate.Enums;
 using PharmacyCleanArchitecture.Domain.PharmacyAggregate;
+using PharmacyCleanArchitecture.Domain.Users;
 
 namespace PharmacyCleanArchitecture.Domain.OrderAggregate;
 
@@ -16,6 +17,7 @@ public sealed class Order : Entity<Guid>
 
     public static ErrorOr<Order> Create(
         Guid id,
+        Guid userId,
         Guid pharmacyId,
         decimal totalPrice,
         Address receiverAddress,
@@ -32,6 +34,7 @@ public sealed class Order : Entity<Guid>
 
         return new Order(id)
         {
+            UserId = userId,
             PharmacyId = pharmacyId,
             TotalPrice = totalPriceCreationResult.Value,
             ReceiverAddress = receiverAddress,
@@ -45,6 +48,10 @@ public sealed class Order : Entity<Guid>
         UpdatedAt = DateTime.UtcNow;
         DeliveredAt = DateTime.UtcNow;
     }
+
+    public Guid UserId { get; private set; }
+    
+    public User User { get; private set; }
 
     public Guid PharmacyId { get; private set; }
 
