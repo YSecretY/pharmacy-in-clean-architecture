@@ -40,10 +40,10 @@ public sealed class Order : Entity<Guid>
         };
     }
 
-    public void Receive()
+    public void MakeDelivered()
     {
         UpdatedAt = DateTime.UtcNow;
-        ReceivedAt = DateTime.UtcNow;
+        DeliveredAt = DateTime.UtcNow;
     }
 
     public Guid PharmacyId { get; private set; }
@@ -62,5 +62,5 @@ public sealed class Order : Entity<Guid>
 
     public DateTime UpdatedAt { get; private set; } = DateTime.UtcNow;
 
-    public DateTime ReceivedAt { get; private set; } = DateTime.MinValue;
+    public DateTime DeliveredAt { get; private set; } = DateTime.MinValue;
 }
