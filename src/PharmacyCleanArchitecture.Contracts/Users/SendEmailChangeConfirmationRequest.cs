@@ -1,0 +1,3 @@
+namespace PharmacyCleanArchitecture.Contracts.Users;
+
+public record SendEmailChangeConfirmationRequest(string ReceiverEmail);
