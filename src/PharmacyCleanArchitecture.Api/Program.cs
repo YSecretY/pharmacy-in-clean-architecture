@@ -2,7 +2,7 @@ using PharmacyCleanArchitecture.Api;
 using PharmacyCleanArchitecture.Application;
 using PharmacyCleanArchitecture.Infrastructure;
 
-var builder = WebApplication.CreateBuilder(args);
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddEndpointsApiExplorer();
 
@@ -13,7 +13,7 @@ builder.Services
 
 builder.Services.AddProblemDetails();
 
-var app = builder.Build();
+WebApplication app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {
