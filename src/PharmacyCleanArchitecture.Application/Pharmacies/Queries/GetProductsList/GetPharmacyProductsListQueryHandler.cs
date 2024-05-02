@@ -27,7 +27,7 @@ public class GetPharmacyProductsListQueryHandler(
             .Where(info => info.PharmacyId == request.PharmacyId)
             .CountAsync(cancellationToken);
 
-        int maxPages = (int)Math.Ceiling((double)productsCount) / request.PageSize;
+        int maxPages = (int)Math.Ceiling((double)productsCount / request.PageSize);
         if (request.PageNumber > maxPages) return Error.Validation(description: "Page number cannot be greater than max pages.");
 
         List<Product> products = await dbContext.ProductInfos
