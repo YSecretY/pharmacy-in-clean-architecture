@@ -8,9 +8,9 @@ using PharmacyCleanArchitecture.Domain.Brands;
 namespace PharmacyCleanArchitecture.Application.Brands.Commands.Create;
 
 public class CreateBrandCommandHandler(
-        IPharmacyDbContext dbContext,
-        IValidator<CreateBrandCommand> validator)
-    : IRequestHandler<CreateBrandCommand, ErrorOr<Brand>>
+    IPharmacyDbContext dbContext,
+    IValidator<CreateBrandCommand> validator
+) : IRequestHandler<CreateBrandCommand, ErrorOr<Brand>>
 {
     public async Task<ErrorOr<Brand>> Handle(CreateBrandCommand request, CancellationToken cancellationToken)
     {

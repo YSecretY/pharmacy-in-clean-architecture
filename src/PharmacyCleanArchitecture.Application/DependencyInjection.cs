@@ -62,7 +62,7 @@ public static class DependencyInjection
         services.AddScoped<IRequestHandler<CreateBrandCommand, ErrorOr<Brand>>, CreateBrandCommandHandler>();
         services.AddScoped<IRequestHandler<GetBrandByIdQuery, ErrorOr<Brand>>, GetBrandByIdQueryHandler>();
         services.AddScoped<IRequestHandler<GetBrandListQuery, ErrorOr<GetBrandListQueryResponse>>, GetBrandListQueryHandler>();
-        services.AddScoped<IRequestHandler<UpdateBrandCommand, ErrorOr<Brand>>, UpdateBrandCommandHandler>();
+        services.AddScoped<IRequestHandler<UpdateBrandCommand, ErrorOr<Updated>>, UpdateBrandCommandHandler>();
         services.AddScoped<IRequestHandler<RemoveBrandByIdCommand, ErrorOr<Deleted>>, RemoveBrandByIdCommandHandler>();
 
         services.AddScoped<IRequestHandler<CreateCategoryCommand, ErrorOr<Category>>, CreateCategoryCommandHandler>();
