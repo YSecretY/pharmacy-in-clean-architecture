@@ -66,7 +66,7 @@ public class BrandController(
         ErrorOr<Updated> commandResponse = await mediator.Send(command);
 
         return commandResponse.Match(
-            brand => Ok(mapper.Map<BrandResponse>(brand)),
+            _ => Ok(),
             Problem
         );
     }
