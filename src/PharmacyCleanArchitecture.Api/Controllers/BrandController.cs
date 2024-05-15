@@ -21,8 +21,8 @@ namespace PharmacyCleanArchitecture.Api.Controllers;
 [Route("brands/")]
 [Authorize(Roles = nameof(UserRole.Admin) + "," + nameof(UserRole.SuperAdmin))]
 public class BrandController(
-        IMapper mapper,
-        ISender mediator)
+    IMapper mapper,
+    ISender mediator)
     : ApiController
 {
     [HttpPost]
@@ -63,7 +63,7 @@ public class BrandController(
     public async Task<IActionResult> UpdateBrand([FromBody] UpdateBrandRequest request)
     {
         UpdateBrandCommand command = mapper.Map<UpdateBrandCommand>(request);
-        ErrorOr<Brand> commandResponse = await mediator.Send(command);
+        ErrorOr<Updated> commandResponse = await mediator.Send(command);
 
         return commandResponse.Match(
             brand => Ok(mapper.Map<BrandResponse>(brand)),
