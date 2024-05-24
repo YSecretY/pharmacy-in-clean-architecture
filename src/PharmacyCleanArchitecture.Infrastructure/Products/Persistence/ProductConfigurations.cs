@@ -35,7 +35,7 @@ public class ProductConfigurations : IEntityTypeConfiguration<Product>
         builder.HasOne(p => p.Brand)
             .WithMany()
             .HasForeignKey(p => p.BrandId)
-            .OnDelete(DeleteBehavior.Restrict);
+            .OnDelete(DeleteBehavior.SetNull);
 
         builder.Navigation(p => p.Brand);
 
@@ -45,7 +45,7 @@ public class ProductConfigurations : IEntityTypeConfiguration<Product>
         builder.HasOne(p => p.Category)
             .WithMany()
             .HasForeignKey(p => p.CategoryId)
-            .OnDelete(DeleteBehavior.Restrict);
+            .OnDelete(DeleteBehavior.SetNull);
 
         builder.Navigation(p => p.Category);
 
