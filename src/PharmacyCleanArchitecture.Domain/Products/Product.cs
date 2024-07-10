@@ -41,7 +41,7 @@ public sealed class Product : Entity<Guid>
         string? description
     )
     {
-        List<Error> errors = new();
+        List<Error> errors = [];
 
         ErrorOr<Name> nameCreationResult = Name.Create(name);
         if (nameCreationResult.IsError) errors.AddRange(nameCreationResult.Errors);
